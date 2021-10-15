@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Nim {
 	
 	public static void main(String args[]) {
+		
 		int total = (int)(Math.random()*90 + 10);
 		System.out.println("Start "+total);
 		
@@ -20,11 +21,17 @@ public class Nim {
 		
 		while(total > 0) {
 			if(whostart == 1) {
-				int subtract = (int)(Math.random()*(total / 2) + 1);
-				total -= subtract;
-				System.out.println("Computer subtracts " + subtract);
-				System.out.println("Remaining "+total+ "\n");
-				whostart = 0;
+				if(smart == 0) {
+					int subtract = (int)(Math.random()*(total / 2) + 1);
+					total -= subtract;
+					System.out.println("Computer subtracts " + subtract);
+					System.out.println("Remaining "+total+ "\n");
+					whostart = 0;				
+				}
+				else {
+					if (total ==)
+				}
+				
 			}
 			else {
 				System.out.print("Your go!" + "\n");
@@ -41,6 +48,8 @@ public class Nim {
 			}
 			
 		}
+		
+		in.close();
 		
 		if(whostart == 1) {
 			System.out.println("Computer wins!");
