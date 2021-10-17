@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Nim {
@@ -11,8 +12,6 @@ public class Nim {
 		
 		int whostart = (int)(Math.random() + 0.5);
 		int smart = (int)(Math.random() + 0.5);
-		
-		Scanner in = new Scanner(System.in);
 		
 		if(whostart == 1) {
 			System.out.println("Computer goes first"+ "\n");
@@ -71,9 +70,22 @@ public class Nim {
 			}	
 			else {
 				System.out.print("Your go!" + "\n");
-				int subtract = in.nextInt();
+				Scanner in = new Scanner(System.in);
+				
+				int subtract = 0;
+				try {
+					subtract = in.nextInt();
+				}
+				catch(InputMismatchException e) {
+					System.out.println("Enter an integer please");
+					subtract = -1;
+				}
+				
 				if(subtract > total / 2 && total != 1) {
 					System.out.println("You can't take more that half of the remaining total");
+				}
+				else if(subtract <= 0) {
+					System.out.println("Do you not know the rules?");
 				}
 				else {
 				total -= subtract;
@@ -84,9 +96,7 @@ public class Nim {
 			}
 			
 		}
-		
-		in.close();
-		
+			
 		if(whostart == 1) {
 			System.out.println("Computer wins!");
 		}
