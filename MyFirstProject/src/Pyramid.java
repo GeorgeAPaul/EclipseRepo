@@ -8,6 +8,8 @@ public class Pyramid {
 		this.height = height;
 		this.baseLength = baseLength;
 		
+		System.out.println("Creating a pyramid of height: " + height + " and baseLength: " + baseLength);
+		
 	}
 	
 	public double getVolume() {
@@ -24,8 +26,8 @@ public class Pyramid {
 		
 		Pyramid p = new Pyramid(4,4);
 		
-		System.out.println(p.getVolume());
-		System.out.println(p.getSurfaceArea());
+		System.out.println("Volume: " + p.getVolume());
+		System.out.println("Surface area: " + p.getSurfaceArea());
 
 	}
 

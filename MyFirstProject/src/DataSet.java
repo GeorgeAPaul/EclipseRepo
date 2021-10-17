@@ -8,8 +8,6 @@ public class DataSet {
 	private double total;
 	private int count;
 	
-	
-	
 	public DataSet() {
 		
 		smallest = Double.MAX_VALUE;
@@ -61,6 +59,7 @@ public class DataSet {
 			d.add(in.nextInt());
 		}
 		
+		in.close();
 		
 		System.out.println("Largest:" + d.getLargest());
 		System.out.println("Smallest:" +d.getSmallest());
