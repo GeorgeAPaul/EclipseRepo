@@ -1,4 +1,4 @@
 
-public class Location implements HasInventory {
+public class Location {
 
 }
