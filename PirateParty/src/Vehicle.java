@@ -1,4 +1,4 @@
 
-public class Vehicle {
+public class Vehicle implements Rideable {
 
 }

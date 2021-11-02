@@ -1,4 +1,4 @@
 
-public class Ship extends Vehicle implements Rideable {
+public class Ship extends Vehicle {
 
 }
