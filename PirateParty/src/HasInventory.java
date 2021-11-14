@@ -1,10 +1,10 @@
 
 public interface HasInventory {
 	
-	void take();
+	void take(Item i);
 	
-	void drop();
+	void drop(Item i);
 	
-	void use();
+	void use(Item i);
 
 }

@@ -11,19 +11,19 @@ public class Character implements Attackable, HasInventory {
 	}
 
 	@Override
-	public void take() {
+	public void take(Item i) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void drop() {
+	public void drop(Item i) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void use() {
+	public void use(Item i) {
 		// TODO Auto-generated method stub
 		
 	}

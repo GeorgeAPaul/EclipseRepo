@@ -1,5 +1,5 @@
 
-public class Vehicle extends Item implements Rideable {
+public class Vehicle extends Weapon implements Rideable {
 
 	@Override
 	public void useWeapon() {
