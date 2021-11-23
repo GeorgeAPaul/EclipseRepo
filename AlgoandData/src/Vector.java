@@ -43,21 +43,33 @@ public class Vector<E>
 	public void addFirst(Object item)
 	{
 		if (size() == data.length) {
-			
+			extendCapacity();
+			for (int i = size(); i > 0; i--) {
+				data[i] = data[i-1];
+			}
+			data[0] = item;
+			count ++;
 		}
 		else {
 			for (int i = size(); i > 0; i--) {
 				data[i] = data[i-1];
 			}
-		data[0] = item;
-		count ++;
+			data[0] = item;
+			count ++;
 		}
 	}
 
 	public void addLast(Object o)
 	{
-		data[count] = o;
-		count++;
+		if(size() == data.length) {
+			extendCapacity();
+			data[count] = o;
+			count++;
+		}
+		else {
+			data[count] = o;
+			count++;
+		}
 	}
 	
 	/*
@@ -163,6 +175,17 @@ public class Vector<E>
 		}
 		
 		return interleavedVector;
+	}
+	
+	private void extendCapacity() {
+		
+		Object[] data2 = new Object[2*data.length];
+		
+		for(int i = 0; i < data.length; i++) {
+			
+			data2[i] = data[i];
+		}
+		data = data2;
 	}
 	
 }
