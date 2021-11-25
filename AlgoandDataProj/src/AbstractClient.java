@@ -12,7 +12,7 @@ public abstract class AbstractClient {
 	}
 	
 	public String toString() {
-		return "[" + this.id + ", " + this.name + ", " + this.email + "]";
+		return "-" + id + ": " + "[" + this.name + ", " + this.email + "]" + "\n";
 	}
 
 }

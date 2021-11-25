@@ -12,6 +12,6 @@ public abstract class Publication {
 	}
 	
 	public String toString() {
-		return "-" + id + ": [Title: " + this.title + ", Year of Publication: " + this.yearOfPub +"]";
+		return "-" + id + ": [Title: " + this.title + ", Year of Publication: " + this.yearOfPub +"]" + "\n";
 	}
 }

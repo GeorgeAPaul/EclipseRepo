@@ -11,7 +11,7 @@ public class Book extends Publication {
 	@Override
 	public String toString() {
 		String pubString = super.toString();
-		return "Book" + pubString.substring(0,pubString.length() - 1) + ", Author: " + this.author + "]";
+		return "Book" + pubString.substring(0,pubString.length() - 2) + ", Author: " + this.author + "]" + "\n";
 	}
 
 }

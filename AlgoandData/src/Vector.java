@@ -1,3 +1,4 @@
+
 public class Vector<E>
 {
 	private Object data[];

@@ -7,6 +7,6 @@ public class CD extends Book {
 
 	public String toString() {
 		String pubString = super.toString();
-		return "CD" + pubString.substring(5, pubString.length());
+		return "CD" + pubString.substring(4, pubString.length());
 	}
 }

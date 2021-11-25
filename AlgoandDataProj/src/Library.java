@@ -1,124 +1,91 @@
 public class Library implements ILibraryManagement {
 	
-	private Object[] shelves;
-	private Object[] clientList;
-
-	private int noOfPublications;
-	private int noOfClients;
+	private Vector<Publication> shelves;
+	private Vector<AbstractClient> clientList;
+	private int nextAvailablePubId;
+	private int nextAvailableClientId;
 
 	public Library(int shelfSpace, int clientSpace) {
 			
-		shelves = new Publication[shelfSpace];
-		clientList = new AbstractClient[clientSpace];
-		
-		noOfPublications = 0;
-		
-	}
-	
-	private void extendCapacity(Object[] list) {
-		
-		Object[] list2 = new Object[2 * list.length];
-		
-		for(int i = 0; i < list.length; i++) {
-			
-			list2[i] = list[i];
-		}
-		if (list instanceof Publication[]) {
-			shelves = list2;
-		}
-		
-		if (list instanceof AbstractClient[]) {
-			clientList = list2;
-		}
-	
-	}
-	
-	private void add(Object o) {
-		
-		if(o instanceof Publication) {
-			if(noOfPublications == shelves.length) {
-			
-				extendCapacity(shelves);
-				shelves[noOfPublications] = o;
-			}
-			else {
-			
-				shelves[noOfPublications] = o;
-			}
-			noOfPublications++;
-		}
-		
-		if(o instanceof AbstractClient) {
-			if(noOfClients == clientList.length) {
-			
-				extendCapacity(clientList);
-				clientList[noOfClients] = o;
-			}
-			else {
-			
-				shelves[noOfClients] = o;
-			}
-			noOfClients++;
-		}
+		shelves = new Vector<Publication>(shelfSpace);
+		clientList = new Vector<AbstractClient>(clientSpace);
+		nextAvailablePubId = 0;
+		nextAvailableClientId = 0;
 		
 	}
 	
 	@Override
 	public int addBook(String author, String title, int yearOfPublication) {
 		
-		Book b = new Book(noOfPublications, title, yearOfPublication, author);
-		add(b);
+		Book b = new Book(nextAvailablePubId, title, yearOfPublication, author);
+		shelves.addLast(b);
+		nextAvailablePubId++;
 		
-		return noOfPublications - 1;
+		return nextAvailablePubId - 1;
 	}
 
 	@Override
 	public int addMagazine(String title, int yearOfPublication, int issue) {
-		Magazine m = new Magazine(noOfPublications, title, yearOfPublication, issue);
-		add(m);
-		return noOfPublications - 1;
+		
+		Magazine m = new Magazine(nextAvailablePubId, title, yearOfPublication, issue);
+		shelves.addLast(m);
+		nextAvailablePubId++;
+		
+		return nextAvailablePubId - 1;
 	}
 
 	@Override
 	public int addBlueRay(String title, int yearOfPublication) {
-		Blueray br = new Blueray(noOfPublications, title, yearOfPublication);
-		add(br);
-		return noOfPublications - 1;
+		
+		Blueray br = new Blueray(nextAvailablePubId, title, yearOfPublication);
+		shelves.addLast(br);
+		nextAvailablePubId++;
+		
+		return nextAvailablePubId - 1;
 	}
 
 	@Override
 	public int addCD(String author, String title, int yearOfPublication) {
-		Book b = new Book(noOfPublications, title, yearOfPublication, author);
-		add(b);
-		return noOfPublications - 1;
+		
+		CD b = new CD(nextAvailablePubId, title, yearOfPublication, author);
+		shelves.addLast(b);
+		nextAvailablePubId++;
+		
+		return nextAvailablePubId - 1;
 	}
 
 	@Override
 	public int addClient(String name, String email) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		Client c = new Client(nextAvailableClientId, name, email);
+		clientList.addLast(c);
+		nextAvailableClientId++;
+		
+		return nextAvailableClientId - 1;
 	}
 
 	@Override
 	public int addVIPClient(String name, String email) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		VIPClient v = new VIPClient(nextAvailableClientId, name, email);
+		clientList.addLast(v);
+		nextAvailableClientId++;
+		
+		return nextAvailableClientId - 1;
 	}
 
 	@Override
 	public void printAllPublications() {
-		for(int i = 0; i < noOfPublications; i++) {
-			System.out.println(shelves[i]);
-		}
 		
+		String outString = shelves.toString();
+		System.out.println(outString.substring(1, outString.length() -2));
 	}
 
 	@Override
 	public void printAllClients() {
-		for(int i = 0; i < noOfClients; i++) {
-			System.out.println(clientList[i]);
-		}
 		
+		String outString = clientList.toString();
+		System.out.println(outString.substring(1, outString.length() -2));
 	}
 
 }
