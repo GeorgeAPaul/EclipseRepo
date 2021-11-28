@@ -10,7 +10,7 @@ public abstract class AbstractClient implements Comparable<AbstractClient> {
 	/**
 	 * Unique id of the client.
 	 */
-	private int id;
+	private final int id;
 	
 	/**
 	 * Client's name.

@@ -20,7 +20,7 @@ public abstract class Publication implements Comparable<Publication> {
 	/**
 	 * Unique id of the publication in the library.
 	 */
-	private int id;
+	private final int id;
 	
 	/**
 	 * Constructor method.
