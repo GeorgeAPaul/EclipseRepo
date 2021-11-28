@@ -1,5 +1,5 @@
 
-public abstract class Publication {
+public abstract class Publication implements Comparable<Publication> {
 	
 	private String title;
 	private int yearOfPub;
@@ -13,5 +13,13 @@ public abstract class Publication {
 	
 	public String toString() {
 		return "-" + id + ": [Title: " + this.title + ", Year of Publication: " + this.yearOfPub +"]" + "\n";
+	}
+	
+	public int getId() {
+		return this.id;
+	}
+	
+	public int compareTo(Publication pub) {	
+		return this.id - pub.getId();
 	}
 }

@@ -1,5 +1,5 @@
 
-public abstract class AbstractClient {
+public abstract class AbstractClient implements Comparable<AbstractClient> {
 	
 	private int id;
 	private String name;
@@ -13,6 +13,10 @@ public abstract class AbstractClient {
 	
 	public String toString() {
 		return "-" + id + ": " + "[" + this.name + ", " + this.email + "]" + "\n";
+	}
+	
+	public int compareTo(AbstractClient client) {	
+		return this.id - client.id;
 	}
 
 }

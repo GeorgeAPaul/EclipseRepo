@@ -71,6 +71,11 @@ public class Main {
 		v2.addLast("plopasdasd");
 		v2.addFirst("ploasp");
 		v2.addFirst("plasdsadop");
+		v2.addFirst("plasdsadop");
+		v2.addFirst("plasdsadop");
+		v2.addFirst("plasdsadop");
+		v2.addFirst("plasdsadop");
+		
 		
 		System.out.println(v2);
 		v2.reverse();
@@ -86,15 +91,29 @@ public class Main {
 		
 		Vector<Integer> v3 = new Vector<Integer>(100);
 		Vector<Integer> v4 = new Vector<Integer>(100);
-		v3.addLast(1);
-		v3.addLast(2);
-		v3.addLast(3);
-		v4.addLast(4);
-		v4.addLast(5);
-		v4.addLast(6);
+//		v3.addLast(1);
+//		v3.addLast(2);
+//		v3.addLast(3);
+		v3.addLast(4);
+////		v4.addLast(14);
+////		v4.addLast(15);
+////		v4.addLast(16);
+////		v4.addLast(17);
+//		v3.addLast(4);
 		System.out.println(v3);
 		System.out.println(v4);
-		System.out.println(v3.interleave(v2));
+		
+		
+		//System.out.println(v3.interleave(v2));
+		Vector<Integer> v5 = v4.interleave(v3);
+		
+		System.out.println(v5);
+		v5.reverse();
+		System.out.println(v5);
+		Vector<Integer> v6 = v5.repeat();
+		System.out.println(v6);
+		
+		System.out.println(v5.binarySearch(4));
 		
 		
 		

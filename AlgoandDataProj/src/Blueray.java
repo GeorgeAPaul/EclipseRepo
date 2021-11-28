@@ -8,4 +8,6 @@ public class Blueray extends Publication {
 	public String toString() {
 		return "Blueray" + super.toString();
 	}
+
+	
 }
