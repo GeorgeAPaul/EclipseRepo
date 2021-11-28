@@ -5,7 +5,7 @@
  *The Vector class is based on an array but has a number of useful features such as the ability 
  *to extend its capacity. It is a generic class that can take the type contained as an argument.  
  *
- * @param <E>
+ * @param <E> Data type to be stored in the Vector.
  */
 public class Vector<E extends Comparable<E>> 
 {
