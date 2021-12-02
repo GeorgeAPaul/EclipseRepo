@@ -38,7 +38,7 @@ public abstract class Publication implements Comparable<Publication> {
 	 * Returns contents of Publication as a formatted String.  
 	 */
 	public String toString() {
-		return "-" + id + ": [Title: " + this.title + ", Year of Publication: " + this.yearOfPub +"]" + "\n";
+		return "-" + this.id + ": [Title: " + this.title + ", Year of Publication: " + this.yearOfPub +"]" + "\n";
 	}
 	
 	/**

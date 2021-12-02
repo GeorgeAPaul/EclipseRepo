@@ -55,7 +55,7 @@ public class Library implements ILibraryManagement {
 		shelves.addLast(b); // Adding book to shelves, 
 		nextAvailablePubId++; // Incrementing so that the next Publication will have a correct id.
 		
-		return nextAvailablePubId - 1; // Return's id of added Book.
+		return b.getId(); // Return's id of added Book.
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class Library implements ILibraryManagement {
 		shelves.addLast(m);
 		nextAvailablePubId++;
 		
-		return nextAvailablePubId - 1;
+		return m.getId();
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class Library implements ILibraryManagement {
 		shelves.addLast(br);
 		nextAvailablePubId++;
 		
-		return nextAvailablePubId - 1;
+		return br.getId();
 	}
 
 	/**
@@ -98,11 +98,11 @@ public class Library implements ILibraryManagement {
 	@Override
 	public int addCD(String author, String title, int yearOfPublication) { // Follows same logic as addBook.
 		
-		CD b = new CD(nextAvailablePubId, title, yearOfPublication, author);
-		shelves.addLast(b);
+		CD c = new CD(nextAvailablePubId, title, yearOfPublication, author);
+		shelves.addLast(c);
 		nextAvailablePubId++;
 		
-		return nextAvailablePubId - 1;
+		return c.getId();
 	}
 
 	/**
@@ -117,7 +117,7 @@ public class Library implements ILibraryManagement {
 		clientList.addLast(c);
 		nextAvailableClientId++;
 		
-		return nextAvailableClientId - 1;
+		return c.getId();
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class Library implements ILibraryManagement {
 		clientList.addLast(v);
 		nextAvailableClientId++;
 		
-		return nextAvailableClientId - 1;
+		return v.getId();
 	}
 
 	/**
