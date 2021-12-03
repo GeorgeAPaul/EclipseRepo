@@ -1,20 +1,21 @@
 public class LinkedList<E> {
 	
+	
 	private class ListElement {
-		private Object el1;
+		private E el1;
 		private ListElement el2;
 
-		public ListElement(Object el, ListElement nextElement) {
+		public ListElement(E el, ListElement nextElement) {
 			el1 = el;
 			el2 = nextElement;
 		}
 
-		public ListElement(Object el) {
+		public ListElement(E el) {
 			this(el, null);
 		}
 
 		public E first() {
-			return (E)el1;
+			return el1;
 		}
 
 		public ListElement rest() {
@@ -31,17 +32,19 @@ public class LinkedList<E> {
 	}
 	
 	private ListElement head;
+	private int count;
 
 	public LinkedList() {
 		head = null;
 	}
 
-	public void addFirst(Object o) {
+	public void addFirst(E o) {
 		head = new ListElement(o, head);
+		count++;
 	}
 
 	public E getFirst() {
-		return (E)head.first();
+		return head.first();
 	}
 
 	public E get(int n) {
@@ -50,7 +53,50 @@ public class LinkedList<E> {
 			d = d.rest();
 			n--;
 		}
-		return (E)d.first();
+		return d.first();
+	}
+	
+	public void set(int n, E o) {
+		ListElement d = head;
+		while (n > 0) {
+			d = d.rest();
+			n--;
+		}
+		d.setFirst(o);
+	}
+	
+	public E getLast() {
+		ListElement d = head;
+		while (d.rest() != null) {
+			d = d.rest();
+		}
+		return d.first();
+	}
+	
+	public void addLast(E o) {
+		ListElement d = head;
+		while (d.rest() != null) {
+			d = d.rest();
+		}
+		
+		ListElement l = new ListElement(o);
+		d.setRest(l);
+		count++;
+	}
+	
+	public boolean contains(E obj)
+	{
+		ListElement d = head;
+		while(d.rest() != null) {
+			if(d.first() == obj) {
+				return true;
+			}
+			d = d.rest();
+			if(d.rest() == null && d.first() == obj) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public String toString() {
@@ -63,6 +109,27 @@ public class LinkedList<E> {
 		}
 		s += ")";
 		return s;
+	}
+	
+	public int size() {
+		return count;
+	}
+	
+	public void fropple(){
+		ListElement d = head;
+		boolean first = true;
+		while (d.rest() != null) {
+			//ListElement tmp1 = d;
+			ListElement tmp = d.rest();
+			if(first) {
+				head = new ListElement(d.rest().first(), d);
+				first = false;
+			}
+			d.rest().setRest(d);
+			
+			d.setRest(tmp.rest());
+			d = d.rest();
+		}
 	}
 
 }
