@@ -1,6 +1,6 @@
 
 import java.util.Comparator;
-public class PriorityQueue 
+public class PriorityQueue<E extends Comparable> 
 {       
 	private class PriorityPair<E> implements Comparable {
 		

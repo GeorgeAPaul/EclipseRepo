@@ -46,6 +46,11 @@ public class LinkedList<E> {
 	public E getFirst() {
 		return head.first();
 	}
+	
+	public void removeFirst() {
+		head = head.rest();
+		count--;
+	}
 
 	public E get(int n) {
 		ListElement d = head;
@@ -73,6 +78,23 @@ public class LinkedList<E> {
 		return d.first();
 	}
 	
+	public void removeLast() {
+		
+		if (size() == 1) {
+			head = null;
+		}
+		else {
+			ListElement d = head;
+			int n = size() - 2;
+			while (n > 0) {
+				d = d.rest();
+				n--;
+			}
+			d.setRest(null);
+		}
+		count--;
+	}
+	
 	public void addLast(E o) {
 		ListElement d = head;
 		while (d.rest() != null) {
@@ -97,6 +119,16 @@ public class LinkedList<E> {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * Method to determine if Vector is empty.
+	 * @return True if there are no objects stored in the Vector, else False.
+	 */
+	public boolean isEmpty()
+	{
+		//System.out.println("called from LL");
+		return size() == 0;
 	}
 	
 	public String toString() {

@@ -1,24 +1,24 @@
-public class Stack<E extends Comparable<E>> {
+public class StackLL<E extends Comparable<E>>{
 	
-	private Vector<E> data;
+	private LinkedList<E> dataLL;
 	
-	public Stack() {
-		data = new Vector<E>(10);
+	public StackLL() {
+		dataLL = new LinkedList<E>();
 	}
 	
 	public void push(E o) {
-		data.addLast(o);
-	}	
+		dataLL.addFirst(o);
+	}
 	public E pop() {
-		Object tmp = data.getLast();
-		data.removeLast();
+		Object tmp = dataLL.getFirst();
+		dataLL.removeFirst();
 		return (E)tmp;
 	}
 	public E top() {
-		return (E)data.getLast();
+		return (E)dataLL.getFirst();
 	}
 	public int size() {
-		return data.size();
+		return dataLL.size();
 	}
 	/**
 	 * Method to determine if Vector is empty.
@@ -26,7 +26,7 @@ public class Stack<E extends Comparable<E>> {
 	 */
 	public boolean isEmpty()
 	{
-		return data.isEmpty();
+		return dataLL.isEmpty();
 	}
 	
 	public String toString()
@@ -35,7 +35,7 @@ public class Stack<E extends Comparable<E>> {
 			return "[]";
 		}
 		
-		Stack<E> tmp = new Stack<E>();
+		StackLL<E> tmp = new StackLL<E>();
 		String s = "[";
 		while(!isEmpty()){
 			s += top() + ",";

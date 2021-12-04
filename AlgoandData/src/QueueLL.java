@@ -1,9 +1,9 @@
 
-public class Queue<E extends Comparable<E>> {
+public class QueueLL<E extends Comparable<E>> {
 	
 	private Vector<E> data;
 	
-	public Queue() {
+	public QueueLL() {
 		data = new Vector(10);
 	}
 	public void push(E o) {
