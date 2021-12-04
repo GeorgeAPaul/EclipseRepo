@@ -2,9 +2,11 @@
 import java.util.Comparator;
 public class PriorityQueue 
 {       
-	private class PriorityPair implements Comparable {
+	private class PriorityPair<E> implements Comparable {
+		
 		private Object element;
 		private Object priority;
+		
 		public PriorityPair(Object element, Object priority) {
 			this.element = element;
 			this.priority = priority;
