@@ -1,7 +1,7 @@
-public class LinkedList<E> {
+public class LinkedList<E extends Comparable<E>> {
 	
 	
-	private class ListElement {
+	private class ListElement implements Comparable<E> {
 		private E el1;
 		private ListElement el2;
 
@@ -29,6 +29,11 @@ public class LinkedList<E> {
 		public void setRest(ListElement value) {
 			el2 = value;
 		}
+
+		@Override
+		public int compareTo(E o) {
+			return this.compareTo(o);
+		}
 	}
 	
 	private ListElement head;
@@ -42,6 +47,30 @@ public class LinkedList<E> {
 		head = new ListElement(o, head);
 		count++;
 	}
+	
+	public void addSorted (E o)
+	{
+		// an empty list , add element in front
+		if(head == null) head = new ListElement(o, null);
+		else if(head.first().compareTo(o) > 0)
+		{
+			// we have to add the element in front
+			head = new ListElement (o , head);
+		}
+		else
+		{
+			// we have to find the first element which is bigger
+			ListElement d = head ;
+			while ((d.rest() != null) && (d.rest().first().compareTo(o) < 0))
+			{
+				d = d.rest();
+			}
+			ListElement next = d.rest();
+			d.setRest(new ListElement (o, next));
+		}
+		count ++;
+	}
+
 
 	public E getFirst() {
 		return head.first();
@@ -85,10 +114,8 @@ public class LinkedList<E> {
 		}
 		else {
 			ListElement d = head;
-			int n = size() - 2;
-			while (n > 0) {
+			while (d.rest().rest() != null) {
 				d = d.rest();
-				n--;
 			}
 			d.setRest(null);
 		}
@@ -108,15 +135,16 @@ public class LinkedList<E> {
 	
 	public boolean contains(E obj)
 	{
+		if(isEmpty()) {
+			return false;
+			
+		}
 		ListElement d = head;
-		while(d.rest() != null) {
+		while(d != null) {
 			if(d.first() == obj) {
 				return true;
 			}
 			d = d.rest();
-			if(d.rest() == null && d.first() == obj) {
-				return true;
-			}
 		}
 		return false;
 	}
@@ -135,7 +163,7 @@ public class LinkedList<E> {
 		String s = "(";
 		ListElement d = head;
 		while (d != null) {
-			s += d.first().toString();
+			s += d.first();
 			s += " ";
 			d = d.rest();
 		}
@@ -148,18 +176,42 @@ public class LinkedList<E> {
 	}
 	
 	public void fropple(){
+		
+		if(isEmpty()) {
+			return;
+		}
+		
 		ListElement d = head;
 		boolean first = true;
 		while (d.rest() != null) {
-			//ListElement tmp1 = d;
-			ListElement tmp = d.rest();
+			ListElement tmp = d.rest().rest();
+			if (tmp == null) {
+				return;
+			}
 			if(first) {
-				head = new ListElement(d.rest().first(), d);
+				head = d.rest();
+				head.setRest(d);
+				d.setRest(tmp);
 				first = false;
 			}
-			d.rest().setRest(d);
-			
-			d.setRest(tmp.rest());
+			else {
+				d.rest().setRest(tmp.rest());
+				tmp.setRest(d.rest());
+				d.setRest(tmp);
+				d = d.rest().rest();
+			}
+		}
+	}
+	
+	public void append(LinkedList<E> list2) {
+		ListElement d = list2.head;
+		
+		if(list2.isEmpty()) {
+			return;
+		}
+		
+		while(d != null) {
+			addLast(d.first());
 			d = d.rest();
 		}
 	}

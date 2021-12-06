@@ -115,31 +115,76 @@ public class Main {
 //		
 //		System.out.println(v5.binarySearch(4));
 		
-//		LinkedList<Integer> l = new LinkedList<Integer>();
-//		
-//		l.addFirst(1);
-//		//l.addFirst(2);
-//		//l.addFirst(3);
-//		//l.addFirst(4);
-//		
-//		System.out.println(l);
-//		//System.out.println(l.get(2));
-//		//l.set(2, 99);
-//		//System.out.println(l.get(2));
-//		System.out.println(l);
-//		
-//		//l.addFirst(20);
-//		System.out.println(l);
-//		l.addLast(5);
-//		System.out.println(l);
-//		System.out.println(l.getLast());
-//		System.out.println(l.contains(20));
-//		System.out.println(l.contains(5));
-//		System.out.println(l.isEmpty());
+		LinkedList<Integer> l = new LinkedList<Integer>();
 		
-		//l.fropple();
+		l.addFirst(1);
+		l.addFirst(2);
+		l.addFirst(3);
+		l.addFirst(4);
 		
-//		System.out.println(l);
+		System.out.println(l);
+		System.out.println(l.get(2));
+		l.set(2, 99);
+		System.out.println(l.get(2));
+		System.out.println(l);
+		
+		l.addFirst(20);
+		System.out.println(l);
+		l.addLast(5);
+		System.out.println(l);
+		System.out.println(l.getLast());
+		System.out.println(l.contains(20));
+		System.out.println(l.contains(5));
+		System.out.println(l.isEmpty());
+		
+		System.out.println("Before" + l);
+		
+		l.fropple();
+		
+		System.out.println(l);
+		
+		LinkedList<String> s = new LinkedList<String>();
+		
+		s.addFirst("plip");
+		s.addFirst("plap");
+		s.addFirst("plip");
+		s.addFirst("plap");
+		s.addFirst("plip");
+		//s.addFirst("plap");
+		
+		System.out.println("Before" + s);
+		
+		s.fropple();
+		
+		System.out.println(s);
+		
+		LinkedList<Integer> l2 = new LinkedList<Integer>();
+		
+		l2.addFirst(100);
+		l2.addFirst(200);
+		l2.addFirst(300);
+		
+		l.append(l2);
+		
+		System.out.println(l);
+		
+		l.removeLast();
+		
+		System.out.println(l);
+		
+		LinkedList<Integer> lSorted = new LinkedList<Integer>();
+		
+		lSorted.addSorted(6);
+		lSorted.addSorted(100);
+		lSorted.addSorted(3);
+		lSorted.addSorted(47);
+		lSorted.addSorted(12);
+		lSorted.addSorted(11);
+		lSorted.addSorted(47);
+		lSorted.addSorted(100);
+		lSorted.addSorted(3);
+		
+		System.out.println(lSorted);
 //		
 //		l.removeFirst();
 //		System.out.println(l);
@@ -147,22 +192,22 @@ public class Main {
 //		System.out.println(l);
 //		System.out.println(l.getFirst());
 		
-		StackLL<Integer> s = new StackLL<Integer>();
-		
-		s.push(1);
-		s.push(2);
-		s.push(3);
-		s.push(4);
-		
-		System.out.println(s.top());
-		System.out.println(s);
-		System.out.println(s.size());
-		System.out.println(s.pop());
-		System.out.println(s.pop());
-		System.out.println(s.pop());
-		System.out.println(s.pop());
-		System.out.println(s);
-		System.out.println(s.size());
+//		StackLL<Integer> s = new StackLL<Integer>();
+//		
+//		s.push(1);
+//		s.push(2);
+//		s.push(3);
+//		s.push(4);
+//		
+//		System.out.println(s.top());
+//		System.out.println(s);
+//		System.out.println(s.size());
+//		System.out.println(s.pop());
+//		System.out.println(s.pop());
+//		System.out.println(s.pop());
+//		System.out.println(s.pop());
+//		System.out.println(s);
+//		System.out.println(s.size());
 		
 		
 		
