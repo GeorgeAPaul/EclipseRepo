@@ -1,12 +1,22 @@
-import java.util.Arrays;
-
 public class Main {
 	
 	public static void main(String[] args) {
 		
-		Character test = new Character();
+		int mapWidth = 10;
+		int noOfEnemies = 3;
+		int noOfAllies = 3;
 		
-		System.out.println(Arrays.toString(test.getCoordinates()));
+		//Generate Map
+		Map m = new Map(mapWidth, noOfEnemies, noOfAllies);
+		
+		//Generate enemies
+		
+		System.out.println(m.toString(true, true));
+		
+		m.setPlayerLocation(m.getPlayerLocation()[0] + 1, m.getPlayerLocation()[1]);
+		
+		System.out.println(m.toString(true, true));
+		
 		
 	}
 	

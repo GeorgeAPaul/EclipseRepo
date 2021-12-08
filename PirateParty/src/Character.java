@@ -1,14 +1,9 @@
 
-public class Character implements Attackable, HasInventory {
+public class Character extends GameObject implements Attackable, HasInventory {
 	
 	private String name;
 	private int health;
 	private int[] coordinates;
-	
-	public Character() {
-		
-		coordinates = new int[] {1,2};
-	}
 
 	@Override
 	public void take(Item i) {
@@ -61,6 +56,7 @@ public class Character implements Attackable, HasInventory {
 	public int[] getCoordinates() {
 		return coordinates;
 	}
+	
 	
 
 }
