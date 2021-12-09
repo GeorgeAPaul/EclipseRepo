@@ -1,11 +1,15 @@
 
-public class Character extends GameObject implements Attackable, HasInventory {
+public abstract class Character extends GameObject implements Attackable, HasInventory {
 	
 	private String name;
 	private int health;
 	private int[] coordinates;
+	protected int attackPower;
+	
+	public Character() {
+		health = 100;
+	}
 
-	@Override
 	public void take(Item i) {
 		// TODO Auto-generated method stub
 		
@@ -24,15 +28,14 @@ public class Character extends GameObject implements Attackable, HasInventory {
 	}
 
 	@Override
-	public void takeDamage() {
-		// TODO Auto-generated method stub
+	public void takeDamage(int attackPower) {
+		health -= attackPower;
 		
 	}
 
 	@Override
-	public void attack() {
-		// TODO Auto-generated method stub
-		
+	public void attack(Character e) {
+		e.takeDamage(attackPower);
 	}
 
 	@Override
@@ -48,13 +51,18 @@ public class Character extends GameObject implements Attackable, HasInventory {
 	}
 
 	@Override
-	public void warCry() {
-		// TODO Auto-generated method stub
+	public void warCry(Character e) {
+		System.out.println("WAARRARAGARHHARHARHARH!!!!!!!!!");
 		
 	}
 	
 	public int[] getCoordinates() {
 		return coordinates;
+	}
+
+	@Override
+	public int getHealth() {
+		return health;
 	}
 	
 	

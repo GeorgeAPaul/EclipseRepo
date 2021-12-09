@@ -1,9 +1,9 @@
 
 public class Battle extends Encounter {
 
-	public Battle(Character c1, Character c2) {
-		super(c1, c2);
-		
+	public Battle(Player p, Enemy e) {
+		super(p, e);
+		// TODO Auto-generated constructor stub
 	}
 
 }

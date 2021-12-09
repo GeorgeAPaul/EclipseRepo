@@ -17,6 +17,11 @@ public class Main {
 		
 		System.out.println(m.toString(true, true));
 		
+		Player p = new Player();
+		Enemy en = new Enemy();
+		
+		Encounter e = new Encounter(p, en);
+		
 		
 	}
 	

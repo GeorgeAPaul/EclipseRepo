@@ -1,14 +1,17 @@
 
 public interface Attackable {
 	
-	void takeDamage();
+	public void takeDamage(int attackPower);
 	
-	void attack();
+	public void attack(Character e);
 	
-	void defend();
+	public void defend();
 	
-	void cry();
+	public void cry();
 	
-	void warCry();
+	public void warCry(Character e);
+	
+	public int getHealth();
+	
 
 }
