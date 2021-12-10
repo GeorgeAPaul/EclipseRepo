@@ -1,4 +1,4 @@
-public class LinkedList<E extends Comparable<E>> {
+public class LinkedList<E> {
 	
 	
 	private class ListElement implements Comparable<E> {
@@ -52,7 +52,7 @@ public class LinkedList<E extends Comparable<E>> {
 	{
 		// an empty list , add element in front
 		if(head == null) head = new ListElement(o, null);
-		else if(head.first().compareTo(o) > 0)
+		else if(((Comparable<E>)head.first()).compareTo(o) > 0)
 		{
 			// we have to add the element in front
 			head = new ListElement (o , head);
@@ -61,7 +61,7 @@ public class LinkedList<E extends Comparable<E>> {
 		{
 			// we have to find the first element which is bigger
 			ListElement d = head ;
-			while ((d.rest() != null) && (d.rest().first().compareTo(o) < 0))
+			while ((d.rest() != null) && (((Comparable<E>)d.rest().first()).compareTo(o) < 0))
 			{
 				d = d.rest();
 			}

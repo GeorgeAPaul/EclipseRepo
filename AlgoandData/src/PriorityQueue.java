@@ -2,7 +2,7 @@
 import java.util.Comparator;
 public class PriorityQueue<E extends Comparable<E>> 
 {       
-	private class PriorityPair<E extends Comparable<E>> implements Comparable<E> {
+	private class PriorityPair implements Comparable<E> {
 		
 		private Object element;
 		private Object priority;
@@ -12,15 +12,15 @@ public class PriorityQueue<E extends Comparable<E>>
 			this.priority = priority;
 		}
 		public int compareTo(E o) {
-			PriorityPair<E> p2 = (PriorityPair<E>) o;
+			PriorityPair p2 = (PriorityPair) o;
 			return ((Comparable) priority).compareTo(p2.priority);
 		}
 	}
 	
-	private LinkedList<PriorityPair<E>> data;
+	private LinkedList<PriorityPair> data;
 	public PriorityQueue()
 	{
-		data = new LinkedList<PriorityPair<E>>();
+		data = new LinkedList<PriorityPair>();
 	}
 	public void push(E o, int priority)
 	{
