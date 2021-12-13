@@ -15,6 +15,11 @@ public class PriorityQueue<E extends Comparable<E>>
 			PriorityPair p2 = (PriorityPair) o;
 			return ((Comparable) priority).compareTo(p2.priority);
 		}
+		
+		public E getElement() {
+			return (E)element;
+		}
+		
 	}
 	
 	private LinkedList<PriorityPair> data;
@@ -30,12 +35,14 @@ public class PriorityQueue<E extends Comparable<E>>
 		data.addSorted(pp);
 		
 	}
-	public Object pop()
+	public E pop()
 	{
-		// add your code here
+		Object tmp = data.getFirst().getElement();
+		data.removeFirst();
+		return (E)tmp;
 	}
-	public Object top()
+	public E top()
 	{
-		// add your code here
+		return (E)data.getFirst().getElement();
 	}
 }

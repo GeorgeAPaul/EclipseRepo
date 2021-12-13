@@ -7,7 +7,7 @@
  *
  * @param <E> Data type to be stored in the Vector.
  */
-public class Vector<E extends Comparable<E>> 
+public class Vector<E> 
 {
 	/**
 	 * An array to store the objects in the Vector.
@@ -134,8 +134,8 @@ public class Vector<E extends Comparable<E>>
 	while(start <= end) // Keep going until section is 1 element long
 	{
 		int middle = (start + end + 1) / 2; // Defining middle element of data[]. 
-		if(key.compareTo((E)data[middle]) < 0) end = middle -1; // If key is less than middle element, move end to middle element - 1.
-		else if(key.compareTo((E)data[middle]) > 0) start = middle + 1; // If key is more than middle element, move start to middle element + 1.
+		if(((Comparable<E>)key).compareTo((E)data[middle]) < 0) end = middle -1; // If key is less than middle element, move end to middle element - 1.
+		else if(((Comparable<E>)key).compareTo((E)data[middle]) > 0) start = middle + 1; // If key is more than middle element, move start to middle element + 1.
 		else return true; // If key equals middle element then element has been found.
 	}
 	return false; // Return false if element was not found.

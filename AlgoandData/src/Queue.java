@@ -1,5 +1,5 @@
 
-public class Queue<E extends Comparable<E>> {
+public class Queue<E> {
 	
 	private Vector<E> data;
 	
@@ -20,7 +20,7 @@ public class Queue<E extends Comparable<E>> {
 	public int size() {
 		return data.size();
 	}
-	public boolean empty() {
+	public boolean isEmpty() {
 		return data.isEmpty();
 	}
 }

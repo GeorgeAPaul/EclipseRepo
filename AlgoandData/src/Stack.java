@@ -1,4 +1,4 @@
-public class Stack<E extends Comparable<E>> {
+public class Stack<E> {
 	
 	private Vector<E> data;
 	

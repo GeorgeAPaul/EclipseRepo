@@ -20,7 +20,7 @@ public class QueueLL<E extends Comparable<E>> {
 	public int size() {
 		return data.size();
 	}
-	public boolean empty() {
+	public boolean isEmpty() {
 		return data.isEmpty();
 	}
 }
