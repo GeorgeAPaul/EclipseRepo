@@ -175,7 +175,7 @@ public class Library implements ILibraryManagement {
 
 	@Override
 	public int borrowCD(int client, String author, String title) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stu
 		return 0;
 	}
 
