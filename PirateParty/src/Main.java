@@ -15,9 +15,12 @@ public class Main {
 		Map m = new Map(mapWidth, noOfEnemies, noOfAllies);
 		p = m.getPlayer();
 		
+		System.out.println(m.toString(true, true));
+		
+		System.out.println("Player location marked as P, enemies are E");
 		//Play loop
 		while(true) {
-			System.out.println("Try moving around");
+			System.out.println("Try moving around (north, south, east west)");
 			String l = sc.nextLine();
 			try {
 				if(l.matches(".*[nN][oOT][rRT][tT][hH].*")) {

@@ -11,6 +11,7 @@ public class Encounter {
 		this.p = p;
 		this.e = e;
 		sc = new Scanner(System.in);
+		System.out.println("Battle commenced! try attack/war cry/cry");
 		
 		battle();
 		
@@ -36,8 +37,8 @@ public class Encounter {
 			else if(l.matches(".*[wW][aA][rR].*[cC][rR][yY].*")) {
 				p.warCry(e);
 			}
-			else if(l.matches(".*[wW][aA][rR].*[cC][rR][yY].*")) {
-				p.warCry(e);
+			else if(l.matches("[cC][rR][yY].*")) {
+				p.cry(e);
 			}
 		}
 	}

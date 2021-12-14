@@ -35,6 +35,7 @@ public abstract class Character extends GameObject implements Attackable, HasInv
 
 	@Override
 	public void attack(Character e) {
+		System.out.println("You attack!");
 		e.takeDamage(attackPower);
 	}
 
@@ -45,7 +46,7 @@ public abstract class Character extends GameObject implements Attackable, HasInv
 	}
 
 	@Override
-	public void cry() {
+	public void cry(Character e) {
 		// TODO Auto-generated method stub
 		
 	}

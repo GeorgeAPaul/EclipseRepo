@@ -7,7 +7,7 @@ public interface Attackable {
 	
 	public void defend();
 	
-	public void cry();
+	public void cry(Character e);
 	
 	public void warCry(Character e);
 	

@@ -27,7 +27,7 @@ public class Location {
 		if(isSea) {
 			return "{ }";
 		}
-		return "| |";		
+		return "< >";		
 	}
 
 }
