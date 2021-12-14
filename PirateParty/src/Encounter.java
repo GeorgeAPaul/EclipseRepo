@@ -44,5 +44,7 @@ public class Encounter {
 	
 	private void recruit() {
 		
+		System.out.println("Recruitment");
+		
 	}
 }

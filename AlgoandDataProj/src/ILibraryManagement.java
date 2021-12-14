@@ -80,6 +80,60 @@ public interface ILibraryManagement {
 	public void printAllClients();
 	
 	/******************************************** end of PART 1 ***************************************************/
-	
 
+	/******************************************** PART 2 ***************************************************/ 
+
+	/* 
+	 * Borrow a book.  
+	 *  
+	 * @param client id
+	 * @param author's name 
+	 * @param title of the book 
+	 * @return ID of the book 
+	 */ 
+	public int borrowBook(int client, String author, String title); 
+
+	/* 
+	 * Borrow a magazine to look at.  
+	 *  
+	 * @param client id
+	 * @param title of the magazine 
+	 * @param year of the publication 
+	 * @param issue  
+	 *  
+	 * @return ID of the magazine 
+	 */ 
+	public int lookAtMagazine(int client, String title, int yearOfPublication, int issue); 
+
+	/* 
+	 * Borrow a movie on a BlueRay.  
+	 *  
+	 * @param client id	 
+	 * @param title of the magazine 
+	 * @param year of the publication 
+	 *  
+	 * @return ID of the BlueRay 
+	 */ 
+	public int borrowBlueRay(int client, String title, int yearOfPublication); 
+	 
+	/* 
+	 * Borrow a CD.  
+	 *  
+	 * @param client id 
+	 * @param author's name 
+	 * @param title of the CD 
+	 *  
+	 * @return ID of the CD 
+	 */ 
+	public int borrowCD(int client, String author, String title); 
+	 
+
+	/* 
+	 * Return the publication back to the library.  
+	 *  
+	 * @param publicationID unique id of the publication  
+	 * @return client ID of the next client the waiting list that borrowed the publication. Return -1 if no client was waiting.  
+	 */ 
+	public int returnItem(int publicationID); 
+	/******************************************** end of PART 2 ***************************************************/ 
 }

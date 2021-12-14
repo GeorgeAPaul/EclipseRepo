@@ -155,4 +155,34 @@ public class Library implements ILibraryManagement {
 		System.out.println(outString.substring(1, outString.length() -2));
 	}
 
+	@Override
+	public int borrowBook(int client, String author, String title) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int lookAtMagazine(int client, String title, int yearOfPublication, int issue) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int borrowBlueRay(int client, String title, int yearOfPublication) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int borrowCD(int client, String author, String title) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int returnItem(int publicationID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

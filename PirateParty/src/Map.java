@@ -106,17 +106,17 @@ public class Map {
 		return playerLocation;
 	}
 	
-	public void setPlayerLocation(int i, int j) {
-		
-		try {
-			characterGrid[i][j] = characterGrid[playerLocation[0]][playerLocation[1]];
-			characterGrid[playerLocation[0]][playerLocation[1]] = null;
-			playerLocation[0] = i;
-			playerLocation[1] = j;
-		}
-		catch (IndexOutOfBoundsException e) {
-			System.out.println("You feel as if that's the wrong way, maybe you've reached an edge of some sort?");
-		}
+	public Player getPlayer() {
+		return (Player)characterGrid[playerLocation[0]][playerLocation[1]];
+	}
+	
+	public Character setPlayerLocation(int i, int j) throws IndexOutOfBoundsException {
+		Character tmp = characterGrid[i][j];
+		characterGrid[i][j] = characterGrid[playerLocation[0]][playerLocation[1]];
+		characterGrid[playerLocation[0]][playerLocation[1]] = null;
+		playerLocation[0] = i;
+		playerLocation[1] = j;
+		return tmp;
 	}
 	
 	
