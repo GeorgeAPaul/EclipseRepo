@@ -15,31 +15,30 @@ public class Main {
 		Map m = new Map(mapWidth, noOfEnemies, noOfAllies);
 		p = m.getPlayer();
 		
-		System.out.println(m.toString(true, true));
 		
-		System.out.println("Player location marked as P, enemies are E");
 		//Play loop
 		while(true) {
-			System.out.println("Try moving around (north, south, east west)");
+			System.out.println(m.toString(true, true));
+			System.out.println("Player location marked as P, enemies are E");
+			System.out.println("Try moving around (north, south, east, west)");
 			String l = sc.nextLine();
 			try {
-				if(l.matches(".*[nN][oOT][rRT][tT][hH].*")) {
+				if(l.matches(".*[nN][oO][rR][tT][hH].*")) {
 					c = m.setPlayerLocation(m.getPlayerLocation()[0] - 1, m.getPlayerLocation()[1]);
 				}
-				else if(l.matches(".*[sS][oOT][uU][tT][hH].*")) {
+				else if(l.matches(".*[sS][oO][uU][tT][hH].*")) {
 					c = m.setPlayerLocation(m.getPlayerLocation()[0] + 1, m.getPlayerLocation()[1]);
 				}
 				else if(l.matches(".*[eE][aA][sS][tT].*")) {
 					c = m.setPlayerLocation(m.getPlayerLocation()[0], m.getPlayerLocation()[1] + 1);
 				}
-				else if(l.matches(".*[wW][eR][sS][tT].*")) {
+				else if(l.matches(".*[wW][eE][sS][tT].*")) {
 					c = m.setPlayerLocation(m.getPlayerLocation()[0], m.getPlayerLocation()[1] - 1);
 				}
-				System.out.println(m.toString(true, true));
 				
 			}
 			catch(IndexOutOfBoundsException e) {
-				System.out.println(m.toString(true, true));
+				
 				System.out.println("You feel as if that's the wrong way, maybe you've reached an edge of some sort?");
 			}
 			

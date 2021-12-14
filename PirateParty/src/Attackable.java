@@ -3,9 +3,9 @@ public interface Attackable {
 	
 	public void takeDamage(int attackPower);
 	
-	public void attack(Character e);
+	public void adjustDefence(int adjustment);
 	
-	public void defend();
+	public void attack(Character e);
 	
 	public void cry(Character e);
 	
