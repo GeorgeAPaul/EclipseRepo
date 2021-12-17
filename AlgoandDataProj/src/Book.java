@@ -23,13 +23,16 @@ public class Book extends Publication {
 		this.author = author;	
 	}
 	
+	public Book(int id) {
+		super(id);	
+	}
+	
 	/**
 	 * Returns contents of Book as a formatted String.  
 	 */
 	@Override
 	public String toString() {
-		String pubString = super.toString();
-		return "Book" + pubString.substring(0,pubString.length() - 2) + ", Author: " + this.author + "]" + "\n";
+		return "Book" + super.toString() + ", Author: " + this.author + "]";
 	}
 
 }

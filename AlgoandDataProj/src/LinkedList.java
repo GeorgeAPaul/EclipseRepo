@@ -1,4 +1,4 @@
-public class LinkedList<E> {
+public class LinkedList<E extends Comparable<?>> {
 	
 	
 	private class ListElement implements Comparable<E> {

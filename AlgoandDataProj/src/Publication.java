@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Abstract class to represent publications held in a library. Implements Comparable so that Publications can be
  * sorted/searched.
@@ -5,7 +7,7 @@
  * @author George Paul
  *
  */
-public abstract class Publication implements Comparable<Publication> {
+public class Publication implements Comparable<Publication> {
 	
 	/**
 	 * Title of publication.
@@ -23,6 +25,16 @@ public abstract class Publication implements Comparable<Publication> {
 	private final int id;
 	
 	/**
+	 * Waiting list for publication
+	 */
+	private PriorityQueue<Integer,Integer> waitingList;
+	
+	/**
+	 * Current owner
+	 */
+	private int currentOwner;
+	
+	/**
 	 * Constructor method.
 	 * @param id Unique id of the publication, is determined externally in the Library class.
 	 * @param title Title of publication
@@ -32,13 +44,18 @@ public abstract class Publication implements Comparable<Publication> {
 		this.title = title;
 		this.yearOfPub = yearOfPub;
 		this.id = id;
+		waitingList = new PriorityQueue<Integer,Integer>();
+	}
+	
+	public Publication(int id) {
+		this.id = id;
 	}
 	
 	/**
 	 * Returns contents of Publication as a formatted String.  
 	 */
 	public String toString() {
-		return "-" + this.id + ": [Title: " + this.title + ", Year of Publication: " + this.yearOfPub +"]" + "\n";
+		return "-" + this.id + ": [Title: " + this.title + ", Year of Publication: " + this.yearOfPub;
 	}
 	
 	/**
@@ -56,5 +73,25 @@ public abstract class Publication implements Comparable<Publication> {
 	 */
 	public int compareTo(Publication pub) {	
 		return this.id - pub.getId(); 
+	}
+	
+	public void addToWaitingList(int id) {	
+		waitingList.push(id, 1);
+	}
+	
+	public void removefromWaitingList() {	
+		waitingList.pop();
+	}
+	
+	public int getNextInLine() {	
+		return waitingList.top();
+	}
+	
+	public int getCurrentOwner() {	
+		return currentOwner;
+	}
+	
+	public void setCurrentOwner(int newOwner) {	
+		this.currentOwner = newOwner;
 	}
 }

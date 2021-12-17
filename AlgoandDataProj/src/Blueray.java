@@ -15,13 +15,17 @@ public class Blueray extends Publication {
 	public Blueray(int id, String title, int yearOfPub) {
 		super(id, title, yearOfPub);
 	}
+	
+	public Blueray(int id) {
+		super(id);	
+	}
 
 	/**
 	 * Returns contents of Blueray as a formatted String.  
 	 */
 	@Override
 	public String toString() {
-		return "Blueray" + super.toString();
+		return "Blueray" + super.toString() + "]";
 	}
 
 	

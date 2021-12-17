@@ -47,10 +47,12 @@ public class Main {
 				try {
 					Enemy e = (Enemy)c;
 					Encounter en = new Encounter(p, e);
+					c = null;
 				}
 				catch(ClassCastException e) {
 					Ally a = (Ally)c;
 					Encounter en = new Encounter(p, a);
+					c = null;
 				}
 				
 				

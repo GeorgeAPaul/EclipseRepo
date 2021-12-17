@@ -39,7 +39,7 @@ public abstract class AbstractClient implements Comparable<AbstractClient> {
 	 * Returns contents of Publication as a formatted String.  
 	 */
 	public String toString() {
-		return "-" + this.id + ": " + "[" + this.name + ", " + this.email + "]" + "\n";
+		return "-" + this.id + ": " + "[" + this.name + ", " + this.email + "]";
 	}
 	
 	/**

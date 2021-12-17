@@ -46,6 +46,11 @@ public class Tree<E> {
 		{
 			return value;
 		}
+		
+		public void setValue(E value)
+		{
+			this.value = (Comparable)value;
+		}
 
 		@Override
 		public int compareTo(Object arg0) {
@@ -59,9 +64,6 @@ public class Tree<E> {
 	 
 
 	}
-	
-	
-		
 	// start of the actual tree class
 	
 	// the root of our tree
@@ -148,11 +150,11 @@ public class Tree<E> {
 		else insertAtNode(element,current.getRightTree(),current);
 	}
 	
-	public int findDepth() {
-		int depth = 0;
-		
-		return depth;
-	}
+//	public int findDepth() {
+//		int depth = 0;
+//		
+//		return depth;
+//	}
 	
 //	public String toString ()
 //	{
@@ -172,18 +174,27 @@ public class Tree<E> {
 //		return s ;
 //	}
 	
-	public String toString()
-	{
-		traverse(new TreeAction()
-		{	
-			public void run(Tree.TreeNode n)
-			{	
-				s += n.toString() + "\n";
-				
+	public String toString() {
+		traverse(new TreeAction() {	
+			public void run(Tree.TreeNode n) {	
+				s += n.toString() + "\n";	
 			}
-		}
-				);
+		});
 		return s ;
+	}
+	
+	private E findNode (Comparable element ,TreeNode current) {
+		if (current == null) return null;
+		else if (element.compareTo(current.value) == 0)
+			return (E)current.value;
+		else if (element.compareTo(current.value) < 0) {
+			return findNode (element, current.getLeftTree( )) ;
+		}
+		else return findNode(element, current.getRightTree()) ;
+	}
+	
+	public E find (Comparable element) {
+		return findNode (element, root) ;
 	}
 
 	

@@ -22,14 +22,17 @@ public class Magazine extends Publication{
 		super(id, title, yearOfPub);
 		this.issue = issue;
 	}
+	
+	public Magazine(int id) {
+		super(id);	
+	}
 
 	/**
 	 * Returns contents of Magazine as a formatted String.  
 	 */
 	@Override
 	public String toString() {
-		String pubString = super.toString();
-		return "Magazine" + pubString.substring(0,pubString.length() - 2) + ", Issue: " + this.issue + "]" + "\n";
+		return "Magazine" + super.toString() + ", Issue: " + this.issue + "]";
 	}
 
 }

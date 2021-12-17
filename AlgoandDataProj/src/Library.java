@@ -11,7 +11,7 @@ public class Library implements ILibraryManagement {
 	 * Vector to represent the shelves of the Library. Vector was chosen as search is faster when data is sorted.
 	 * Since the only way to add publications is via addLast, publications will inherently be sorted by id.
 	 */
-	private Vector<Publication> shelves;
+	private Tree<Publication> shelves;
 	
 	/**
 	 * Vector to represent the list of clients of the Library. Vector was chosen for same reason as publications.
@@ -20,11 +20,6 @@ public class Library implements ILibraryManagement {
 	
 	/**
 	 * int to represent the next available id for publications.  
-	 */
-	private int nextAvailablePubId;
-	
-	/**
-	 * int to represent the next available id for clients.  
 	 */
 	private int nextAvailableClientId;
 
@@ -35,9 +30,8 @@ public class Library implements ILibraryManagement {
 	 */
 	public Library(int shelfSpace, int clientSpace) {
 			
-		shelves = new Vector<Publication>(shelfSpace);
+		shelves = new Tree<Publication>();
 		clientList = new Vector<AbstractClient>(clientSpace);
-		nextAvailablePubId = 1; // Initialising the ids for first publication and client.
 		nextAvailableClientId = 1;
 		
 	}
@@ -50,10 +44,9 @@ public class Library implements ILibraryManagement {
 	 */
 	@Override
 	public int addBook(String author, String title, int yearOfPublication) {
-		
-		Book b = new Book(nextAvailablePubId, title, yearOfPublication, author); // Instantiating book object
-		shelves.addLast(b); // Adding book to shelves, 
-		nextAvailablePubId++; // Incrementing so that the next Publication will have a correct id.
+		int id = (author+title).hashCode();
+		Book b = new Book(id, title, yearOfPublication, author); // Instantiating book object
+		shelves.insert(b); // Adding book to shelves, 
 		
 		return b.getId(); // Return's id of added Book.
 	}
@@ -66,10 +59,10 @@ public class Library implements ILibraryManagement {
 	 */
 	@Override
 	public int addMagazine(String title, int yearOfPublication, int issue) { // Follows same logic as addBook.
-		
-		Magazine m = new Magazine(nextAvailablePubId, title, yearOfPublication, issue);
-		shelves.addLast(m);
-		nextAvailablePubId++;
+		int id = (title+yearOfPublication+issue).hashCode();
+		Magazine m = new Magazine(id, title, yearOfPublication, issue);
+		shelves.insert(m);
+
 		
 		return m.getId();
 	}
@@ -81,10 +74,9 @@ public class Library implements ILibraryManagement {
 	 */
 	@Override
 	public int addBlueRay(String title, int yearOfPublication) { // Follows same logic as addBook.
-		
-		Blueray br = new Blueray(nextAvailablePubId, title, yearOfPublication);
-		shelves.addLast(br);
-		nextAvailablePubId++;
+		int id = (title+yearOfPublication).hashCode();
+		Blueray br = new Blueray(id, title, yearOfPublication);
+		shelves.insert(br);
 		
 		return br.getId();
 	}
@@ -97,10 +89,9 @@ public class Library implements ILibraryManagement {
 	 */
 	@Override
 	public int addCD(String author, String title, int yearOfPublication) { // Follows same logic as addBook.
-		
-		CD c = new CD(nextAvailablePubId, title, yearOfPublication, author);
-		shelves.addLast(c);
-		nextAvailablePubId++;
+		int id = (author+title).hashCode();
+		CD c = new CD(id, title, yearOfPublication, author);
+		shelves.insert(c);
 		
 		return c.getId();
 	}
@@ -140,9 +131,7 @@ public class Library implements ILibraryManagement {
 	 */
 	@Override
 	public void printAllPublications() {
-		
-		String outString = shelves.toString();
-		System.out.println(outString.substring(1, outString.length() -2));
+		System.out.println(shelves);
 	}
 
 	/**
@@ -152,37 +141,96 @@ public class Library implements ILibraryManagement {
 	public void printAllClients() {
 		
 		String outString = clientList.toString();
-		System.out.println(outString.substring(1, outString.length() -2));
+		System.out.println(outString.substring(2, outString.length() -2));
 	}
 
+	/**
+	 * Method to borrow a book
+	 */
 	@Override
 	public int borrowBook(int client, String author, String title) {
-		// TODO Auto-generated method stub
-		return 0;
+		int id  = (author+title).hashCode();
+		Publication p = new Publication(id);
+		Book b = (Book)shelves.find(p);
+		
+		if (b.getCurrentOwner() == 0) {
+			b.setCurrentOwner(client);
+		}
+		else {
+			b.addToWaitingList(client);
+		}
+		return id;
 	}
 
+	/**
+	 * Method to borrow a magazine
+	 */
 	@Override
 	public int lookAtMagazine(int client, String title, int yearOfPublication, int issue) {
-		// TODO Auto-generated method stub
-		return 0;
+		int id  = (title+yearOfPublication+issue).hashCode();
+		Publication p = new Publication(id);
+		Magazine m = (Magazine)shelves.find(p); 
+		
+		if (m.getCurrentOwner() == 0) {
+			m.setCurrentOwner(client);
+		}
+		else {
+			m.addToWaitingList(client);
+		}
+		return id;
 	}
 
+	/**
+	 * Method to borrow a BlueRay
+	 */
 	@Override
 	public int borrowBlueRay(int client, String title, int yearOfPublication) {
-		// TODO Auto-generated method stub
-		return 0;
+		int id  = (title+yearOfPublication).hashCode();
+		Publication p = new Publication(id);
+		Blueray br = (Blueray)shelves.find(p); 
+
+		if (br.getCurrentOwner() == 0) {
+			br.setCurrentOwner(client);
+		}
+		else {
+			br.addToWaitingList(client);
+		}
+		return id;
 	}
 
+	/**
+	 * Method to borrow a CD
+	 */
 	@Override
 	public int borrowCD(int client, String author, String title) {
-		// TODO Auto-generated method stu
-		return 0;
+		int id  = (author+title).hashCode();
+		Publication p = new Publication(id);
+		CD c = (CD)shelves.find(p); 
+
+		if (c.getCurrentOwner() == 0) {
+			c.setCurrentOwner(client);
+		}
+		else {
+			c.addToWaitingList(client);
+		}
+		return id;
 	}
 
+	/**
+	 * Method to return a publication
+	 */
 	@Override
 	public int returnItem(int publicationID) {
-		// TODO Auto-generated method stub
-		return 0;
+		Publication p = new Publication(publicationID);
+		Publication pf = shelves.find(p);
+		
+		int tmp = -1;
+		if(pf.getNextInLine() != 0) {
+			tmp = pf.getNextInLine();
+		}
+		pf.removefromWaitingList();
+		pf.setCurrentOwner(0);
+		return tmp;
 	}
 
 }

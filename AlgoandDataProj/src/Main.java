@@ -14,10 +14,28 @@ public class Main {
 		// Adding one of each type of client
 		l.addClient("George", "george@gib.com");
 		l.addVIPClient("VIPGeorge", "george@gibVIP.com");
+		l.addVIPClient("VIPGeorge", "george@gibVIP.com");
+		l.addVIPClient("VIPGeorge", "george@gibVIP.com");
+		l.addVIPClient("VIPGeorge", "george@gibVIP.com");
+		l.addVIPClient("VIPGeorge", "george@gibVIP.com");
+		l.addVIPClient("VIPGeorge", "george@gibVIP.com");
+		l.addVIPClient("VIPGeorge", "george@gibVIP.com");
+		l.addVIPClient("VIPGeorge", "george@gibVIP.com");
+		l.addVIPClient("VIPGeorge", "george@gibVIP.com");
+		
 		
 		// Printing all contents of library
 		l.printAllPublications();
 		l.printAllClients();
+	
+		l.borrowBook(1, "George", "Gbook");
+		//l.borrowBook(2, "George", "Gbook");
+		//l.borrowBook(3, "George", "Gbook");
+		//l.borrowBook(4, "George", "Gbook");
+		//l.borrowBook(5, "George", "Gbook");
+		
+		System.out.println(l.returnItem(829120273));
+		
 	}
 
 }
