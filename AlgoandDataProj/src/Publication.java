@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 /**
  * Abstract class to represent publications held in a library. Implements Comparable so that Publications can be
  * sorted/searched.
@@ -83,7 +81,11 @@ public class Publication implements Comparable<Publication> {
 		waitingList.pop();
 	}
 	
-	public int getNextInLine() {	
+	public Integer getNextInLine() {
+		//System.out.println(waitingList);
+		if (waitingList.isEmpty()) {
+			return -1;
+		}
 		return waitingList.top();
 	}
 	

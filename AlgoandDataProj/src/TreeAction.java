@@ -1,5 +1,5 @@
 
-public abstract class TreeAction
+public abstract class TreeAction<E extends Comparable<E>>
 {
-	public abstract void run(Tree.TreeNode n);
+	public abstract void run(Tree<E>.TreeNode<E> n);
 }

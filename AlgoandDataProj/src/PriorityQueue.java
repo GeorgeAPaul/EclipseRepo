@@ -1,7 +1,7 @@
 
 public class PriorityQueue<E, T extends Comparable<T>> 
 {       
-	private class PriorityPair<P, U extends Comparable<U>> implements Comparable<PriorityPair<?,U>> {
+	private class PriorityPair<P, U extends Comparable<U>> implements Comparable<PriorityPair<P,U>> {
 		
 		private E element;
 		private T priority;
@@ -15,13 +15,14 @@ public class PriorityQueue<E, T extends Comparable<T>>
 			return (E)element;
 		}
 		@Override
-		public int compareTo(PriorityPair<?,U> o) {
+		public int compareTo(PriorityPair<P,U> o) {
 			return priority.compareTo((T) o.priority);
 		}
 		
 	}
 	
 	private LinkedList<PriorityPair<E,T>> data;
+	
 	public PriorityQueue()
 	{
 		data = new LinkedList<PriorityPair<E,T>>();
@@ -36,12 +37,37 @@ public class PriorityQueue<E, T extends Comparable<T>>
 	}
 	public E pop()
 	{
-		Object tmp = data.getFirst().getElement();
+		E tmp = data.getFirst().getElement();
 		data.removeFirst();
-		return (E)tmp;
+		return tmp;
 	}
 	public E top()
 	{
-		return (E)data.getFirst().getElement();
+		return data.getFirst().getElement();
+	}
+	
+	public boolean isEmpty()
+	{
+		return data.isEmpty();
+	}
+	
+	public String toString()
+	{
+		if(isEmpty()) {
+			return "[]";
+		}
+		
+		PriorityQueue<E,T> tmp = new PriorityQueue<E,T>();
+		String s = "[";
+		T sloo = null;
+		while(!isEmpty()){
+			s += top() + ",";
+			tmp.push(pop(),sloo);
+		}
+		
+		while(!tmp.isEmpty()) {
+			push(tmp.pop(),sloo);
+		}
+		return s.substring(0, s.length() - 1) + "]";
 	}
 }

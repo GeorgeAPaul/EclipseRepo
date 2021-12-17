@@ -1,6 +1,4 @@
-import java.util.Comparator;
-
-public class Tree<E> {
+public class Tree<E extends Comparable<?>> {
 	/*
 	private class NaturalComparator implements Comparator
 	{
@@ -13,44 +11,48 @@ public class Tree<E> {
 	// the class for implementing a node in the tree.
 	// contains a value, a pointer to the left child and a pointer to the right child
 	
-	public class TreeNode implements Comparable
+	public class TreeNode<P extends Comparable<P>> implements Comparable<P>
 	{
-		private Comparable value;
-		private TreeNode leftNode;
-		private TreeNode rightNode;
-		public TreeNode(Comparable v)
+		private P value;
+		private TreeNode<P> leftNode;
+		private TreeNode<P> rightNode;
+		public TreeNode(P v)
 		{
 			value = v;
 			leftNode = null;
 			rightNode = null;
 		}
 	  
-		public TreeNode(Comparable v, TreeNode left, TreeNode right)
+		public TreeNode(P v, TreeNode<P> left, TreeNode<P> right)
 		{
 			value = v;
 			leftNode = left;
 			rightNode = right;
 		}
-		public TreeNode getLeftTree()
+		public TreeNode<P> getLeftTree()
 		{
 			return leftNode;
 		}
 	 
-		public TreeNode getRightTree()
+		public TreeNode<P> getRightTree()
 		{
 			return rightNode;
 		}
 	 
 	 
-		public Comparable getValue()
+		public P getValue()
 		{
 			return value;
 		}
+		
+		public void setValue(P value)
+		{
+			this.value = value;
+		}
 
 		@Override
-		public int compareTo(Object arg0) {
-			// TODO Auto-generated method stub
-			return 0;
+		public int compareTo(P arg0) {
+			return value.compareTo(arg0);
 		}
 		
 		public String toString() {
@@ -59,9 +61,6 @@ public class Tree<E> {
 	 
 
 	}
-	
-	
-		
 	// start of the actual tree class
 	
 	// the root of our tree
@@ -148,11 +147,11 @@ public class Tree<E> {
 		else insertAtNode(element,current.getRightTree(),current);
 	}
 	
-	public int findDepth() {
-		int depth = 0;
-		
-		return depth;
-	}
+//	public int findDepth() {
+//		int depth = 0;
+//		
+//		return depth;
+//	}
 	
 //	public String toString ()
 //	{
@@ -172,18 +171,27 @@ public class Tree<E> {
 //		return s ;
 //	}
 	
-	public String toString()
-	{
-		traverse(new TreeAction()
-		{	
-			public void run(Tree.TreeNode n)
-			{	
-				s += n.toString() + "\n";
-				
+	public String toString() {
+		traverse(new TreeAction() {	
+			public void run(Tree.TreeNode n) {	
+				s += n.toString() + "\n";	
 			}
-		}
-				);
+		});
 		return s ;
+	}
+	
+	private E findNode (Comparable element ,TreeNode current) {
+		if (current == null) return null;
+		else if (element.compareTo(current.value) == 0)
+			return (E)current.value;
+		else if (element.compareTo(current.value) < 0) {
+			return findNode (element, current.getLeftTree( )) ;
+		}
+		else return findNode(element, current.getRightTree()) ;
+	}
+	
+	public E find (Comparable element) {
+		return findNode (element, root) ;
 	}
 
 	

@@ -225,10 +225,10 @@ public class Library implements ILibraryManagement {
 		Publication pf = shelves.find(p);
 		
 		int tmp = -1;
-		if(pf.getNextInLine() != 0) {
+		if(pf.getNextInLine() != null) {
 			tmp = pf.getNextInLine();
+			pf.removefromWaitingList();
 		}
-		pf.removefromWaitingList();
 		pf.setCurrentOwner(0);
 		return tmp;
 	}

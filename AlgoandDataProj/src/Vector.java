@@ -7,7 +7,7 @@
  *
  * @param <E> Data type to be stored in the Vector.
  */
-public class Vector<E extends Comparable<?>> 
+public class Vector<E extends Comparable<E>> 
 {
 	/**
 	 * An array to store the objects in the Vector.
@@ -154,7 +154,7 @@ public class Vector<E extends Comparable<?>>
 	 * Method to return the last element in the Vector.
 	 * @return last element of the Vector.
 	 */
-	public Object getLast()
+	public E getLast()
 	{
 		return (E)data[size() - 1];
 	}

@@ -1,4 +1,4 @@
-public class LinkedList<E extends Comparable<?>> {
+public class LinkedList<E extends Comparable<E>> {
 	
 	
 	private class ListElement implements Comparable<E> {
@@ -52,7 +52,7 @@ public class LinkedList<E extends Comparable<?>> {
 	{
 		// an empty list , add element in front
 		if(head == null) head = new ListElement(o, null);
-		else if(((Comparable<E>)head.first()).compareTo(o) > 0)
+		else if(head.first().compareTo(o) > 0)
 		{
 			// we have to add the element in front
 			head = new ListElement (o , head);

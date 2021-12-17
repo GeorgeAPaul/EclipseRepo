@@ -1,5 +1,6 @@
+import java.util.Arrays;
 
-public class Main {
+public class TestMain {
 	
 	public static void main(String[] args) {
 
@@ -237,18 +238,22 @@ public class Main {
 //		System.out.println(pq.pop());
 		
 		
-		Tree t = new Tree();
+//		Tree t = new Tree();
+//		
+//		t.insert(1);
+//		t.insert(2);
+//		t.insert(3);
+//		t.insert(4);
+//		t.insert(5);
+//		t.insert(6);
+//		
+//		System.out.println(t.toString());
+//		
+//		t.traverse(new TreePrinter());
 		
-		t.insert(1);
-		t.insert(2);
-		t.insert(3);
-		t.insert(4);
-		t.insert(5);
-		t.insert(6);
+		Matrix m = new Matrix(10);
 		
-		System.out.println(t.toString());
-		
-		t.traverse(new TreePrinter());
+		System.out.println(m);
 		
 		
 		
