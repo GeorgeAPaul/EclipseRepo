@@ -23,7 +23,7 @@ public class Publication implements Comparable<Publication> {
 	private final int id;
 	
 	/**
-	 * Waiting list for publication
+	 * Waiting list for publication, Priority Queue to allow for special treatment of VIPClients.
 	 */
 	private PriorityQueue<Integer,Integer> waitingList;
 	
@@ -45,6 +45,10 @@ public class Publication implements Comparable<Publication> {
 		waitingList = new PriorityQueue<Integer,Integer>();
 	}
 	
+	/**
+	 * Constructor method for creating dummy publications for use when searching the shelves in the library.
+	 * @param id 
+	 */
 	public Publication(int id) {
 		this.id = id;
 	}
@@ -73,27 +77,52 @@ public class Publication implements Comparable<Publication> {
 		return this.id - pub.getId(); 
 	}
 	
+	/**
+	 * Method for pushing a client id onto the waiting list
+	 * @param id Client id.
+	 * @param priority 0 for VIPClients, 1 for Clients.
+	 */
 	public void addToWaitingList(int id, int priority) {
 		waitingList.push(id, priority);
 	}
 	
+	/**
+	 * Method to remove the next in line on the waiting list and return their id.
+	 * @return id of the client.
+	 */
 	public int removeFromWaitingList() {	
 		return waitingList.pop();
 		
 	}
 	
-	public Integer getNextInLine() {
+	/**
+	 * Method to return the next in line from the waiting list.
+	 * @return id of the next in line client.
+	 */
+	public int getNextInLine() {
 		return waitingList.top();
 	}
 	
+	/**
+	 * Method to check whether the waiting list is empty.
+	 * @return true if waiting list is empty, else false.
+	 */
 	public boolean isWaitingListEmpty() {
 		return waitingList.isEmpty();
 	}
 	
+	/**
+	 * Method to return the current owner of the publication.
+	 * @return id of the current owner.
+	 */
 	public int getCurrentOwner() {	
 		return currentOwner;
 	}
 	
+	/**
+	 * Method to set the current owner of the the publication
+	 * @param newOwner Client id of the new owner.
+	 */
 	public void setCurrentOwner(int newOwner) {
 		//System.out.println(waitingList);
 		this.currentOwner = newOwner;

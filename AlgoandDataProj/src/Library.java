@@ -8,13 +8,15 @@
 public class Library implements ILibraryManagement {
 	
 	/**
-	 * Vector to represent the shelves of the Library. Vector was chosen as search is faster when data is sorted.
-	 * Since the only way to add publications is via addLast, publications will inherently be sorted by id.
+	 * Tree to store the publications in so that id's can be searched for in O(log(n)) time (if tree is balanced).
 	 */
 	private Tree<Publication> shelves;
+	// Since publication id's are now a hash of the input strings we can expect a reasonably 
+	//balanced tree but perhaps a red black tree would be better?
 	
 	/**
-	 * Vector to represent the list of clients of the Library. Vector was chosen for same reason as publications.
+	 * Vector to represent the list of clients of the Library. Vector was so that clients can be address in O(1) time by id
+	 * which is just their index + 1.
 	 */
 	private Vector<AbstractClient> clientList;
 	
@@ -44,7 +46,7 @@ public class Library implements ILibraryManagement {
 	 */
 	@Override
 	public int addBook(String author, String title, int yearOfPublication) {
-		int id = (author+title).hashCode();
+		int id = (author+title).hashCode(); //Create a hash int out of input strings, possible risk of collisions but very rare.
 		Book b = new Book(id, title, yearOfPublication, author); // Instantiating book object
 		shelves.insert(b); // Adding book to shelves, 
 		
@@ -146,21 +148,26 @@ public class Library implements ILibraryManagement {
 
 	/**
 	 * Method to borrow a book
+	 * @param client id of client who is borrowing the book.
+	 * @param author author of the book
+	 * @param title title of the book
+	 * @return id of the book
 	 */
 	@Override
 	public int borrowBook(int client, String author, String title) {
-		int id  = (author+title).hashCode();
-		Publication p = new Publication(id);
-		Book b = (Book)shelves.find(p);
+		int id  = (author+title).hashCode(); //Generate hash int
+		Publication p = new Publication(id); //Dummy publication with id to search for.
+		Book b = (Book)shelves.find(p); //Search shelves for book.
 		
+		//If no one currently owns the book and client/no one is next line, allow client to borrow book. Else add client to waiting list.
 		if (b.getCurrentOwner() == 0 && (b.isWaitingListEmpty() || b.getNextInLine() == client)) {
 			b.setCurrentOwner(client);
-			if(! b.isWaitingListEmpty()) {
+			if(! b.isWaitingListEmpty()) { // If waiting list was not empty remove client from waiting list as the now have the book.
 				b.removeFromWaitingList();
 			}	
 		}
 		else {
-			try {
+			try { //Try casting client to VIP client, if successful add them to waiting list with priority 0, if not add them with priority 1.
 				VIPClient test = (VIPClient) clientList.get(client - 1);
 				b.addToWaitingList(client, 0);
 			}
@@ -173,9 +180,14 @@ public class Library implements ILibraryManagement {
 
 	/**
 	 * Method to borrow a magazine
+	 * @param client id of client who is borrowing the magazine.
+	 * @param yearOfPublication year that the magazine was published
+	 * @param title title of the magazine
+	 * @param issue issue number of the magazine
+	 * @return id of the book
 	 */
 	@Override
-	public int lookAtMagazine(int client, String title, int yearOfPublication, int issue) {
+	public int lookAtMagazine(int client, String title, int yearOfPublication, int issue) { //Follows same logic as borrowBook.
 		int id  = (title+yearOfPublication+issue).hashCode();
 		Publication p = new Publication(id);
 		Magazine m = (Magazine)shelves.find(p); 
@@ -200,9 +212,13 @@ public class Library implements ILibraryManagement {
 
 	/**
 	 * Method to borrow a BlueRay
+	 * @param client id of client who is borrowing the BlueRay.
+	 * @param title title of the BlueRay
+	 * @param yearOfPublication year that the blueray was published
+	 * @return id of the book
 	 */
 	@Override
-	public int borrowBlueRay(int client, String title, int yearOfPublication) {
+	public int borrowBlueRay(int client, String title, int yearOfPublication) { //Follows same logic as borrowBook.
 		int id  = (title+yearOfPublication).hashCode();
 		Publication p = new Publication(id);
 		Blueray br = (Blueray)shelves.find(p); 
@@ -227,9 +243,13 @@ public class Library implements ILibraryManagement {
 
 	/**
 	 * Method to borrow a CD
+	 * @param client id of client who is borrowing the CD.
+	 * @param author author of the CD
+	 * @param title title of the CD
+	 * @return id of the book
 	 */
 	@Override
-	public int borrowCD(int client, String author, String title) {
+	public int borrowCD(int client, String author, String title) { //Follows same logic as borrowBook.
 		int id  = (author+title).hashCode();
 		Publication p = new Publication(id);
 		CD c = (CD)shelves.find(p); 
@@ -253,20 +273,18 @@ public class Library implements ILibraryManagement {
 	}
 
 	/**
-	 * Method to return a publication
+	 * Method to return a publication, i.e set publication owner id back to 0.
+	 * @param publicationID publication id to return.
+	 * @return id of the next in line client
 	 */
 	@Override
 	public int returnItem(int publicationID) {
-		Publication p = new Publication(publicationID);
-		Publication pf = shelves.find(p);		
-		int nextInLine = -1;
-		try {
+		Publication p = new Publication(publicationID); //Dummy publication with id to search for.
+		Publication pf = shelves.find(p); //Find the publication in the tree.
+		int nextInLine = -1; // Return this if there is no one in the waiting list.
+		if(!pf.isWaitingListEmpty()) {
 			nextInLine = pf.getNextInLine();
 		}
-		catch(NullPointerException n){
-			//Do nothing
-		}
-		System.out.println(pf.getCurrentOwner());
 		pf.setCurrentOwner(0);
 		return nextInLine;
 	}
