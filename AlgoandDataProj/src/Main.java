@@ -13,6 +13,11 @@ public class Main {
 		
 		// Adding one of each type of client
 		l.addClient("George", "george@gib.com");
+		l.addClient("George", "george@gib.com");
+		l.addClient("George", "george@gib.com");
+		l.addClient("George", "george@gib.com");
+		l.addClient("George", "george@gib.com");
+		l.addClient("George", "george@gib.com");
 		l.addVIPClient("VIPGeorge", "george@gibVIP.com");
 		l.addVIPClient("VIPGeorge", "george@gibVIP.com");
 		l.addVIPClient("VIPGeorge", "george@gibVIP.com");
@@ -33,8 +38,27 @@ public class Main {
 		//l.borrowBook(3, "George", "Gbook");
 		//l.borrowBook(4, "George", "Gbook");
 		//l.borrowBook(5, "George", "Gbook");
+		//l.borrowBook(6, "George", "Gbook");
+		//l.borrowBook(7, "George", "Gbook");
+		//l.borrowBook(8, "George", "Gbook");
 		
 		System.out.println(l.returnItem(829120273));
+		System.out.println(l.returnItem(829120273));
+		System.out.println(l.returnItem(829120273));
+		System.out.println(l.returnItem(829120273));
+		System.out.println(l.returnItem(829120273));
+		System.out.println(l.returnItem(829120273));
+		System.out.println(l.returnItem(829120273));
+		System.out.println(l.returnItem(829120273));
+		
+		l.borrowBook(8, "George", "Gbook");
+		
+		System.out.println(l.returnItem(829120273));
+		
+		l.borrowBook(7, "George", "Gbook");
+		
+		System.out.println(l.returnItem(829120273));
+		
 		
 	}
 

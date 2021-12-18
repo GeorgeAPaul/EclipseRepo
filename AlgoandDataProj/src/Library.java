@@ -153,11 +153,20 @@ public class Library implements ILibraryManagement {
 		Publication p = new Publication(id);
 		Book b = (Book)shelves.find(p);
 		
-		if (b.getCurrentOwner() == 0) {
+		if (b.getCurrentOwner() == 0 && (b.isWaitingListEmpty() || b.getNextInLine() == client)) {
 			b.setCurrentOwner(client);
+			if(! b.isWaitingListEmpty()) {
+				b.removeFromWaitingList();
+			}	
 		}
 		else {
-			b.addToWaitingList(client);
+			try {
+				VIPClient test = (VIPClient) clientList.get(client - 1);
+				b.addToWaitingList(client, 0);
+			}
+			catch(ClassCastException e) {
+				b.addToWaitingList(client, 1);
+			}
 		}
 		return id;
 	}
@@ -171,11 +180,20 @@ public class Library implements ILibraryManagement {
 		Publication p = new Publication(id);
 		Magazine m = (Magazine)shelves.find(p); 
 		
-		if (m.getCurrentOwner() == 0) {
+		if (m.getCurrentOwner() == 0 && (m.isWaitingListEmpty() || m.getNextInLine() == client)) {
 			m.setCurrentOwner(client);
+			if(! m.isWaitingListEmpty()) {
+				m.removeFromWaitingList();
+			}	
 		}
 		else {
-			m.addToWaitingList(client);
+			try {
+				VIPClient test = (VIPClient) clientList.get(client - 1);
+				m.addToWaitingList(client, 0);
+			}
+			catch(ClassCastException e) {
+				m.addToWaitingList(client, 1);
+			}
 		}
 		return id;
 	}
@@ -189,11 +207,20 @@ public class Library implements ILibraryManagement {
 		Publication p = new Publication(id);
 		Blueray br = (Blueray)shelves.find(p); 
 
-		if (br.getCurrentOwner() == 0) {
+		if (br.getCurrentOwner() == 0 && (br.isWaitingListEmpty() || br.getNextInLine() == client)) {
 			br.setCurrentOwner(client);
+			if(! br.isWaitingListEmpty()) {
+				br.removeFromWaitingList();
+			}	
 		}
 		else {
-			br.addToWaitingList(client);
+			try {
+				VIPClient test = (VIPClient) clientList.get(client - 1);
+				br.addToWaitingList(client, 0);
+			}
+			catch(ClassCastException e) {
+				br.addToWaitingList(client, 1);
+			}
 		}
 		return id;
 	}
@@ -207,11 +234,20 @@ public class Library implements ILibraryManagement {
 		Publication p = new Publication(id);
 		CD c = (CD)shelves.find(p); 
 
-		if (c.getCurrentOwner() == 0) {
+		if (c.getCurrentOwner() == 0 && (c.isWaitingListEmpty() || c.getNextInLine() == client)) {
 			c.setCurrentOwner(client);
+			if(! c.isWaitingListEmpty()) {
+				c.removeFromWaitingList();
+			}	
 		}
 		else {
-			c.addToWaitingList(client);
+			try {
+				VIPClient test = (VIPClient) clientList.get(client - 1);
+				c.addToWaitingList(client, 0);
+			}
+			catch(ClassCastException e) {
+				c.addToWaitingList(client, 1);
+			}
 		}
 		return id;
 	}
@@ -222,15 +258,16 @@ public class Library implements ILibraryManagement {
 	@Override
 	public int returnItem(int publicationID) {
 		Publication p = new Publication(publicationID);
-		Publication pf = shelves.find(p);
-		
-		int tmp = -1;
-		if(pf.getNextInLine() != null) {
-			tmp = pf.getNextInLine();
-			pf.removefromWaitingList();
+		Publication pf = shelves.find(p);		
+		int nextInLine = -1;
+		try {
+			nextInLine = pf.getNextInLine();
+		}
+		catch(NullPointerException n){
+			//Do nothing
 		}
 		pf.setCurrentOwner(0);
-		return tmp;
+		return nextInLine;
 	}
 
 }

@@ -73,27 +73,29 @@ public class Publication implements Comparable<Publication> {
 		return this.id - pub.getId(); 
 	}
 	
-	public void addToWaitingList(int id) {	
-		waitingList.push(id, 1);
+	public void addToWaitingList(int id, int priority) {
+		waitingList.push(id, priority);
 	}
 	
-	public void removefromWaitingList() {	
-		waitingList.pop();
+	public int removeFromWaitingList() {	
+		return waitingList.pop();
+		
 	}
 	
 	public Integer getNextInLine() {
-		//System.out.println(waitingList);
-		if (waitingList.isEmpty()) {
-			return -1;
-		}
 		return waitingList.top();
+	}
+	
+	public boolean isWaitingListEmpty() {
+		return waitingList.isEmpty();
 	}
 	
 	public int getCurrentOwner() {	
 		return currentOwner;
 	}
 	
-	public void setCurrentOwner(int newOwner) {	
+	public void setCurrentOwner(int newOwner) {
+		//System.out.println(waitingList);
 		this.currentOwner = newOwner;
 	}
 }

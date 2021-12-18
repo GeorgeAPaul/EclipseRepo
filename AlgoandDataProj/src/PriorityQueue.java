@@ -16,7 +16,7 @@ public class PriorityQueue<E, T extends Comparable<T>>
 		}
 		@Override
 		public int compareTo(PriorityPair<P,U> o) {
-			return priority.compareTo((T) o.priority);
+			return priority.compareTo(o.priority);
 		}
 		
 	}

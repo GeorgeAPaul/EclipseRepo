@@ -60,6 +60,9 @@ public class Tree<E extends Comparable<E>> {
 		public String toString() {
 			return value.toString();
 		}
+
+		
+		
 	 
 
 	}
