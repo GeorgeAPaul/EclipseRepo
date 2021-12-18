@@ -266,6 +266,7 @@ public class Library implements ILibraryManagement {
 		catch(NullPointerException n){
 			//Do nothing
 		}
+		System.out.println(pf.getCurrentOwner());
 		pf.setCurrentOwner(0);
 		return nextInLine;
 	}

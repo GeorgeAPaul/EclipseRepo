@@ -34,13 +34,13 @@ public class Main {
 		l.printAllClients();
 	
 		l.borrowBook(1, "George", "Gbook");
-		//l.borrowBook(2, "George", "Gbook");
-		//l.borrowBook(3, "George", "Gbook");
-		//l.borrowBook(4, "George", "Gbook");
-		//l.borrowBook(5, "George", "Gbook");
-		//l.borrowBook(6, "George", "Gbook");
-		//l.borrowBook(7, "George", "Gbook");
-		//l.borrowBook(8, "George", "Gbook");
+		l.borrowBook(2, "George", "Gbook");
+		l.borrowBook(3, "George", "Gbook");
+		l.borrowBook(4, "George", "Gbook");
+		l.borrowBook(5, "George", "Gbook");
+		l.borrowBook(6, "George", "Gbook");
+		l.borrowBook(7, "George", "Gbook");
+		l.borrowBook(8, "George", "Gbook");
 		
 		System.out.println(l.returnItem(829120273));
 		System.out.println(l.returnItem(829120273));
