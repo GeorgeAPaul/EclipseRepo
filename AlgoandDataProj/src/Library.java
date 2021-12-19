@@ -9,6 +9,7 @@ public class Library implements ILibraryManagement {
 	
 	/**
 	 * Tree to store the publications in so that id's can be searched for in O(log(n)) time (if tree is balanced).
+	 * Disadvantage is that multiple copies of same publication cannot be stored unless same different name used.
 	 */
 	private Tree<Publication> shelves;
 	// Since publication id's are now a hash of the input strings we can expect a reasonably 
