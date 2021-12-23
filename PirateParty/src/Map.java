@@ -78,8 +78,8 @@ public class Map {
 		
 		characterGrid = new Character[mapWidth][mapWidth];
 		
-		int i = (int)(Math.random() * mapWidth);
-		int j = (int)(Math.random() * mapWidth);
+		int i = 2;//(int)(Math.random() * mapWidth);
+		int j = 2;//(int)(Math.random() * mapWidth);
 		
 		characterGrid[i][j] = new Player(noOfAllies);
 		
@@ -164,27 +164,11 @@ public class Map {
 //		System.out.println(s);
 	}
 	
-	public String getVisibleItems() {
+	public Item[] getVisibleItems() {
+		
 		int i = playerLocation[0];
 		int j = playerLocation[1];
-		
-		String s = "";
-		
-		for(int k = 0; k < itemGrid.length; k++) {
-			Item item = itemGrid[i][j][k];
-			if(item != null) {
-				s += item + "\n";
-			}
-		}
-		if(s == "") {
-			try {
-				Thread.sleep(2000);
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
-			}
-			s = "Nothing!";
-		}
-		return s;
+		return itemGrid[i][j];
 	}
 	
 	

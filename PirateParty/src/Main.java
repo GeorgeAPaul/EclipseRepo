@@ -36,8 +36,40 @@ public class Main {
 					c = m.setPlayerLocation(m.getPlayerLocation()[0], m.getPlayerLocation()[1] - 1);
 				}
 				else if(l.matches("(?i).*[l][o][o][k].*")) {
+					
 					System.out.println("You cast your eye about and see...");
-					System.out.println(m.getVisibleItems());
+					
+					try {
+						Thread.sleep(2000);
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
+					
+					Item[] items = m.getVisibleItems();
+					
+					for(int i = 0; i < items.length; i++) {
+						Item item = items[i];
+						if(item != null) {
+							System.out.println(item);
+						}
+					}
+					if(items[0] == null) {
+						System.out.println("Nothing!\nMaybe I should go somewhere else?");
+					}
+				}
+				else if(l.matches("(?i).*[t][a][k][e].*")) {
+					
+					String[] split = l.split(" ");
+					Item[] items = m.getVisibleItems();
+					
+					for(int i = 0; i < items.length; i++) {
+						if(items[i] != null) {
+							System.out.println("(?i)." + "[" + items[i].toString() + "]");
+							if(split[1].matches("(?i)." + "[" + items[i].toString() + "]")) {
+								System.out.println(items[i].toString());
+							}
+						}
+					}
 				}
 			}
 			catch(IndexOutOfBoundsException e) {
