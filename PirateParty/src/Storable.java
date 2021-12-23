@@ -1,8 +1,6 @@
 
 public interface Storable {
 	
-	void getName();
-
-	void setIsTakeable();
+	void setIsTakeable(boolean isTakeable);
 		
 }

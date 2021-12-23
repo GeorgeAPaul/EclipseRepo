@@ -3,12 +3,15 @@ public class Map {
 	
 	private Location[][] locationGrid;
 	private Character[][] characterGrid;
+	private Item[][][] itemGrid;
 	private int[] playerLocation;
+	
 
 	public Map(int mapWidth, int noOfEnemies, int noOfAllies) {
 		
 		generateRandomMap(mapWidth);
 		generateCharacters(mapWidth, noOfEnemies, noOfAllies);
+		generateItems(mapWidth);
 	
 	}
 	
@@ -71,14 +74,14 @@ public class Map {
 		
 	}
 	
-	private Character[][] generateCharacters(int mapWidth, int noOfEnemies, int noOfAllies){
+	private void generateCharacters(int mapWidth, int noOfEnemies, int noOfAllies){
 		
 		characterGrid = new Character[mapWidth][mapWidth];
 		
 		int i = (int)(Math.random() * mapWidth);
 		int j = (int)(Math.random() * mapWidth);
 		
-		characterGrid[i][j] = new Player();
+		characterGrid[i][j] = new Player(noOfAllies);
 		
 		playerLocation = new int[]{i, j};
 		
@@ -99,7 +102,6 @@ public class Map {
 			}
 			characterGrid[i][j] = new Ally();
 		}
-		return characterGrid;
 	}
 	
 	public int[] getPlayerLocation() {
@@ -111,12 +113,78 @@ public class Map {
 	}
 	
 	public Character setPlayerLocation(int i, int j) throws IndexOutOfBoundsException {
-		Character tmp = characterGrid[i][j];
+		Character c = characterGrid[i][j];
 		characterGrid[i][j] = characterGrid[playerLocation[0]][playerLocation[1]];
 		characterGrid[playerLocation[0]][playerLocation[1]] = null;
 		playerLocation[0] = i;
 		playerLocation[1] = j;
-		return tmp;
+		return c;
+	}
+	
+	public void generateItems(int mapWidth) {
+		
+		itemGrid = new Item[mapWidth][mapWidth][mapWidth];
+		
+		String[] itemList = {"Map","Compass"};
+		
+		for(int k = 0; k < itemList.length; k++) {
+			
+			int i = 2;//(int)(Math.random() * mapWidth);
+			int j = 2;//(int)(Math.random() * mapWidth);
+			int z = 0;
+			
+			if (itemGrid[i][j][z] == null) {
+				itemGrid[i][j][z] = new Item(itemList[k]);
+			}
+			else {
+				while(itemGrid[i][j][z] != null) {
+					z++;
+					if(itemGrid[i][j][z] == null) {
+						itemGrid[i][j][z] = new Item(itemList[k]);
+						break;
+					}
+				}
+			}
+			if(characterGrid[i][j] != null) {
+				itemGrid[i][j][z].setIsTakeable(false);
+			}
+		}
+		
+//		String s = "";
+//		for(int i = 0; i < mapWidth; i++) {
+//			for(int j = 0; j < mapWidth; j++) {
+//				for(int k = 0; k < mapWidth; k++) {
+//				s += itemGrid[i][j][k];
+//				//System.out.println(itemGrid[i][j][0]);
+//				}
+//			}
+//			s += "\n";
+//			
+//		}
+//		System.out.println(s);
+	}
+	
+	public String getVisibleItems() {
+		int i = playerLocation[0];
+		int j = playerLocation[1];
+		
+		String s = "";
+		
+		for(int k = 0; k < itemGrid.length; k++) {
+			Item item = itemGrid[i][j][k];
+			if(item != null) {
+				s += item + "\n";
+			}
+		}
+		if(s == "") {
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+			s = "Nothing!";
+		}
+		return s;
 	}
 	
 	

@@ -1,20 +1,25 @@
-import java.util.Arrays;
-
 public class Matrix<E extends Comparable<E>> {
 
-	private int[][] matrix;
+	private Object[][] matrix;
 	
 	public Matrix(int nrNodes) {
 
-		matrix = new int[nrNodes][nrNodes];
+		matrix = new Object[nrNodes][nrNodes];
+		
+		for(int i = 0; i < matrix.length; i++) {
+			for(int j = 0; j < matrix.length; j++) {
+				matrix[i][j] = 0;
+			}
+		}
 		
 	}
-//	public void set(int row , int col , Comparable weight) {
-//// store the weight at the given row and column.
-//	}
-//	public E get(int row , int col) {
-//// return the weight at the given row and column.
-//	}
+	public void set(int row , int col , E weight) {
+		matrix[row][col] = weight;
+	}
+	
+	public E get(int row , int col) {
+		return (E)matrix[row][col];
+	}
 	
 	public String toString() {
 		String s = "";
@@ -22,6 +27,7 @@ public class Matrix<E extends Comparable<E>> {
 			for(int j = 0; j < matrix.length; j++) {
 				s += matrix[i][j];
 			}
+			s += "\n";
 		}
 		return s;
 	}

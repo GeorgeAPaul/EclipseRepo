@@ -4,7 +4,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		int mapWidth = 10;
+		int mapWidth = 5;
 		int noOfEnemies = 3;
 		int noOfAllies = 3;
 		Scanner sc = new Scanner(System.in);
@@ -23,19 +23,22 @@ public class Main {
 			System.out.println("Try moving around (north, south, east, west)");
 			String l = sc.nextLine();
 			try {
-				if(l.matches(".*[nN][oO][rR][tT][hH].*")) {
+				if(l.matches("(?i).*[n][o][r][t][h].*")) {
 					c = m.setPlayerLocation(m.getPlayerLocation()[0] - 1, m.getPlayerLocation()[1]);
 				}
-				else if(l.matches(".*[sS][oO][uU][tT][hH].*")) {
+				else if(l.matches("(?i).*[s][o][u][t][h].*")) {
 					c = m.setPlayerLocation(m.getPlayerLocation()[0] + 1, m.getPlayerLocation()[1]);
 				}
-				else if(l.matches(".*[eE][aA][sS][tT].*")) {
+				else if(l.matches("(?i).*[e][a][s][t].*")) {
 					c = m.setPlayerLocation(m.getPlayerLocation()[0], m.getPlayerLocation()[1] + 1);
 				}
-				else if(l.matches(".*[wW][eE][sS][tT].*")) {
+				else if(l.matches("(?i).*[w][e][s][t].*")) {
 					c = m.setPlayerLocation(m.getPlayerLocation()[0], m.getPlayerLocation()[1] - 1);
 				}
-				
+				else if(l.matches("(?i).*[l][o][o][k].*")) {
+					System.out.println("You cast your eye about and see...");
+					System.out.println(m.getVisibleItems());
+				}
 			}
 			catch(IndexOutOfBoundsException e) {
 				

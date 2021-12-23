@@ -1,7 +1,7 @@
 
 public abstract class Character extends GameObject implements Attackable, HasInventory  {
 	
-	private String name;
+	//private String name;
 	private int health;
 	private int[] coordinates;
 	protected int attackPower;
@@ -53,18 +53,19 @@ public abstract class Character extends GameObject implements Attackable, HasInv
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
-		e.adjustDefence(-1);
-		
+		System.out.println("Enemy is emboldended by your pathetic wailing...");
+		System.out.println("Enemy defence up!");
+		e.adjustDefence(-1);	
 	}
 
 	@Override
 	public void warCry(Character e) {
+		System.out.println("WAARRARAGARHHARHARHARH!!!!!!!!!");
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
-		System.out.println("WAARRARAGARHHARHARHARH!!!!!!!!!");
 		System.out.println("Looks like you scared them!");
 		System.out.println("Enemy defence down!");
 		e.adjustDefence(1);
@@ -89,6 +90,11 @@ public abstract class Character extends GameObject implements Attackable, HasInv
 		}
 	}
 	
+	public void setName(String name) {
+		this.name = name;
+	}
 	
-
+	public String getName() {
+		return name;
+	}
 }

@@ -1,11 +1,11 @@
 public class Graph<E extends Comparable<E>>
 {
-    public class Node<P extends Comparable<P>> implements Comparable<P>
+    public class Node<P extends Comparable<P>> implements Comparable<Node<P>>
     {
-        private Comparable info;
+        private P info;
         private Vector edges;
         
-        public Node(Comparable label)
+        public Node(P label)
         {
             info = label;
             edges = new Vector<P>(10);
@@ -16,36 +16,36 @@ public class Graph<E extends Comparable<E>>
             edges.addLast(e);
         }
         
-        public int compareTo(P o)
+        public int compareTo(Node<P> o)
         {
             // two nodes are equal if they have the same label
             Node n = (Node)o;
             return n.info.compareTo(info);
         }
         
-        public Comparable getLabel()
+        public P getLabel()
         {
             return info;
         }
         
     }
     
-    private class Edge implements Comparable
+    private class Edge<P extends Comparable<P>> implements Comparable<Edge<P>>
     {
-        private Node toNode;
+        private Node<P> toNode;
         
-        public Edge(Node to)
+        public Edge(Node<P> to)
         {
             toNode = to;
         }
         
-        public int compareTo(Object o)
+        public int compareTo(Edge<P> o)
         {
             // two edges are equal if they point
             // to the same node.
             // this assumes that the edges are
             // starting from the same node !!!
-            Edge n = (Edge)o;
+            Edge<P> n = o;
             return n.toNode.compareTo(toNode);
         }
     }

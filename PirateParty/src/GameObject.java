@@ -1,7 +1,7 @@
 
 public class GameObject {
 	
-	String name;
+	protected String name;
 	int coordinates[];
 	
 }

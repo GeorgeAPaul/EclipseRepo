@@ -1,15 +1,14 @@
 import java.util.Scanner;
 
 public class Encounter {
-	
 	private Player p;
 	private Enemy e;
 	private Ally a;
 	private Scanner sc;
 	private static String[] riddleArray = {"Who is the best Java teacher?", "Who is the best Java student?", 
 			"What is the best country in the world?", "What is 2 + 3?", "Were the moon landings faked?", "What is a student's favorite lunch?"};
-	private static String[] riddleAnswers = {".*[lL][eE][sS][lL][eE][yY].*", ".*[gG][eE][oO][rR][gG][eE].*", ".*[bB][eE][lL][gG][iI][uU][mM].*", 
-			"5|five", ".*[nN][oO].*", ".*[rR][aA][mM][eE][nN].*"};
+	private static String[] riddleAnswers = {"(?i).*[l][e][s][l][e][y].*", "(?i).*[g][e][o][r][g][e].*", "(?i).*[b][e][l][g][i][u][m].*", 
+			"5|(?i).*[f][i][v][e].*", "(?i).*[n][o].*", "(?i).*[r][a][m][e][n].*"};
 	
 	public Encounter(Player p, Enemy e) {
 		this.p = p;
@@ -32,11 +31,11 @@ public class Encounter {
 	private void battle() {
 		
 		boolean playerTurn = true;
-		System.out.println("Battle commenced! try attack/war cry/cry");
+		System.out.println("\nBattle commenced! try attack/war cry/cry");
 		
 		while (p.getHealth() > 0 && e.getHealth() > 0)
 		{
-			System.out.println("Your health: " + p.getHealth());
+			System.out.println("\nYour health: " + p.getHealth());
 			System.out.println("Enemy health: " + e.getHealth());
 			if (playerTurn) {
 				System.out.println("\nEn garde! Your opponent beckons you forward...");
@@ -47,9 +46,11 @@ public class Encounter {
 				} else if (l.matches(".*[wW][aA][rR].*[cC][rR][yY].*")) {
 					p.warCry(e);
 				} else if (l.matches("[cC][rR][yY].*")) {
-					System.out.println("Enemy is emboldended by your pathetic wailing...");
 					p.cry(e);
-					System.out.println("Enemy defence up!");
+				}
+				for (int i = 0; i < p.getNoOfRecruitedAllies(); i++) {
+					System.out.println(p.getAlly(i).getName() + " is attacking!");
+					p.getAlly(i).attack(e);
 				}
 				playerTurn = false;
 			}
@@ -102,6 +103,10 @@ public class Encounter {
 		}
 		else {
 			System.out.println("Recruitment successful!");
+			System.out.println("What would you like to name your new ally?");
+			String name = sc.nextLine();
+			a.setName(name);
+			p.addAlly(a);
 		}
 		
 	}

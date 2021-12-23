@@ -211,31 +211,31 @@ public class TestMain {
 //		System.out.println(s.size());
 		
 		
-		PriorityQueue<String,Integer> pq = new PriorityQueue<String,Integer>();
-		
-		pq.push("VIPClient1",0);
-		pq.push("Client1",1);
-		pq.push("Client2",1);
-		pq.push("VIPClient2",0);
-		pq.push("VIPClient3",0);
-		pq.push("VIPClient4",0);
-		pq.push("VIPClient5",0);
-		
-		
-		pq.push("Client3",1);
-		pq.push("Client4",1);
-		pq.push("Client5",1);
-		
-		
-		
-		System.out.println(pq.pop());
-		System.out.println(pq.pop());
-		System.out.println(pq.pop());
-		System.out.println(pq.pop());
-		System.out.println(pq.pop());
-		System.out.println(pq.pop());
-		System.out.println(pq.pop());
-		System.out.println(pq.pop());
+//		PriorityQueue<String,Integer> pq = new PriorityQueue<String,Integer>();
+//		
+//		pq.push("VIPClient1",0);
+//		pq.push("Client1",1);
+//		pq.push("Client2",1);
+//		pq.push("VIPClient2",0);
+//		pq.push("VIPClient3",0);
+//		pq.push("VIPClient4",0);
+//		pq.push("VIPClient5",0);
+//		
+//		
+//		pq.push("Client3",1);
+//		pq.push("Client4",1);
+//		pq.push("Client5",1);
+//		
+//		
+//		
+//		System.out.println(pq.pop());
+//		System.out.println(pq.pop());
+//		System.out.println(pq.pop());
+//		System.out.println(pq.pop());
+//		System.out.println(pq.pop());
+//		System.out.println(pq.pop());
+//		System.out.println(pq.pop());
+//		System.out.println(pq.pop());
 		
 		
 //		Tree t = new Tree();
@@ -255,7 +255,11 @@ public class TestMain {
 //		
 //		System.out.println(m);
 		
+		MatrixGraph<Integer> mg = new MatrixGraph<Integer>(10);
 		
+		mg.addEdge(1, 1, 6);
+		
+		System.out.println(mg);
 		
 		
 		
