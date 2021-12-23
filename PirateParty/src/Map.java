@@ -164,7 +164,7 @@ public class Map {
 //		System.out.println(s);
 	}
 	
-	public Item[] getVisibleItems() {
+	public Item[] getItems() {
 		
 		int i = playerLocation[0];
 		int j = playerLocation[1];

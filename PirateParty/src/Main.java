@@ -45,11 +45,11 @@ public class Main {
 						e1.printStackTrace();
 					}
 					
-					Item[] items = m.getVisibleItems();
+					Item[] items = m.getItems();
 					
 					for(int i = 0; i < items.length; i++) {
 						Item item = items[i];
-						if(item != null) {
+						if(item != null && item.getIsTakeable()) {
 							System.out.println(item);
 						}
 					}
@@ -60,13 +60,13 @@ public class Main {
 				else if(l.matches("(?i).*[t][a][k][e].*")) {
 					
 					String[] split = l.split(" ");
-					Item[] items = m.getVisibleItems();
+					Item[] items = m.getItems();
 					
 					for(int i = 0; i < items.length; i++) {
 						if(items[i] != null) {
-							System.out.println("(?i)." + "[" + items[i].toString() + "]");
-							if(split[1].matches("(?i)." + "[" + items[i].toString() + "]")) {
-								System.out.println(items[i].toString());
+							if(split[1].matches("(?i)"+items[i].toString())) {
+								System.out.println("plop");
+								items[i].setIsTakeable(false);
 							}
 						}
 					}
