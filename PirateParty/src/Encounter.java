@@ -113,8 +113,6 @@ public class Encounter {
 			
 			Item[] inventory = a.removeAllFromInventory();
 			
-			System.out.println(Arrays.toString(inventory));
-			
 			for(int j = 0; j < inventory.length; j++) {
 				m.addItem(inventory[j]);
 			}

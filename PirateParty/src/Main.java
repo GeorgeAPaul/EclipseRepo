@@ -19,7 +19,6 @@ public class Main {
 		//Play loop
 		while(true) {
 			System.out.println(m.toString(true, true));
-			System.out.println("Player location marked as P, enemies are E");
 			System.out.println("Try moving around (north, south, east, west)");
 			String l = sc.nextLine();
 			try {
@@ -97,7 +96,24 @@ public class Main {
 						System.out.println("Nothing!\n");
 					}
 				}
-				
+				else if(l.matches("(?i).*[m][a][p].*")) {
+					Item [] inventory =  p.getInventory();
+					boolean hasMap = false;
+					boolean hasCompass = false;
+					for(int i = 0; i < inventory.length; i++)
+					{
+						if(inventory[i] != null && inventory[i].toString() == "Map")
+						{
+							hasMap = true;
+						}
+						if(inventory[i] != null && inventory[i].toString() == "Compass");
+						{
+							hasCompass = true;
+						}
+					}
+					System.out.println(m.toString(hasMap, hasCompass));
+					System.out.println("Player location marked as P, enemies are E");		
+				}
 			}
 			catch(IndexOutOfBoundsException e) {
 				

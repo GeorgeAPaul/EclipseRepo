@@ -162,7 +162,7 @@ public class Map {
 		
 		locationGrid[i][j].addToInventory(item);
 		
-		System.out.println("MAP inv" + Arrays.toString(locationGrid[i][j].getInventory()));
+		//System.out.println("MAP inv" + Arrays.toString(locationGrid[i][j].getInventory()));
 	}
 	
 	public Item[] getItems() {
