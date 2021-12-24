@@ -1,6 +1,8 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Encounter {
+	private Map m;
 	private Player p;
 	private Enemy e;
 	private Ally a;
@@ -10,18 +12,20 @@ public class Encounter {
 	private static String[] riddleAnswers = {"(?i).*[l][e][s][l][e][y].*", "(?i).*[g][e][o][r][g][e].*", "(?i).*[b][e][l][g][i][u][m].*", 
 			"5|(?i).*[f][i][v][e].*", "(?i).*[n][o].*", "(?i).*[r][a][m][e][n].*"};
 	
-	public Encounter(Player p, Enemy e) {
+	public Encounter(Player p, Enemy e, Map m) {
 		this.p = p;
 		this.e = e;
+		this.m = m;
 		sc = new Scanner(System.in);
 		
 		battle();
 		
 	}
 	
-	public Encounter(Player p, Ally a) {
+	public Encounter(Player p, Ally a, Map m) {
 		this.p = p;
 		this.a = a;
+		this.m = m;
 		sc = new Scanner(System.in);
 		
 		recruit();
@@ -106,6 +110,15 @@ public class Encounter {
 			System.out.println("What would you like to name your new ally?");
 			String name = sc.nextLine();
 			a.setName(name);
+			
+			Item[] inventory = a.removeAllFromInventory();
+			
+			System.out.println(Arrays.toString(inventory));
+			
+			for(int j = 0; j < inventory.length; j++) {
+				m.addItem(inventory[j]);
+			}
+			
 			p.addAlly(a);
 		}
 		

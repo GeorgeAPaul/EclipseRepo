@@ -38,6 +38,7 @@ public class Main {
 				else if(l.matches("(?i).*[l][o][o][k].*")) {
 					
 					System.out.println("You cast your eye about and see...");
+					boolean empty = true;
 					
 					try {
 						Thread.sleep(2000);
@@ -49,11 +50,12 @@ public class Main {
 					
 					for(int i = 0; i < items.length; i++) {
 						Item item = items[i];
-						if(item != null && item.getIsTakeable()) {
+						if(item != null) {
 							System.out.println(item);
+							empty = false;
 						}
 					}
-					if(items[0] == null) {
+					if(empty) {
 						System.out.println("Nothing!\nMaybe I should go somewhere else?");
 					}
 				}
@@ -66,11 +68,36 @@ public class Main {
 						if(items[i] != null) {
 							if(split[1].matches("(?i)"+items[i].toString())) {
 								System.out.println("plop");
-								items[i].setIsTakeable(false);
+								p.addToInventory(m.removeItem(items[i].toString()));
 							}
 						}
 					}
 				}
+				else if(l.matches("(?i).*[i][n][v][e][n][t][o][r][y].*")) {
+					
+					System.out.println("You look in your pocket about and see...");
+					boolean empty = true;
+					
+					try {
+						Thread.sleep(2000);
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
+					
+					Item[] items = p.getInventory();
+					
+					for(int i = 0; i < items.length; i++) {
+						Item item = items[i];
+						if(item != null) {
+							System.out.println(item);
+							empty = false;
+						}
+					}
+					if(empty) {
+						System.out.println("Nothing!\n");
+					}
+				}
+				
 			}
 			catch(IndexOutOfBoundsException e) {
 				
@@ -81,12 +108,12 @@ public class Main {
 	
 				try {
 					Enemy e = (Enemy)c;
-					Encounter en = new Encounter(p, e);
+					Encounter en = new Encounter(p, e, m);
 					c = null;
 				}
 				catch(ClassCastException e) {
 					Ally a = (Ally)c;
-					Encounter en = new Encounter(p, a);
+					Encounter en = new Encounter(p, a, m);
 					c = null;
 				}
 				

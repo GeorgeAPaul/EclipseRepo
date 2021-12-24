@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 public class Map {
 	
@@ -79,7 +80,7 @@ public class Map {
 		characterGrid = new Character[mapWidth][mapWidth];
 		
 		int i = 2;//(int)(Math.random() * mapWidth);
-		int j = 2;//(int)(Math.random() * mapWidth);
+		int j = 3;//(int)(Math.random() * mapWidth);
 		
 		characterGrid[i][j] = new Player(noOfAllies);
 		
@@ -94,14 +95,15 @@ public class Map {
 			characterGrid[i][j] = new Enemy();
 		}
 		
-		for(int k = 0; k < noOfAllies; k++) {
-			
-			while(characterGrid[i][j] != null) {
-				i = (int)(Math.random() * mapWidth);
-				j = (int)(Math.random() * mapWidth);
-			}
-			characterGrid[i][j] = new Ally();
-		}
+		characterGrid[2][2] = new Ally();
+//		for(int k = 0; k < noOfAllies; k++) {
+//			
+//			while(characterGrid[i][j] != null) {
+//				i = (int)(Math.random() * mapWidth);
+//				j = (int)(Math.random() * mapWidth);
+//			}
+//			characterGrid[i][j] = new Ally();
+//		}
 	}
 	
 	public int[] getPlayerLocation() {
@@ -123,7 +125,7 @@ public class Map {
 	
 	public void generateItems(int mapWidth) {
 		
-		itemGrid = new Item[mapWidth][mapWidth][mapWidth];
+		//itemGrid = new Item[mapWidth][mapWidth][mapWidth];
 		
 		String[] itemList = {"Map","Compass"};
 		
@@ -131,22 +133,13 @@ public class Map {
 			
 			int i = 2;//(int)(Math.random() * mapWidth);
 			int j = 2;//(int)(Math.random() * mapWidth);
-			int z = 0;
+			//int z = 0;
 			
-			if (itemGrid[i][j][z] == null) {
-				itemGrid[i][j][z] = new Item(itemList[k]);
+			if (characterGrid[i][j] != null) {
+				characterGrid[i][j].addToInventory(new Item(itemList[k]));
 			}
 			else {
-				while(itemGrid[i][j][z] != null) {
-					z++;
-					if(itemGrid[i][j][z] == null) {
-						itemGrid[i][j][z] = new Item(itemList[k]);
-						break;
-					}
-				}
-			}
-			if(characterGrid[i][j] != null) {
-				itemGrid[i][j][z].setIsTakeable(false);
+				locationGrid[i][j].addToInventory(new Item(itemList[k]));
 			}
 		}
 		
@@ -163,12 +156,29 @@ public class Map {
 //		}
 //		System.out.println(s);
 	}
+	public void addItem(Item item){
+		int i = playerLocation[0];
+		int j = playerLocation[1];
+		
+		locationGrid[i][j].addToInventory(item);
+		
+		System.out.println("MAP inv" + Arrays.toString(locationGrid[i][j].getInventory()));
+	}
 	
 	public Item[] getItems() {
 		
 		int i = playerLocation[0];
 		int j = playerLocation[1];
-		return itemGrid[i][j];
+		
+		return locationGrid[i][j].getInventory();
+	}
+	
+	public Item removeItem(String itemName) {
+		
+		int i = playerLocation[0];
+		int j = playerLocation[1];
+		
+		return locationGrid[i][j].removeFromInventory(itemName);
 	}
 	
 	

@@ -1,5 +1,5 @@
 
-public class Location {
+public class Location extends GameObject {
 	
 	private boolean isSea;
 	
