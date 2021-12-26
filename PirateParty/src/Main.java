@@ -18,8 +18,8 @@ public class Main {
 		
 		//Play loop
 		while(true) {
-			System.out.println(m.toString(true, true));
-			System.out.println("Try moving around (north, south, east, west)");
+			//System.out.println(m.toString(true, true));
+			//System.out.println("Try moving around (north, south, east, west)");
 			String l = sc.nextLine();
 			try {
 				if(l.matches("(?i).*[n][o][r][t][h].*")) {
@@ -63,13 +63,31 @@ public class Main {
 					String[] split = l.split(" ");
 					Item[] items = m.getItems();
 					
-					for(int i = 0; i < items.length; i++) {
-						if(items[i] != null) {
-							if(split[1].matches("(?i)"+items[i].toString())) {
-								System.out.println("plop");
-								p.addToInventory(m.removeItem(items[i].toString()));
+					if(split.length == 2) {
+						for(int i = 0; i < items.length; i++) {
+							if(items[i] != null && split[1].matches("(?i)"+items[i].toString())) {
+								p.addToInventory(m.getLocation().removeFromInventory(items[i].toString()));
 							}
 						}
+					}
+					else {
+						System.out.println("Take what?");
+					}
+				}
+				else if(l.matches("(?i).*[d][r][o][p].*")) {
+					
+					String[] split = l.split(" ");
+					Item[] items = p.getInventory();
+					
+					if(split.length == 2) {
+						for(int i = 0; i < items.length; i++) {
+							if(items[i] != null && split[1].matches("(?i)"+items[i].toString())) {
+								m.getLocation().addToInventory(p.removeFromInventory(items[i].toString()));
+							}
+						}
+					}
+					else {
+						System.out.println("Drop what?");
 					}
 				}
 				else if(l.matches("(?i).*[i][n][v][e][n][t][o][r][y].*")) {
@@ -102,12 +120,10 @@ public class Main {
 					boolean hasCompass = false;
 					for(int i = 0; i < inventory.length; i++)
 					{
-						if(inventory[i] != null && inventory[i].toString() == "Map")
-						{
+						if(inventory[i] != null && inventory[i].toString() == "Map") {
 							hasMap = true;
 						}
-						if(inventory[i] != null && inventory[i].toString() == "Compass");
-						{
+						if(inventory[i] != null && inventory[i].toString() == "Compass") {
 							hasCompass = true;
 						}
 					}

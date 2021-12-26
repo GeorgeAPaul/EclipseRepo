@@ -173,13 +173,21 @@ public class Map {
 		return locationGrid[i][j].getInventory();
 	}
 	
-	public Item removeItem(String itemName) {
+	public Location getLocation() {
 		
 		int i = playerLocation[0];
 		int j = playerLocation[1];
 		
-		return locationGrid[i][j].removeFromInventory(itemName);
+		return locationGrid[i][j];
 	}
+	
+//	public Item removeItem(String itemName) {
+//		
+//		int i = playerLocation[0];
+//		int j = playerLocation[1];
+//		
+//		return locationGrid[i][j].removeFromInventory(itemName);
+//	}
 	
 	
 	

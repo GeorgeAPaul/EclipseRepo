@@ -22,9 +22,7 @@ public class GameObject {
 	public Item removeFromInventory(String itemName) {
 		Item item = null;
 		for(int i = 0; i < inventory.length; i++) {
-			System.out.println(i);
-			System.out.println(Arrays.toString(inventory));
-			if(inventory[i].toString() != null && inventory[i].toString() == itemName) {
+			if(inventory[i] != null && inventory[i].toString() == itemName) {
 				item = inventory[i];
 				inventory[i] = null;
 				return item;
