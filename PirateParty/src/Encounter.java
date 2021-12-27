@@ -35,7 +35,7 @@ public class Encounter {
 	private void battle() {
 		
 		boolean playerTurn = true;
-		System.out.println("\nBattle commenced! try attack/war cry/cry");
+		System.out.println("\nBattle commenced! try attack/war cry/cry or use a weapon!");
 		
 		while (p.getHealth() > 0 && e.getHealth() > 0)
 		{
@@ -44,17 +44,49 @@ public class Encounter {
 			if (playerTurn) {
 				System.out.println("\nEn garde! Your opponent beckons you forward...");
 				String l = sc.nextLine();
-				if (l.matches(".*[aA][tT][tT][aA][cC][kK].*")) {
-					System.out.println("Attacking!");
-					p.attack(e);
-				} else if (l.matches(".*[wW][aA][rR].*[cC][rR][yY].*")) {
+				if (l.matches("(?i).*[a][t][t][a][c][k].*")) {
+					System.out.println("Attacking with fists!");
+					p.attack(e,p.getAttackPower());
+				} 
+				else if (l.matches("(?i).*[f][i][s][t].*")) {
+					System.out.println("Attacking with fists!");
+					p.attack(e,1);
+				} 
+				else if (l.matches("(?i).*[w][a][r].*[c][r][y].*")) {
 					p.warCry(e);
-				} else if (l.matches("[cC][rR][yY].*")) {
+				} 
+				else if (l.matches("(?i).*[c][r][y].*")) {
 					p.cry(e);
+				}
+				else if (l.matches("(?i).*[c][r][y].*")) {
+					p.cry(e);
+				}
+				else if (l.matches("(?i).*[u][s][e].*")) {
+					String[] split = l.split(" ");
+					Item[] items = p.getInventory();
+					
+					if(split.length == 2) {
+						for(int i = 0; i < items.length; i++) {
+							if(items[i] != null && split[1].matches("(?i)"+items[i].toString())) {
+								try {
+									Weapon w = (Weapon)items[i];
+									p.attack(e, w.getDamage());
+								}
+								catch(ClassCastException e) {
+									System.out.println("You can't use that in a fight!");
+									System.out.println("You fumbling around means you miss your turn!");
+								}
+							}
+						}
+					}
+					else {
+						System.out.println("Use what?");
+						System.out.println("You fumbling around means you miss your turn!");
+					}
 				}
 				for (int i = 0; i < p.getNoOfRecruitedAllies(); i++) {
 					System.out.println(p.getAlly(i).getName() + " is attacking!");
-					p.getAlly(i).attack(e);
+					p.getAlly(i).attack(e,1);
 				}
 				playerTurn = false;
 			}
@@ -65,12 +97,17 @@ public class Encounter {
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
-				e.attack(p);
+				e.attack(p,e.getAttackPower());
 				playerTurn = true;
 			}
 		}
 		if(p.getHealth() > 0) {
 			System.out.println("You win!");
+			Item[] inventory = e.removeAllFromInventory();
+			
+			for(int j = 0; j < inventory.length; j++) {
+				m.addItem(inventory[j]);
+			}
 		}
 		else {
 			System.out.println("You died!");

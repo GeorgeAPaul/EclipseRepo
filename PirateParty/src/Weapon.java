@@ -1,9 +1,15 @@
 
 public class Weapon extends Item {
 
-	public Weapon(String name) {
+	private int damage;
+	
+	public Weapon(String name, int damage) {
 		super(name);
-		// TODO Auto-generated constructor stub
+		this.damage = damage;
+	}
+	
+	public int getDamage() {
+		return damage;
 	}
 
 }

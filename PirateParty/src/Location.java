@@ -25,7 +25,7 @@ public class Location extends GameObject {
 	
 	public String toString() {
 		if(isSea) {
-			return "{ }";
+			return "~ ~";
 		}
 		return "< >";		
 	}

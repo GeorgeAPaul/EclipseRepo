@@ -18,8 +18,8 @@ public class Main {
 		
 		//Play loop
 		while(true) {
-			//System.out.println(m.toString(true, true));
-			//System.out.println("Try moving around (north, south, east, west)");
+			System.out.println(m.toString(true, false));
+			System.out.println("Try moving around (north, south, east, west)");
 			String l = sc.nextLine();
 			try {
 				if(l.matches("(?i).*[n][o][r][t][h].*")) {
@@ -45,17 +45,24 @@ public class Main {
 						e1.printStackTrace();
 					}
 					
-					Item[] items = m.getItems();
+					if(m.getLocation().getIsSea()) {
+						System.out.println("You are floating in the water.");
+					}
+					else {
+						System.out.println("You are standing on an island.");
+					}
+					
+					Item[] items = m.getLocation().getInventory();
 					
 					for(int i = 0; i < items.length; i++) {
 						Item item = items[i];
 						if(item != null) {
-							System.out.println(item);
+							System.out.println("You can see a " + item + " nearby.");
 							empty = false;
 						}
 					}
 					if(empty) {
-						System.out.println("Nothing!\nMaybe I should go somewhere else?");
+						System.out.println("There are no items here!\nMaybe you should go somewhere else?");
 					}
 				}
 				else if(l.matches("(?i).*[t][a][k][e].*")) {
@@ -92,7 +99,7 @@ public class Main {
 				}
 				else if(l.matches("(?i).*[i][n][v][e][n][t][o][r][y].*")) {
 					
-					System.out.println("You look in your pocket about and see...");
+					System.out.println("You look in your pocket and see...");
 					boolean empty = true;
 					
 					try {
@@ -127,8 +134,7 @@ public class Main {
 							hasCompass = true;
 						}
 					}
-					System.out.println(m.toString(hasMap, hasCompass));
-					System.out.println("Player location marked as P, enemies are E");		
+					System.out.println(m.toString(hasMap, hasCompass));		
 				}
 			}
 			catch(IndexOutOfBoundsException e) {

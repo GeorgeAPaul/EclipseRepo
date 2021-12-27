@@ -4,11 +4,18 @@ public class Map {
 	
 	private Location[][] locationGrid;
 	private Character[][] characterGrid;
-	private Item[][][] itemGrid;
+	//private Item[][][] itemGrid;
 	private int[] playerLocation;
 	
 
 	public Map(int mapWidth, int noOfEnemies, int noOfAllies) {
+		
+		int space = mapWidth*mapWidth - (noOfEnemies + noOfAllies + 1);
+		
+		if(space < 0) {
+			System.out.println("Arrgahrhhrah! There be too many characters in the map!");
+			System.out.println("Reduce number of characters by " + (-space));
+		}
 		
 		generateRandomMap(mapWidth);
 		generateCharacters(mapWidth, noOfEnemies, noOfAllies);
@@ -35,7 +42,9 @@ public class Map {
 				s += "\n";
 
 			}
-			
+			s += "Using your map and compass the map makes a lot of sense!\n";
+			s += "Perhaps squiggles are the sea and chevrons are the land...\n";
+			s += "Enemies could be E and maybe allies are A? I wonder what P is?\n";
 		}
 		
 		else if (hasMap && !hasCompass) {
@@ -45,6 +54,7 @@ public class Map {
 				}
 				s += "\n";
 			}
+			s += "Perhaps squiggles are the sea and chevrons are the land...";
 		}
 		else {
 			s = "You need a map!";
@@ -86,24 +96,25 @@ public class Map {
 		
 		playerLocation = new int[]{i, j};
 		
-		for(int k = 0; k < noOfEnemies; k++) {
-			
-			while(characterGrid[i][j] != null) {
-				i = (int)(Math.random() * mapWidth);
-				j = (int)(Math.random() * mapWidth);				
-			}
-			characterGrid[i][j] = new Enemy();
-		}
-		
-		characterGrid[2][2] = new Ally();
-//		for(int k = 0; k < noOfAllies; k++) {
+		characterGrid[2][2] = new Enemy();
+//		for(int k = 0; k < noOfEnemies; k++) {
 //			
 //			while(characterGrid[i][j] != null) {
 //				i = (int)(Math.random() * mapWidth);
-//				j = (int)(Math.random() * mapWidth);
+//				j = (int)(Math.random() * mapWidth);				
 //			}
-//			characterGrid[i][j] = new Ally();
+//			characterGrid[i][j] = new Enemy();
 //		}
+		
+		//characterGrid[2][2] = new Ally();
+		for(int k = 0; k < noOfAllies; k++) {
+			
+			while(characterGrid[i][j] != null) {
+				i = (int)(Math.random() * mapWidth);
+				j = (int)(Math.random() * mapWidth);
+			}
+			characterGrid[i][j] = new Ally();
+		}
 	}
 	
 	public int[] getPlayerLocation() {
@@ -125,14 +136,15 @@ public class Map {
 	
 	public void generateItems(int mapWidth) {
 		
-		//itemGrid = new Item[mapWidth][mapWidth][mapWidth];
 		
 		String[] itemList = {"Map","Compass"};
+		String[] weaponList = {"Sword","Gun","Sausage"};
+		int[] weaponDamageList = {50, 100, 0};
 		
 		for(int k = 0; k < itemList.length; k++) {
 			
-			int i = 2;//(int)(Math.random() * mapWidth);
-			int j = 2;//(int)(Math.random() * mapWidth);
+			int i = (int)(Math.random() * mapWidth);
+			int j = (int)(Math.random() * mapWidth);
 			//int z = 0;
 			
 			if (characterGrid[i][j] != null) {
@@ -140,6 +152,21 @@ public class Map {
 			}
 			else {
 				locationGrid[i][j].addToInventory(new Item(itemList[k]));
+			}
+		
+		}
+		
+		for(int k = 0; k < weaponList.length; k++) {
+			
+			int i = 2;//(int)(Math.random() * mapWidth);
+			int j = 3;//(int)(Math.random() * mapWidth);
+			//int z = 0;
+			
+			if (characterGrid[i][j] != null) {
+				characterGrid[i][j].addToInventory(new Weapon(weaponList[k], weaponDamageList[k]));
+			}
+			else {
+				locationGrid[i][j].addToInventory(new Weapon(weaponList[k], weaponDamageList[k]));
 			}
 		}
 		

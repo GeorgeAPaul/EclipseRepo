@@ -1,8 +1,8 @@
 
 public class Vehicle extends Weapon implements Rideable {
 
-	public Vehicle(String name) {
-		super(name);
+	public Vehicle(String name, int damage) {
+		super(name, damage);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -7,6 +7,7 @@ public abstract class Character extends GameObject implements Attackable, HasInv
 	protected int attackPower;
 	protected int defence;
 	
+	
 	public Character() {
 		health = 100;
 	}
@@ -37,7 +38,7 @@ public abstract class Character extends GameObject implements Attackable, HasInv
 	}
 
 	@Override
-	public void attack(Character e) {
+	public void attack(Character e, int attackPower) {
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e1) {
@@ -96,5 +97,9 @@ public abstract class Character extends GameObject implements Attackable, HasInv
 	
 	public String getName() {
 		return name;
+	}
+	
+	public int getAttackPower() {
+		return attackPower;
 	}
 }

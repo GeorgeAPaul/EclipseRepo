@@ -2,7 +2,6 @@
 public class Item extends GameObject implements Storable {
 	
 	private String name;
-	private boolean isTakeable;
 	
 	public Item(String name) {
 		this.name = name;
