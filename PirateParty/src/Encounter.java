@@ -86,7 +86,8 @@ public class Encounter {
 				}
 				for (int i = 0; i < p.getNoOfRecruitedAllies(); i++) {
 					System.out.println(p.getAlly(i).getName() + " is attacking!");
-					p.getAlly(i).attack(e,1);
+					Ally al = p.getAlly(i);
+					al.attack(e,al.getAttackPower());
 				}
 				playerTurn = false;
 			}

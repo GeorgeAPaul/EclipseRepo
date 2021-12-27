@@ -89,22 +89,22 @@ public class Map {
 		
 		characterGrid = new Character[mapWidth][mapWidth];
 		
-		int i = 2;//(int)(Math.random() * mapWidth);
-		int j = 3;//(int)(Math.random() * mapWidth);
+		int i = (int)(Math.random() * mapWidth);
+		int j = (int)(Math.random() * mapWidth);
 		
 		characterGrid[i][j] = new Player(noOfAllies);
 		
 		playerLocation = new int[]{i, j};
 		
-		characterGrid[2][2] = new Enemy();
-//		for(int k = 0; k < noOfEnemies; k++) {
-//			
-//			while(characterGrid[i][j] != null) {
-//				i = (int)(Math.random() * mapWidth);
-//				j = (int)(Math.random() * mapWidth);				
-//			}
-//			characterGrid[i][j] = new Enemy();
-//		}
+		//characterGrid[2][2] = new Enemy();
+		for(int k = 0; k < noOfEnemies; k++) {
+			
+			while(characterGrid[i][j] != null) {
+				i = (int)(Math.random() * mapWidth);
+				j = (int)(Math.random() * mapWidth);				
+			}
+			characterGrid[i][j] = new Enemy();
+		}
 		
 		//characterGrid[2][2] = new Ally();
 		for(int k = 0; k < noOfAllies; k++) {
@@ -158,8 +158,8 @@ public class Map {
 		
 		for(int k = 0; k < weaponList.length; k++) {
 			
-			int i = 2;//(int)(Math.random() * mapWidth);
-			int j = 3;//(int)(Math.random() * mapWidth);
+			int i = (int)(Math.random() * mapWidth);
+			int j = (int)(Math.random() * mapWidth);
 			//int z = 0;
 			
 			if (characterGrid[i][j] != null) {
