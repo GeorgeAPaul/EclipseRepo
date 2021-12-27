@@ -57,7 +57,7 @@ public class Map {
 			s += "Perhaps squiggles are the sea and chevrons are the land...";
 		}
 		else {
-			s = "You need a map!";
+			s = "You need to find a map!";
 		}
 		return s;
 	}

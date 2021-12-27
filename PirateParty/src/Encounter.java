@@ -35,7 +35,7 @@ public class Encounter {
 	private void battle() {
 		
 		boolean playerTurn = true;
-		System.out.println("\nBattle commenced! try attack/war cry/cry or use a weapon!");
+		System.out.println("\nBattle commenced! Try attack/war cry/cry or use a weapon!");
 		
 		while (p.getHealth() > 0 && e.getHealth() > 0)
 		{

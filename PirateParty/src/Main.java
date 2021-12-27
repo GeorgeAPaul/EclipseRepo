@@ -1,8 +1,29 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
 	
 	public static void main(String[] args) {
+				
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader("Intro.txt"));
+			String nextLine = br.readLine();
+			while (nextLine != null) {
+			      System.out.println(nextLine);
+			      nextLine = br.readLine();
+			}
+			br.close();
+		} 
+		catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} 	
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		int mapWidth = 5;
 		int noOfEnemies = 3;
@@ -14,24 +35,47 @@ public class Main {
 		//Generate Map
 		Map m = new Map(mapWidth, noOfEnemies, noOfAllies);
 		p = m.getPlayer();
-		
-		
+
 		//Play loop
 		while(true) {
-			System.out.println(m.toString(true, false));
-			System.out.println("Try moving around (north, south, east, west)");
+			//System.out.println(m.toString(true, false));
+			//System.out.println("Try moving around (north, south, east, west)");
 			String l = sc.nextLine();
 			try {
 				if(l.matches("(?i).*[n][o][r][t][h].*")) {
+					System.out.println("You head north...");
+					try {
+						Thread.sleep(2000);
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
 					c = m.setPlayerLocation(m.getPlayerLocation()[0] - 1, m.getPlayerLocation()[1]);
 				}
 				else if(l.matches("(?i).*[s][o][u][t][h].*")) {
+					System.out.println("You head south...");
+					try {
+						Thread.sleep(2000);
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
 					c = m.setPlayerLocation(m.getPlayerLocation()[0] + 1, m.getPlayerLocation()[1]);
 				}
 				else if(l.matches("(?i).*[e][a][s][t].*")) {
+					System.out.println("You head east...");
+					try {
+						Thread.sleep(2000);
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
 					c = m.setPlayerLocation(m.getPlayerLocation()[0], m.getPlayerLocation()[1] + 1);
 				}
 				else if(l.matches("(?i).*[w][e][s][t].*")) {
+					System.out.println("You head west...");
+					try {
+						Thread.sleep(2000);
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
 					c = m.setPlayerLocation(m.getPlayerLocation()[0], m.getPlayerLocation()[1] - 1);
 				}
 				else if(l.matches("(?i).*[l][o][o][k].*")) {
@@ -135,6 +179,25 @@ public class Main {
 						}
 					}
 					System.out.println(m.toString(hasMap, hasCompass));		
+				}
+				else if(l.matches("(?i).*[g][u][i][d][e].*")) {
+					br = null;
+					try {
+						br = new BufferedReader(new FileReader("Guide.txt"));
+						String nextLine = br.readLine();
+						while (nextLine != null) {
+						      System.out.println(nextLine);
+						      nextLine = br.readLine();
+						}
+						br.close();
+					} 
+					catch (FileNotFoundException e1) {
+						e1.printStackTrace();
+					} 	
+					catch (IOException e) {
+						e.printStackTrace();
+					}         
+					
 				}
 			}
 			catch(IndexOutOfBoundsException e) {

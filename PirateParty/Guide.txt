@@ -1,0 +1,21 @@
+Unamed Pirate's Guide Of Life
+
+Movement:
+Type north/south/east/west to move in each direction
+
+Items:
+Type "look" to see what's around you
+Type "take" followed by an item name to pick something up e.g. take map
+Type "drop" followed by an item name to drop something e.g. drop map
+
+Map:
+Type "map" to look at the map
+
+Battles:
+Try any of these:
+attack/cry/war cry
+
+If you have a weapon try "use" followed by the weapon e.g. use gun
+
+
+
