@@ -5,7 +5,7 @@ public class GameObject {
 	protected String name;
 	protected Item[] inventory;
 	int coordinates[];
-	
+		
 	public GameObject() {
 		inventory = new Item[10];
 	}
@@ -43,6 +43,21 @@ public class GameObject {
 	
 	public Item[] getInventory() {
 		return inventory;
+	}
+	
+	public boolean isInventoryfull() {
+		int noOfItems = 0;
+		for(int i = 0; i < inventory.length; i++) {
+			if(inventory[i] != null) {
+				noOfItems++;
+			}
+		}
+		
+		if(noOfItems == inventory.length) {
+			return true;
+		}
+		
+		return false;
 	}
 	
 }

@@ -1,3 +1,4 @@
+
 Unamed Pirate's Guide Of Life
 
 Movement:
@@ -8,6 +9,7 @@ Type "look" to see what's around you
 Type "take" followed by an item name to pick something up e.g. take map
 Type "drop" followed by an item name to drop something e.g. drop map
 Type "inventory" to see whats in your inventory
+You can only carry 3 items at a time.
 
 Map:
 Type "map" to look at the map

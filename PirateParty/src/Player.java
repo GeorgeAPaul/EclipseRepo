@@ -9,6 +9,7 @@ public class Player extends Character {
 		attackPower = 30;
 		defence = 1;
 		allies = new Ally[noOfAllies];
+		inventory = new Item[3];
 	}
 	
 	public void addAlly(Ally a) {

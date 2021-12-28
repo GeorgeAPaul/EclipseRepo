@@ -2,3 +2,9 @@
 In this game you play as the Unamed Pirate, your objective is to try to defeat all the enemies on the map.
 You probably aren't strong enough to win yet...maybe you should try to find some weapons...maybe a map would help...
 If you ever get stuck you can consult the guide by typing 'guide'
+
+Would you like to start in easy, medium or hard difficulty?
+
+Easy: Start game with map and compass
+Medium: Start game with map
+Hard: Start game with nothing

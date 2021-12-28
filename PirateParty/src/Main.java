@@ -8,7 +8,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 				
-		BufferedReader br = null;
+		BufferedReader br; 
 		try {
 			br = new BufferedReader(new FileReader("Intro.txt"));
 			String nextLine = br.readLine();
@@ -35,12 +35,37 @@ public class Main {
 		//Generate Map
 		Map m = new Map(mapWidth, noOfEnemies, noOfAllies);
 		p = m.getPlayer();
-
+		
+		String l = sc.nextLine();
+		
+		while(true) {
+			if(l.matches("(?i).*[e][a][s][y].*")) {
+				System.out.println("Playing in easy difficultly!");
+				p.addToInventory(new Item("Map"));
+				p.addToInventory(new Item("Compass"));
+				break;
+			}
+			else if(l.matches("(?i).*[m][e][d][i][u][m].*")) {
+				System.out.println("Playing in medium difficultly!");
+				p.addToInventory(new Item("Map"));
+				break;
+			}
+			else if(l.matches("(?i).*[h][a][r][d].*")) {
+				System.out.println("Playing in hard difficultly! Good luck!");
+				break;
+			}
+			else{
+				System.out.println("Easy, medium or hard... try again");
+				l = sc.nextLine();
+			}
+		}
+		
 		//Play loop
 		while(noOfEnemies > 0) {
 			//System.out.println(m.toString(true, true));
 			//System.out.println("Try moving around (north, south, east, west)");
-			String l = sc.nextLine();
+			l = sc.nextLine();
+			
 			try {
 				if(l.matches("(?i).*[n][o][r][t][h].*")) {
 					System.out.println("You head north...");
@@ -112,18 +137,20 @@ public class Main {
 				else if(l.matches("(?i).*[t][a][k][e].*")) {
 					
 					String[] split = l.split(" ");
-					Item[] items = m.getItems();
+					Item[] items = m.getLocation().getInventory();
 					boolean nothingTaken = true;
 					
 					if(split.length == 2) {
 						for(int i = 0; i < items.length; i++) {
 							if(items[i] != null && split[1].matches("(?i)"+items[i].toString())) {
-								p.addToInventory(m.getLocation().removeFromInventory(items[i].toString()));
-								nothingTaken = false;
+								if(!p.isInventoryfull()) {
+									p.addToInventory(m.getLocation().removeFromInventory(items[i].toString()));
+									nothingTaken = false;
+								}
 							}
 						}
 						if(nothingTaken) {
-							System.out.println(split[1] + " has not been picked up, did you spell it correctly?");
+							System.out.println(split[1] + " has not been picked up, did you spell it correctly? Is your inventory full?");
 						}
 					}
 					else {
@@ -193,7 +220,6 @@ public class Main {
 					System.out.println(m.toString(hasMap, hasCompass));		
 				}
 				else if(l.matches("(?i).*[g][u][i][d][e].*")) {
-					br = null;
 					try {
 						br = new BufferedReader(new FileReader("Guide.txt"));
 						String nextLine = br.readLine();

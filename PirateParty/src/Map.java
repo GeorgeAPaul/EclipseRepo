@@ -89,8 +89,8 @@ public class Map {
 		
 		characterGrid = new Character[mapWidth][mapWidth];
 		
-		int i = (int)(Math.random() * mapWidth);
-		int j = (int)(Math.random() * mapWidth);
+		int i = 2;//(int)(Math.random() * mapWidth);
+		int j = 3;//(int)(Math.random() * mapWidth);
 		
 		characterGrid[i][j] = new Player(noOfAllies);
 		
@@ -143,8 +143,8 @@ public class Map {
 		
 		for(int k = 0; k < itemList.length; k++) {
 			
-			int i = (int)(Math.random() * mapWidth);
-			int j = (int)(Math.random() * mapWidth);
+			int i = 2;//(int)(Math.random() * mapWidth);
+			int j = 2;//S(int)(Math.random() * mapWidth);
 			//int z = 0;
 			
 			if (characterGrid[i][j] != null) {
@@ -158,8 +158,8 @@ public class Map {
 		
 		for(int k = 0; k < weaponList.length; k++) {
 			
-			int i = (int)(Math.random() * mapWidth);
-			int j = (int)(Math.random() * mapWidth);
+			int i = 2;//(int)(Math.random() * mapWidth);
+			int j = 2;//S(int)(Math.random() * mapWidth);
 			//int z = 0;
 			
 			if (characterGrid[i][j] != null) {
@@ -183,22 +183,22 @@ public class Map {
 //		}
 //		System.out.println(s);
 	}
-	public void addItem(Item item){
-		int i = playerLocation[0];
-		int j = playerLocation[1];
-		
-		locationGrid[i][j].addToInventory(item);
-		
-		//System.out.println("MAP inv" + Arrays.toString(locationGrid[i][j].getInventory()));
-	}
+//	public void addItem(Item item){
+//		int i = playerLocation[0];
+//		int j = playerLocation[1];
+//		
+//		locationGrid[i][j].addToInventory(item);
+//		
+//		//System.out.println("MAP inv" + Arrays.toString(locationGrid[i][j].getInventory()));
+//	}
 	
-	public Item[] getItems() {
-		
-		int i = playerLocation[0];
-		int j = playerLocation[1];
-		
-		return locationGrid[i][j].getInventory();
-	}
+//	public Item[] getItems() {
+//		
+//		int i = playerLocation[0];
+//		int j = playerLocation[1];
+//		
+//		return locationGrid[i][j].getInventory();
+//	}
 	
 	public Location getLocation() {
 		

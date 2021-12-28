@@ -107,7 +107,7 @@ public class Encounter {
 			Item[] inventory = e.removeAllFromInventory();
 			
 			for(int j = 0; j < inventory.length; j++) {
-				m.addItem(inventory[j]);
+				m.getLocation().addToInventory(inventory[j]);
 			}
 		}
 		else {
@@ -152,7 +152,7 @@ public class Encounter {
 			Item[] inventory = a.removeAllFromInventory();
 			
 			for(int j = 0; j < inventory.length; j++) {
-				m.addItem(inventory[j]);
+				m.getLocation().addToInventory(inventory[j]);
 			}
 			
 			p.addAlly(a);
