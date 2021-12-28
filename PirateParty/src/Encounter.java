@@ -115,6 +115,9 @@ public class Encounter {
 			
 			for(int j = 0; j < inventory.length; j++) {
 				m.getLocation().addToInventory(inventory[j]);
+				if(inventory[j] != null) {
+					System.out.println("It looks like they dropped something!");
+				}
 			}
 		}
 		else {
@@ -149,6 +152,7 @@ public class Encounter {
 		}
 		if (guesses == 0) {
 			System.out.println("Recruitment failed!");
+			System.out.println("Your potential ally has wandered off...");
 		}
 		else {
 			System.out.println("Recruitment successful!");
@@ -160,6 +164,9 @@ public class Encounter {
 			
 			for(int j = 0; j < inventory.length; j++) {
 				m.getLocation().addToInventory(inventory[j]);
+				if(inventory[j] != null) {
+					System.out.println("It looks like they dropped something!");
+				}
 			}
 			
 			p.addAlly(a);

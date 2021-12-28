@@ -208,6 +208,129 @@ public class Map {
 		return locationGrid[i][j];
 	}
 	
+	public String getLocationGridString() {
+		String s = "";
+		for(int i = 0; i < locationGrid.length; i++) {
+			for(int j = 0; j < locationGrid[0].length; j++) {
+				if(locationGrid[i][j].getIsSea()) {
+					s += "S";
+				}
+				else {
+					s += "L";
+				}
+			}
+			s += "B";
+		}
+		return s;
+	}
+	
+	public String getCharacterGridString() {
+		String s = "";
+		for(int i = 0; i < characterGrid.length; i++) {
+			for(int j = 0; j < characterGrid[0].length; j++) {
+				Character c = characterGrid[i][j];
+				try {
+					Enemy e = (Enemy)c;
+					if(c == null) {
+						s += "N";
+					}
+					else {
+						s += "E";
+					}
+					
+				}
+				catch(ClassCastException e) {
+					try {
+						Player p = (Player)c;
+						s += "P";
+					}
+					catch(ClassCastException e1){
+						s += "A";
+					}
+				}
+			}
+			s += "B";
+		}
+		return s;
+	}
+	
+	public String getInventoryString() {
+		String s = "";
+		for(int i = 0; i < characterGrid.length; i++) {
+			for(int j = 0; j < characterGrid[0].length; j++) {
+				Item[] inventory1 = locationGrid[i][j].getInventory();
+				
+				for(int k = 0; k < inventory1.length; k++) {
+					Item item = inventory1[k];
+					if(item != null) {
+						s += item.toString() + " " + i   + " " + j  + " " + "L" + "\n";
+					}
+				}
+				
+				if(characterGrid[i][j] != null) {
+					Item[] inventory2 = characterGrid[i][j].getInventory();
+					for(int k = 0; k < inventory2.length; k++) {
+						Item item = inventory2[k];
+						if(item != null) {
+							s += item.toString() + " " + i  + " " + j  + " " + "C" + "\n";
+						}
+					}
+				}
+			}
+		}
+		return s;
+	}
+	
+	public void loadLocationGrid(String locationGridString) {
+		int i = 0;
+		int j = 0;
+		for(int k = 0; k < locationGridString.length(); k++) {
+	    	  if(locationGridString.charAt(k) == 'S') {
+	    		  locationGrid[i][j] = new Location();
+	    		  locationGrid[i][j].setIsSea(true);
+	    		  j++;
+	    	  }
+	    	  else if(locationGridString.charAt(k) == 'L') {
+	    		  locationGrid[i][j] = new Location();
+	    		  locationGrid[i][j].setIsSea(false);
+	    		  j++;
+	    	  }
+	    	  else if(locationGridString.charAt(k) == 'B') {
+	    		  i++;
+	    		  j = 0;
+	    	  }
+	      }
+	}
+	
+	public void loadCharacterGrid(String characterGridString, int noOfAllies, int mapWidth) {
+		int i = 0;
+		int j = 0;
+		characterGrid = new Character[mapWidth][mapWidth];
+		for(int k = 0; k < characterGridString.length(); k++) {
+	    	  if(characterGridString.charAt(k) == 'E') {
+	    		  characterGrid[i][j] = new Enemy();
+	    		  j++;
+	    	  }
+	    	  else if(characterGridString.charAt(k) == 'A') {
+	    		  characterGrid[i][j] = new Ally();
+	    		  j++;
+	    	  }
+	    	  else if(characterGridString.charAt(k) == 'P') {
+	    		  characterGrid[i][j] = new Player(noOfAllies);
+	    		  j++;
+	    	  }
+	    	  else if(characterGridString.charAt(k) == 'N') {
+	    		  System.out.println("4"+characterGridString.charAt(i));
+	    		  j++;
+	    	  }
+	    	  else if(characterGridString.charAt(k) == 'B') {
+	    		  i++;
+	    		  j = 0;
+	    	  }
+	    	  
+	      }
+	}
+	
 //	public Item removeItem(String itemName) {
 //		
 //		int i = playerLocation[0];

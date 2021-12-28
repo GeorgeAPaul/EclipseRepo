@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 
 public class Main {
@@ -53,6 +55,40 @@ public class Main {
 			else if(l.matches("(?i).*[h][a][r][d].*")) {
 				System.out.println("Playing in hard difficulty! Good luck!");
 				break;
+			}
+			else if(l.matches("(?i).*[l][o][a][d].*")) {
+				System.out.println("Enter file name to load from (include path if save file is not in project folder):");
+				String filename = sc.nextLine();
+				try {
+					br = new BufferedReader(new FileReader(filename));
+					String locationString = br.readLine();
+					String characterString = br.readLine();
+					
+					System.out.println(locationString);
+					System.out.println(characterString);
+					
+					m.loadLocationGrid(locationString);
+					m.loadCharacterGrid(characterString, noOfAllies, mapWidth);
+					
+//					String inventoryLine = br.readLine();
+//					
+//					while (inventoryLine != null) {
+//						
+//						inventoryLine = br.readLine();
+//					}
+					br.close();
+				} 
+				catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				} 	
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+				break;
+			}
+			else if(l.matches("(?i).*[q][u][i][t].*")) {
+				System.out.println("Quitting");
+				System.exit(0);
 			}
 			else{
 				System.out.println("Easy, medium or hard... try again");
@@ -206,8 +242,8 @@ public class Main {
 				}
 				else if(l.matches("(?i).*[m][a][p].*")) {
 					Item [] inventory =  p.getInventory();
-					boolean hasMap = false;
-					boolean hasCompass = false;
+					boolean hasMap = true;
+					boolean hasCompass = true;
 					for(int i = 0; i < inventory.length; i++)
 					{
 						if(inventory[i] != null && inventory[i].toString() == "Map") {
@@ -237,9 +273,32 @@ public class Main {
 					} 
 					
 				}
+				else if(l.matches("(?i).*[s][a][v][e].*")) {
+					
+					System.out.println("Enter name for save file:");
+					String filename = sc.nextLine();
+					
+					try {
+						PrintWriter pr = new PrintWriter(filename);
+						pr.println(m.getLocationGridString());
+						pr.println(m.getCharacterGridString());
+						pr.println(m.getInventoryString());
+						System.out.println("Saving game as: " + filename);
+						pr.close();
+					} 
+					catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
+				else if(l.matches("(?i).*[q][u][i][t].*")) {
+					System.out.println("Quitting");
+					System.exit(0);
+				}
 				else {
-					System.out.println(l);
-					System.out.println("That dosen't mean anything, use the guide if you don't know what you're doing!");
+					System.out.println(l+"?");
+					System.out.println("That doesn't mean anything, use the guide if you don't know what you're doing!");
 				}
 			}
 			catch(IndexOutOfBoundsException e) {
