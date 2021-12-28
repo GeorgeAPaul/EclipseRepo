@@ -263,7 +263,7 @@ public class Map {
 				for(int k = 0; k < inventory1.length; k++) {
 					Item item = inventory1[k];
 					if(item != null) {
-						s += item.toString() + " " + i   + " " + j  + " " + "L" + "\n";
+						s += i + " " + j + " " + "L" + " " + item.toString();
 					}
 				}
 				
@@ -272,7 +272,7 @@ public class Map {
 					for(int k = 0; k < inventory2.length; k++) {
 						Item item = inventory2[k];
 						if(item != null) {
-							s += item.toString() + " " + i  + " " + j  + " " + "C" + "\n";
+							s += i + " " + j + " " + "C" + " " + item.toString();
 						}
 					}
 				}
@@ -316,11 +316,12 @@ public class Map {
 	    		  j++;
 	    	  }
 	    	  else if(characterGridString.charAt(k) == 'P') {
+	    		  playerLocation[0] = i;
+	    		  playerLocation[1] = j;
 	    		  characterGrid[i][j] = new Player(noOfAllies);
 	    		  j++;
 	    	  }
 	    	  else if(characterGridString.charAt(k) == 'N') {
-	    		  System.out.println("4"+characterGridString.charAt(i));
 	    		  j++;
 	    	  }
 	    	  else if(characterGridString.charAt(k) == 'B') {
@@ -329,6 +330,30 @@ public class Map {
 	    	  }
 	    	  
 	      }
+	}
+	
+	public void loadInventory(String inventoryString) {
+		String[] s = inventoryString.split(" ");
+		System.out.println(Arrays.toString(s));
+		int i  = Integer.parseInt(s[0]);
+		int j  = Integer.parseInt(s[1]);
+		char characterFlag = s[2].charAt(0);
+		String name = s[3];
+		
+		if(characterFlag == 'C') {
+			System.out.println(i);
+			System.out.println(j);
+			System.out.println(characterGrid[i][j]);
+			characterGrid[i][j].addToInventory(new Item(name));
+			System.out.println("Yep");
+		}
+		else if(characterFlag == 'L') {
+			System.out.println(i);
+			System.out.println(j);
+			System.out.println(locationGrid[i][j]);
+			locationGrid[i][j].addToInventory(new Item(name));
+			System.out.println("Yep2");
+		}
 	}
 	
 //	public Item removeItem(String itemName) {

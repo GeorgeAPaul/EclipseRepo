@@ -70,13 +70,14 @@ public class Main {
 					m.loadLocationGrid(locationString);
 					m.loadCharacterGrid(characterString, noOfAllies, mapWidth);
 					
-//					String inventoryLine = br.readLine();
-//					
-//					while (inventoryLine != null) {
-//						
-//						inventoryLine = br.readLine();
-//					}
+					String inventoryString = br.readLine();
+					
+					while (inventoryString != null) {
+						m.loadInventory(inventoryString);
+						inventoryString = br.readLine();
+					}
 					br.close();
+					p = m.getPlayer();
 				} 
 				catch (FileNotFoundException e1) {
 					e1.printStackTrace();
