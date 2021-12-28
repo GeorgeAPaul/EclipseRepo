@@ -40,18 +40,18 @@ public class Main {
 		
 		while(true) {
 			if(l.matches("(?i).*[e][a][s][y].*")) {
-				System.out.println("Playing in easy difficultly!");
+				System.out.println("Playing in easy difficulty!");
 				p.addToInventory(new Item("Map"));
 				p.addToInventory(new Item("Compass"));
 				break;
 			}
 			else if(l.matches("(?i).*[m][e][d][i][u][m].*")) {
-				System.out.println("Playing in medium difficultly!");
+				System.out.println("Playing in medium difficulty!");
 				p.addToInventory(new Item("Map"));
 				break;
 			}
 			else if(l.matches("(?i).*[h][a][r][d].*")) {
-				System.out.println("Playing in hard difficultly! Good luck!");
+				System.out.println("Playing in hard difficulty! Good luck!");
 				break;
 			}
 			else{
@@ -103,7 +103,7 @@ public class Main {
 					}
 					c = m.setPlayerLocation(m.getPlayerLocation()[0], m.getPlayerLocation()[1] - 1);
 				}
-				if(l.matches("(?i).*[l][o][o][k].*")) {
+				else if(l.matches("(?i).*[l][o][o][k].*")) {
 					
 					System.out.println("You cast your eye about and see...");
 					boolean empty = true;
@@ -236,6 +236,10 @@ public class Main {
 						e.printStackTrace();
 					} 
 					
+				}
+				else {
+					System.out.println(l);
+					System.out.println("That dosen't mean anything, use the guide if you don't know what you're doing!");
 				}
 			}
 			catch(IndexOutOfBoundsException e) {

@@ -18,6 +18,13 @@ public class Encounter {
 		this.m = m;
 		sc = new Scanner(System.in);
 		
+		if(m.getLocation().getIsSea()) {
+			System.out.println("A sea monster attacks you!");
+		}
+		else {
+			System.out.println("A wolf attacks you!");
+		}
+		
 		battle();
 		
 	}
