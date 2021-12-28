@@ -4,7 +4,6 @@ public class Map {
 	
 	private Location[][] locationGrid;
 	private Character[][] characterGrid;
-	//private Item[][][] itemGrid;
 	private int[] playerLocation;
 	
 
@@ -89,14 +88,13 @@ public class Map {
 		
 		characterGrid = new Character[mapWidth][mapWidth];
 		
-		int i = 2;//(int)(Math.random() * mapWidth);
-		int j = 3;//(int)(Math.random() * mapWidth);
+		int i = (int)(Math.random() * mapWidth);
+		int j = (int)(Math.random() * mapWidth);
 		
 		characterGrid[i][j] = new Player(noOfAllies);
 		
 		playerLocation = new int[]{i, j};
 		
-		//characterGrid[2][2] = new Enemy();
 		for(int k = 0; k < noOfEnemies; k++) {
 			
 			while(characterGrid[i][j] != null) {
@@ -106,7 +104,6 @@ public class Map {
 			characterGrid[i][j] = new Enemy();
 		}
 		
-		//characterGrid[2][2] = new Ally();
 		for(int k = 0; k < noOfAllies; k++) {
 			
 			while(characterGrid[i][j] != null) {
@@ -143,9 +140,8 @@ public class Map {
 		
 		for(int k = 0; k < itemList.length; k++) {
 			
-			int i = 2;//(int)(Math.random() * mapWidth);
-			int j = 2;//S(int)(Math.random() * mapWidth);
-			//int z = 0;
+			int i = (int)(Math.random() * mapWidth);
+			int j = (int)(Math.random() * mapWidth);
 			
 			if (characterGrid[i][j] != null) {
 				characterGrid[i][j].addToInventory(new Item(itemList[k]));
@@ -158,8 +154,8 @@ public class Map {
 		
 		for(int k = 0; k < weaponList.length; k++) {
 			
-			int i = 2;//(int)(Math.random() * mapWidth);
-			int j = 2;//S(int)(Math.random() * mapWidth);
+			int i = (int)(Math.random() * mapWidth);
+			int j = (int)(Math.random() * mapWidth);
 			//int z = 0;
 			
 			if (characterGrid[i][j] != null) {
@@ -168,37 +164,9 @@ public class Map {
 			else {
 				locationGrid[i][j].addToInventory(new Weapon(weaponList[k], weaponDamageList[k]));
 			}
+			
 		}
-		
-//		String s = "";
-//		for(int i = 0; i < mapWidth; i++) {
-//			for(int j = 0; j < mapWidth; j++) {
-//				for(int k = 0; k < mapWidth; k++) {
-//				s += itemGrid[i][j][k];
-//				//System.out.println(itemGrid[i][j][0]);
-//				}
-//			}
-//			s += "\n";
-//			
-//		}
-//		System.out.println(s);
 	}
-//	public void addItem(Item item){
-//		int i = playerLocation[0];
-//		int j = playerLocation[1];
-//		
-//		locationGrid[i][j].addToInventory(item);
-//		
-//		//System.out.println("MAP inv" + Arrays.toString(locationGrid[i][j].getInventory()));
-//	}
-	
-//	public Item[] getItems() {
-//		
-//		int i = playerLocation[0];
-//		int j = playerLocation[1];
-//		
-//		return locationGrid[i][j].getInventory();
-//	}
 	
 	public Location getLocation() {
 		
@@ -263,7 +231,7 @@ public class Map {
 				for(int k = 0; k < inventory1.length; k++) {
 					Item item = inventory1[k];
 					if(item != null) {
-						s += i + " " + j + " " + "L" + " " + item.toString();
+						s += i + " " + j + " " + "L" + " " + item.toString() + "\n";
 					}
 				}
 				
@@ -272,7 +240,7 @@ public class Map {
 					for(int k = 0; k < inventory2.length; k++) {
 						Item item = inventory2[k];
 						if(item != null) {
-							s += i + " " + j + " " + "C" + " " + item.toString();
+							s += i + " " + j + " " + "C" + " " + item.toString() + "\n";
 						}
 					}
 				}
@@ -285,21 +253,21 @@ public class Map {
 		int i = 0;
 		int j = 0;
 		for(int k = 0; k < locationGridString.length(); k++) {
-	    	  if(locationGridString.charAt(k) == 'S') {
-	    		  locationGrid[i][j] = new Location();
-	    		  locationGrid[i][j].setIsSea(true);
-	    		  j++;
-	    	  }
-	    	  else if(locationGridString.charAt(k) == 'L') {
-	    		  locationGrid[i][j] = new Location();
-	    		  locationGrid[i][j].setIsSea(false);
-	    		  j++;
-	    	  }
-	    	  else if(locationGridString.charAt(k) == 'B') {
-	    		  i++;
-	    		  j = 0;
-	    	  }
-	      }
+			if(locationGridString.charAt(k) == 'S') {
+				locationGrid[i][j] = new Location();
+				locationGrid[i][j].setIsSea(true);
+				j++;
+			}
+			else if(locationGridString.charAt(k) == 'L') {
+				locationGrid[i][j] = new Location();
+				locationGrid[i][j].setIsSea(false);
+				j++;
+			}
+			else if(locationGridString.charAt(k) == 'B') {
+				i++;
+				j = 0;
+			}
+		}
 	}
 	
 	public void loadCharacterGrid(String characterGridString, int noOfAllies, int mapWidth) {
@@ -307,29 +275,28 @@ public class Map {
 		int j = 0;
 		characterGrid = new Character[mapWidth][mapWidth];
 		for(int k = 0; k < characterGridString.length(); k++) {
-	    	  if(characterGridString.charAt(k) == 'E') {
-	    		  characterGrid[i][j] = new Enemy();
-	    		  j++;
-	    	  }
-	    	  else if(characterGridString.charAt(k) == 'A') {
-	    		  characterGrid[i][j] = new Ally();
-	    		  j++;
-	    	  }
-	    	  else if(characterGridString.charAt(k) == 'P') {
-	    		  playerLocation[0] = i;
-	    		  playerLocation[1] = j;
-	    		  characterGrid[i][j] = new Player(noOfAllies);
-	    		  j++;
-	    	  }
-	    	  else if(characterGridString.charAt(k) == 'N') {
-	    		  j++;
-	    	  }
-	    	  else if(characterGridString.charAt(k) == 'B') {
-	    		  i++;
-	    		  j = 0;
-	    	  }
-	    	  
-	      }
+			if(characterGridString.charAt(k) == 'E') {
+				characterGrid[i][j] = new Enemy();
+				j++;
+			}
+			else if(characterGridString.charAt(k) == 'A') {
+				characterGrid[i][j] = new Ally();
+				j++;
+			}
+			else if(characterGridString.charAt(k) == 'P') {
+				playerLocation[0] = i;
+				playerLocation[1] = j;
+				characterGrid[i][j] = new Player(noOfAllies);
+				j++;
+			}
+			else if(characterGridString.charAt(k) == 'N') {
+				j++;
+			}
+			else if(characterGridString.charAt(k) == 'B') {
+				i++;
+				j = 0;
+	    	}
+		}
 	}
 	
 	public void loadInventory(String inventoryString) {
@@ -341,38 +308,10 @@ public class Map {
 		String name = s[3];
 		
 		if(characterFlag == 'C') {
-			System.out.println(i);
-			System.out.println(j);
-			System.out.println(characterGrid[i][j]);
 			characterGrid[i][j].addToInventory(new Item(name));
-			System.out.println("Yep");
 		}
 		else if(characterFlag == 'L') {
-			System.out.println(i);
-			System.out.println(j);
-			System.out.println(locationGrid[i][j]);
 			locationGrid[i][j].addToInventory(new Item(name));
-			System.out.println("Yep2");
 		}
 	}
-	
-//	public Item removeItem(String itemName) {
-//		
-//		int i = playerLocation[0];
-//		int j = playerLocation[1];
-//		
-//		return locationGrid[i][j].removeFromInventory(itemName);
-//	}
-	
-	
-	
-	private int[] generateRandomCoordinates(int mapWidth) {
-		int[] coordinates = new int[2];
-		
-		coordinates[0] = (int)(Math.random() * mapWidth);
-		coordinates[1] = (int)(Math.random() * mapWidth);
-		
-		return coordinates;
-	}
-	
 }

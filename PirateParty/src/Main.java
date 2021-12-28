@@ -283,7 +283,7 @@ public class Main {
 						PrintWriter pr = new PrintWriter(filename);
 						pr.println(m.getLocationGridString());
 						pr.println(m.getCharacterGridString());
-						pr.println(m.getInventoryString());
+						pr.print(m.getInventoryString().substring(0, m.getInventoryString().length() - 1));
 						System.out.println("Saving game as: " + filename);
 						pr.close();
 					} 
