@@ -5,6 +5,7 @@ public class Map {
 	private Location[][] locationGrid;
 	private Character[][] characterGrid;
 	private int[] playerLocation;
+	private int mapWidth;
 	
 
 	public Map(int mapWidth, int noOfEnemies, int noOfAllies) {
@@ -16,9 +17,11 @@ public class Map {
 			System.out.println("Reduce number of characters by " + (-space));
 		}
 		
-		generateRandomMap(mapWidth);
-		generateCharacters(mapWidth, noOfEnemies, noOfAllies);
-		generateItems(mapWidth);
+		this.mapWidth = mapWidth;
+		
+		generateRandomMap();
+		generateCharacters(noOfEnemies, noOfAllies);
+		generateItems();
 	
 	}
 	
@@ -63,7 +66,7 @@ public class Map {
 	
 	
 	
-	private void generateRandomMap(int mapWidth){
+	private void generateRandomMap(){
 		
 		//Generating random map
 		locationGrid = new Location[mapWidth][mapWidth];
@@ -84,7 +87,7 @@ public class Map {
 		
 	}
 	
-	private void generateCharacters(int mapWidth, int noOfEnemies, int noOfAllies){
+	private void generateCharacters(int noOfEnemies, int noOfAllies){
 		
 		characterGrid = new Character[mapWidth][mapWidth];
 		
@@ -131,7 +134,7 @@ public class Map {
 		return c;
 	}
 	
-	public void generateItems(int mapWidth) {
+	public void generateItems() {
 		
 		
 		String[] itemList = {"Map","Compass"};

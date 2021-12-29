@@ -8,3 +8,5 @@ Would you like to start in easy, medium or hard difficulty?
 Easy: Start game with map and compass
 Medium: Start game with map
 Hard: Start game with nothing
+
+You can also load a saved game with "load"

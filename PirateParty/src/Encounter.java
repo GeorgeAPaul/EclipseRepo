@@ -2,20 +2,25 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Encounter {
-	private Map m;
-	private Player p;
-	private Enemy e;
-	private Ally a;
+	private Map map;
+	private Player player;
+	private Enemy enemy;
+	private Ally ally;
 	private Scanner sc;
-	private static String[] riddleArray = {"Who is the best Java teacher?", "Who is the best Java student?", 
+	private String[] riddleArray = {"Who is the best Java teacher?", "Who is the best Java student?", 
 			"What is the best country in the world?", "What is 2 + 3?", "Were the moon landings faked?", "What is a student's favorite lunch?"};
-	private static String[] riddleAnswers = {"(?i).*[l][e][s][l][e][y].*", "(?i).*[g][e][o][r][g][e].*", "(?i).*[b][e][l][g][i][u][m].*", 
+	private String[] riddleAnswers = {"(?i).*[l][e][s][l][e][y].*", "(?i).*[g][e][o][r][g][e].*", "(?i).*[b][e][l][g][i][u][m].*", 
 			"5|(?i).*[f][i][v][e].*", "(?i).*[n][o].*", "(?i).*[r][a][m][e][n].*"};
 	
+	private Location currentLocation;
+	
 	public Encounter(Player p, Enemy e, Map m) {
-		this.p = p;
-		this.e = e;
-		this.m = m;
+		this.player = p;
+		this.enemy = e;
+		this.map = m;
+		
+		this.currentLocation = m.getLocation();
+		
 		sc = new Scanner(System.in);
 		
 		if(m.getLocation().getIsSea()) {
@@ -30,9 +35,12 @@ public class Encounter {
 	}
 	
 	public Encounter(Player p, Ally a, Map m) {
-		this.p = p;
-		this.a = a;
-		this.m = m;
+		this.player = p;
+		this.ally = a;
+		this.map = m;
+		
+		this.currentLocation = m.getLocation();
+		
 		sc = new Scanner(System.in);
 		
 		recruit();
@@ -44,40 +52,42 @@ public class Encounter {
 		boolean playerTurn = true;
 		System.out.println("\nBattle commenced! Try attack/war cry/cry or use a weapon!");
 		
-		while (p.getHealth() > 0 && e.getHealth() > 0)
+		int noOfRecruitedAllies = player.getNoOfRecruitedAllies();
+		
+		while (player.getHealth() > 0 && enemy.getHealth() > 0)
 		{
-			System.out.println("\nYour health: " + p.getHealth());
-			System.out.println("Enemy health: " + e.getHealth());
+			System.out.println("\nYour health: " + player.getHealth());
+			System.out.println("Enemy health: " + enemy.getHealth());
 			if (playerTurn) {
 				System.out.println("\nEn garde! Your opponent beckons you forward...");
 				String l = sc.nextLine();
 				if (l.matches("(?i).*[a][t][t][a][c][k].*")) {
 					System.out.println("Attacking with fists!");
-					p.attack(e,p.getAttackPower());
+					player.attack(enemy,player.getAttackPower());
 				} 
 				else if (l.matches("(?i).*[f][i][s][t].*")) {
 					System.out.println("Attacking with fists!");
-					p.attack(e,1);
+					player.attack(enemy,1);
 				} 
 				else if (l.matches("(?i).*[w][a][r].*[c][r][y].*")) {
-					p.warCry(e);
+					player.warCry(enemy);
 				} 
 				else if (l.matches("(?i).*[c][r][y].*")) {
-					p.cry(e);
+					player.cry(enemy);
 				}
 				else if (l.matches("(?i).*[c][r][y].*")) {
-					p.cry(e);
+					player.cry(enemy);
 				}
 				else if (l.matches("(?i).*[u][s][e].*")) {
 					String[] split = l.split(" ");
-					Item[] items = p.getInventory();
+					Item[] items = player.getInventory();
 					
 					if(split.length == 2) {
 						for(int i = 0; i < items.length; i++) {
 							if(items[i] != null && split[1].matches("(?i)"+items[i].toString())) {
 								try {
 									Weapon w = (Weapon)items[i];
-									p.attack(e, w.getDamage());
+									player.attack(enemy, w.getDamage());
 								}
 								catch(ClassCastException e) {
 									System.out.println("You can't use that in a fight!");
@@ -91,10 +101,10 @@ public class Encounter {
 						System.out.println("You fumbling around means you miss your turn!");
 					}
 				}
-				for (int i = 0; i < p.getNoOfRecruitedAllies(); i++) {
-					System.out.println(p.getAlly(i).getName() + " is attacking!");
-					Ally al = p.getAlly(i);
-					al.attack(e,al.getAttackPower());
+				for (int i = 0; i < noOfRecruitedAllies; i++) {
+					System.out.println(player.getAlly(i).getName() + " is attacking!");
+					Ally al = player.getAlly(i);
+					al.attack(enemy,al.getAttackPower());
 				}
 				playerTurn = false;
 			}
@@ -105,16 +115,16 @@ public class Encounter {
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
-				e.attack(p,e.getAttackPower());
+				enemy.attack(player,enemy.getAttackPower());
 				playerTurn = true;
 			}
 		}
-		if(p.getHealth() > 0) {
+		if(player.getHealth() > 0) {
 			System.out.println("You win!");
-			Item[] inventory = e.removeAllFromInventory();
+			Item[] inventory = enemy.removeAllFromInventory();
 			
 			for(int j = 0; j < inventory.length; j++) {
-				m.getLocation().addToInventory(inventory[j]);
+				map.getLocation().addToInventory(inventory[j]);
 				if(inventory[j] != null) {
 					System.out.println("It looks like they dropped something!");
 				}
@@ -158,18 +168,18 @@ public class Encounter {
 			System.out.println("Recruitment successful!");
 			System.out.println("What would you like to name your new ally?");
 			String name = sc.nextLine();
-			a.setName(name);
+			ally.setName(name);
 			
-			Item[] inventory = a.removeAllFromInventory();
+			Item[] inventory = ally.removeAllFromInventory();
 			
 			for(int j = 0; j < inventory.length; j++) {
-				m.getLocation().addToInventory(inventory[j]);
+				map.getLocation().addToInventory(inventory[j]);
 				if(inventory[j] != null) {
 					System.out.println("It looks like they dropped something!");
 				}
 			}
 			
-			p.addAlly(a);
+			player.addAlly(ally);
 		}
 		
 	}

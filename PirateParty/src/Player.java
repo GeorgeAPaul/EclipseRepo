@@ -1,13 +1,13 @@
 
 public class Player extends Character {
 	
-	Ally[] allies;
-	int noOfRecruitedAllies;
+	private Ally[] allies;
+	private int noOfRecruitedAllies;
 	
 	public Player(int noOfAllies){
 		super();
-		attackPower = 30;
-		defence = 1;
+		setAttackPower(30);
+		setDefence(1);
 		allies = new Ally[noOfAllies];
 		inventory = new Item[3];
 	}

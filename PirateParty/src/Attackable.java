@@ -5,6 +5,8 @@ public interface Attackable {
 	
 	public void adjustDefence(int adjustment);
 	
+	public void setDefence(int defence);
+	
 	public void attack(Character e, int m);
 	
 	public void cry(Character e);
@@ -14,6 +16,8 @@ public interface Attackable {
 	public int getHealth();
 	
 	public int getAttackPower();
+	
+	public void setAttackPower(int attackPower);
 	
 
 }

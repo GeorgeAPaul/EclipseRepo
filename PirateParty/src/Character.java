@@ -1,32 +1,13 @@
 
-public abstract class Character extends GameObject implements Attackable, HasInventory  {
+public class Character extends GameObject implements Attackable{
 	
-	//private String name;
 	private int health;
-	private int[] coordinates;
-	protected int attackPower;
-	protected int defence;
+	private int attackPower;
+	private int defence;
 	
 	
 	public Character() {
 		health = 100;
-	}
-
-	public void take(Item i) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void drop(Item i) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void use(Item i) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -72,10 +53,6 @@ public abstract class Character extends GameObject implements Attackable, HasInv
 		e.adjustDefence(1);
 		
 	}
-	
-	public int[] getCoordinates() {
-		return coordinates;
-	}
 
 	@Override
 	public int getHealth() {
@@ -91,15 +68,17 @@ public abstract class Character extends GameObject implements Attackable, HasInv
 		}
 	}
 	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	
 	public int getAttackPower() {
 		return attackPower;
+	}
+
+	@Override
+	public void setAttackPower(int attackPower) {
+		this.attackPower = attackPower;
+	}
+
+	@Override
+	public void setDefence(int defence) {
+		this.defence = defence;
 	}
 }

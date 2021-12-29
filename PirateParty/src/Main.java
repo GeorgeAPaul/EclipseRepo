@@ -3,7 +3,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 
 public class Main {
@@ -27,15 +26,16 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		int mapWidth = 5;
-		int noOfEnemies = 3;
-		int noOfAllies = 3;
+		final int MAP_WIDTH = 5;
+		int NO_OF_ENEMIES = 3;
+		final int NO_OF_ALLIES = 3;
+		
 		Scanner sc = new Scanner(System.in);
-		Character c = null;
+		Character character = null;
 		Player p = null;
 		
 		//Generate Map
-		Map m = new Map(mapWidth, noOfEnemies, noOfAllies);
+		Map m = new Map(MAP_WIDTH, NO_OF_ENEMIES, NO_OF_ALLIES);
 		p = m.getPlayer();
 		
 		String l = sc.nextLine();
@@ -68,7 +68,7 @@ public class Main {
 					System.out.println(characterString);
 					
 					m.loadLocationGrid(locationString);
-					m.loadCharacterGrid(characterString, noOfAllies, mapWidth);
+					m.loadCharacterGrid(characterString, NO_OF_ALLIES, MAP_WIDTH);
 					
 					String inventoryString = br.readLine();
 					
@@ -98,10 +98,15 @@ public class Main {
 		}
 		
 		//Play loop
-		while(noOfEnemies > 0) {
+		while(NO_OF_ENEMIES > 0) {
 			//System.out.println(m.toString(true, true));
 			//System.out.println("Try moving around (north, south, east, west)");
 			l = sc.nextLine();
+			
+			int [] playerLocation = m.getPlayerLocation();
+			Location currentLocation = m.getLocation();
+			Item [] playerItems = p.getInventory();
+			Item [] locationItems = currentLocation.getInventory();
 			
 			try {
 				if(l.matches("(?i).*[n][o][r][t][h].*")) {
@@ -111,7 +116,7 @@ public class Main {
 					} catch (InterruptedException e1) {
 						e1.printStackTrace();
 					}
-					c = m.setPlayerLocation(m.getPlayerLocation()[0] - 1, m.getPlayerLocation()[1]);
+					character = m.setPlayerLocation(playerLocation[0] - 1, playerLocation[1]);
 				}
 				else if(l.matches("(?i).*[s][o][u][t][h].*")) {
 					System.out.println("You head south...");
@@ -120,7 +125,7 @@ public class Main {
 					} catch (InterruptedException e1) {
 						e1.printStackTrace();
 					}
-					c = m.setPlayerLocation(m.getPlayerLocation()[0] + 1, m.getPlayerLocation()[1]);
+					character = m.setPlayerLocation(playerLocation[0] + 1, playerLocation[1]);
 				}
 				else if(l.matches("(?i).*[e][a][s][t].*")) {
 					System.out.println("You head east...");
@@ -129,7 +134,7 @@ public class Main {
 					} catch (InterruptedException e1) {
 						e1.printStackTrace();
 					}
-					c = m.setPlayerLocation(m.getPlayerLocation()[0], m.getPlayerLocation()[1] + 1);
+					character = m.setPlayerLocation(playerLocation[0], playerLocation[1] + 1);
 				}
 				else if(l.matches("(?i).*[w][e][s][t].*")) {
 					System.out.println("You head west...");
@@ -138,7 +143,7 @@ public class Main {
 					} catch (InterruptedException e1) {
 						e1.printStackTrace();
 					}
-					c = m.setPlayerLocation(m.getPlayerLocation()[0], m.getPlayerLocation()[1] - 1);
+					character = m.setPlayerLocation(playerLocation[0], playerLocation[1] - 1);
 				}
 				else if(l.matches("(?i).*[l][o][o][k].*")) {
 					
@@ -151,17 +156,17 @@ public class Main {
 						e1.printStackTrace();
 					}
 					
-					if(m.getLocation().getIsSea()) {
+					if(currentLocation.getIsSea()) {
 						System.out.println("You are floating in the water.");
 					}
 					else {
 						System.out.println("You are standing on an island.");
 					}
 					
-					Item[] items = m.getLocation().getInventory();
+					//Item[] items = location.getInventory();
 					
-					for(int i = 0; i < items.length; i++) {
-						Item item = items[i];
+					for(int i = 0; i < locationItems.length; i++) {
+						Item item = locationItems[i];
 						if(item != null) {
 							System.out.println("You can see a " + item + " nearby.");
 							empty = false;
@@ -174,14 +179,14 @@ public class Main {
 				else if(l.matches("(?i).*[t][a][k][e].*")) {
 					
 					String[] split = l.split(" ");
-					Item[] items = m.getLocation().getInventory();
+					//Item[] items = location.getInventory();
 					boolean nothingTaken = true;
 					
 					if(split.length == 2) {
-						for(int i = 0; i < items.length; i++) {
-							if(items[i] != null && split[1].matches("(?i)"+items[i].toString())) {
+						for(int i = 0; i < locationItems.length; i++) {
+							if(locationItems[i] != null && split[1].matches("(?i)"+locationItems[i].toString())) {
 								if(!p.isInventoryfull()) {
-									p.addToInventory(m.getLocation().removeFromInventory(items[i].toString()));
+									p.addToInventory(currentLocation.removeFromInventory(locationItems[i].toString()));
 									nothingTaken = false;
 								}
 							}
@@ -197,13 +202,13 @@ public class Main {
 				else if(l.matches("(?i).*[d][r][o][p].*")) {
 					
 					String[] split = l.split(" ");
-					Item[] items = p.getInventory();
+					//Item[] items = p.getInventory();
 					boolean nothingDropped = true;
 					
 					if(split.length == 2) {
-						for(int i = 0; i < items.length; i++) {
-							if(items[i] != null && split[1].matches("(?i)"+items[i].toString())) {
-								m.getLocation().addToInventory(p.removeFromInventory(items[i].toString()));
+						for(int i = 0; i < playerItems.length; i++) {
+							if(playerItems[i] != null && split[1].matches("(?i)"+playerItems[i].toString())) {
+								currentLocation.addToInventory(p.removeFromInventory(playerItems[i].toString()));
 								nothingDropped = false;
 							}
 						}
@@ -228,10 +233,10 @@ public class Main {
 						e1.printStackTrace();
 					}
 					
-					Item[] items = p.getInventory();
+					//Item[] items = p.getInventory();
 					
-					for(int i = 0; i < items.length; i++) {
-						Item item = items[i];
+					for(int i = 0; i < playerItems.length; i++) {
+						Item item = playerItems[i];
 						if(item != null) {
 							System.out.println(item);
 							empty = false;
@@ -242,15 +247,15 @@ public class Main {
 					}
 				}
 				else if(l.matches("(?i).*[m][a][p].*")) {
-					Item [] inventory =  p.getInventory();
+					//Item [] inventory =  p.getInventory();
 					boolean hasMap = true;
 					boolean hasCompass = true;
-					for(int i = 0; i < inventory.length; i++)
+					for(int i = 0; i < playerItems.length; i++)
 					{
-						if(inventory[i] != null && inventory[i].toString() == "Map") {
+						if(playerItems[i] != null && playerItems[i].toString() == "Map") {
 							hasMap = true;
 						}
-						if(inventory[i] != null && inventory[i].toString() == "Compass") {
+						if(playerItems[i] != null && playerItems[i].toString() == "Compass") {
 							hasCompass = true;
 						}
 					}
@@ -305,19 +310,19 @@ public class Main {
 			catch(IndexOutOfBoundsException e) {
 				System.out.println("You feel as if that's the wrong way, maybe you've reached an edge of some sort?");
 			}
-			if(c != null) {
-	
-				try {
-					Enemy e = (Enemy)c;
-					Encounter en = new Encounter(p, e, m);
-					c = null;
-					noOfEnemies--;
+			if(character != null) {
+				
+				if(character instanceof Enemy) {
+					Enemy e = (Enemy)character;
+					Encounter encounter = new Encounter(p, e, m);
+					character = null;
+					NO_OF_ENEMIES--;
 				}
-				catch(ClassCastException e) {
-					Ally a = (Ally)c;
-					Encounter en = new Encounter(p, a, m);
-					c = null;
-				}	
+				else if(character instanceof Ally) {
+					Ally a = (Ally)character;
+					Encounter encounter = new Encounter(p, a, m);
+					character = null;
+				}
 			}
 		}
 		sc.close();
