@@ -119,11 +119,15 @@ public class Main {
 					
 					//Loop over inventory lines and load inventories
 					while (inventoryString != null) {
+						
+						System.out.println(inventoryString);
 						map.loadInventory(inventoryString);
+						
 						inventoryString = br.readLine();
 					}
 					br.close();
-					player = map.getPlayer(); //Update pointer to new player
+					player = map.getPlayer(); //Update pointers to new player
+					playerItems = player.getInventory();
 					System.out.println("Game has been loaded from save file: " + filename);
 					break;
 				} 
@@ -142,10 +146,7 @@ public class Main {
 			else{
 				System.out.println("Easy, medium, hard or load... try again");
 			}
-			
-			
 		}
-		
 		
 		//Main play loop, keeps going until number of enemies is 0
 		while(noOfEnemies > 0) {
@@ -359,13 +360,13 @@ public class Main {
 				//If character is an Enemy start battle
 				if(character instanceof Enemy) {
 					Enemy e = (Enemy)character;
-					Encounter encounter = new Encounter(player, e, map);
+					Encounter encounter = new Encounter(player, e, currentLocation);
 					character = null;
 					noOfEnemies--;
 				}
 				else if(character instanceof Ally) { //If character is an Ally start recruitment
 					Ally a = (Ally)character;
-					Encounter encounter = new Encounter(player, a, map);
+					Encounter encounter = new Encounter(player, a, currentLocation);
 					character = null;
 				}
 			}

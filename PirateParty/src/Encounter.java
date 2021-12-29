@@ -1,45 +1,83 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Class to handle encounters between the Player and other characters on the map.
+ * 
+ * @author George paul
+ *
+ */
 public class Encounter {
-	private Map map;
+		
+	/**
+	 * To store the player.
+	 */
 	private Player player;
-	private Enemy enemy;
-	private Ally ally;
+	
+	/**
+	 * To store the character in the encounter.
+	 */
+	private Character character;
+	
+	/**
+	 * For user input.
+	 */
 	private Scanner sc;
+	
+	/**
+	 * List of riddles (kindof) to be posed to the user in order to recruit an Ally.
+	 */
 	private String[] riddleArray = {"Who is the best Java teacher?", "Who is the best Java student?", 
 			"What is the best country in the world?", "What is 2 + 3?", "Were the moon landings faked?", "What is a student's favorite lunch?"};
+	
+	/**
+	 * Answers to the riddles.
+	 */
 	private String[] riddleAnswers = {"(?i).*[l][e][s][l][e][y].*", "(?i).*[g][e][o][r][g][e].*", "(?i).*[b][e][l][g][i][u][m].*", 
 			"5|(?i).*[f][i][v][e].*", "(?i).*[n][o].*", "(?i).*[r][a][m][e][n].*"};
 	
+	/**
+	 * Location on the map where encounter takes place.
+	 */
 	private Location currentLocation;
 	
-	public Encounter(Player p, Enemy e, Map m) {
-		this.player = p;
-		this.enemy = e;
-		this.map = m;
+	/**
+	 * First constructor method starts battles.
+	 * 
+	 * @param player The player object
+	 * @param enemy The enemy object
+	 * @param location The current location
+	 */
+	public Encounter(Player player, Enemy enemy, Location location) {
 		
-		this.currentLocation = m.getLocation();
+		this.player = player;
+		this.character = enemy;
+		this.currentLocation = location;
 		
+		//For user input
 		sc = new Scanner(System.in);
 		
-		if(m.getLocation().getIsSea()) {
+		if(currentLocation.getIsSea()) {
 			System.out.println("A sea monster attacks you!");
 		}
 		else {
 			System.out.println("A wolf attacks you!");
 		}
 		
-		battle();
+		battle(); //Start battle
 		
 	}
 	
-	public Encounter(Player p, Ally a, Map m) {
-		this.player = p;
-		this.ally = a;
-		this.map = m;
+	/**
+	 * 
+	 * @param player
+	 * @param ally
+	 * @param location
+	 */
+	public Encounter(Player player, Ally ally, Location location) {
+		this.player = player;
+		this.character = ally;
 		
-		this.currentLocation = m.getLocation();
+		this.currentLocation = location;
 		
 		sc = new Scanner(System.in);
 		
@@ -54,29 +92,29 @@ public class Encounter {
 		
 		int noOfRecruitedAllies = player.getNoOfRecruitedAllies();
 		
-		while (player.getHealth() > 0 && enemy.getHealth() > 0)
+		while (player.getHealth() > 0 && character.getHealth() > 0)
 		{
 			System.out.println("\nYour health: " + player.getHealth());
-			System.out.println("Enemy health: " + enemy.getHealth());
+			System.out.println("Enemy health: " + character.getHealth());
 			if (playerTurn) {
 				System.out.println("\nEn garde! Your opponent beckons you forward...");
 				String l = sc.nextLine();
 				if (l.matches("(?i).*[a][t][t][a][c][k].*")) {
 					System.out.println("Attacking with fists!");
-					player.attack(enemy,player.getAttackPower());
+					player.attack(character,player.getAttackPower());
 				} 
 				else if (l.matches("(?i).*[f][i][s][t].*")) {
 					System.out.println("Attacking with fists!");
-					player.attack(enemy,1);
+					player.attack(character,1);
 				} 
 				else if (l.matches("(?i).*[w][a][r].*[c][r][y].*")) {
-					player.warCry(enemy);
+					player.warCry(character);
 				} 
 				else if (l.matches("(?i).*[c][r][y].*")) {
-					player.cry(enemy);
+					player.cry(character);
 				}
 				else if (l.matches("(?i).*[c][r][y].*")) {
-					player.cry(enemy);
+					player.cry(character);
 				}
 				else if (l.matches("(?i).*[u][s][e].*")) {
 					String[] split = l.split(" ");
@@ -85,11 +123,11 @@ public class Encounter {
 					if(split.length == 2) {
 						for(int i = 0; i < items.length; i++) {
 							if(items[i] != null && split[1].matches("(?i)"+items[i].toString())) {
-								try {
-									Weapon w = (Weapon)items[i];
-									player.attack(enemy, w.getDamage());
+					
+								if(items[i] instanceof Weapon) {
+									player.attack(character, ((Weapon)items[i]).getDamage());
 								}
-								catch(ClassCastException e) {
+								else {
 									System.out.println("You can't use that in a fight!");
 									System.out.println("You fumbling around means you miss your turn!");
 								}
@@ -104,23 +142,23 @@ public class Encounter {
 				for (int i = 0; i < noOfRecruitedAllies; i++) {
 					System.out.println(player.getAlly(i).getName() + " is attacking!");
 					Ally al = player.getAlly(i);
-					al.attack(enemy,al.getAttackPower());
+					al.attack(character,al.getAttackPower());
 				}
 				playerTurn = false;
 			}
 			else {
 				System.out.println("\nYour opponent is attacking!");
 				Helpers.wait(2000);
-				enemy.attack(player,enemy.getAttackPower());
+				character.attack(player,character.getAttackPower());
 				playerTurn = true;
 			}
 		}
 		if(player.getHealth() > 0) {
 			System.out.println("You win!");
-			Item[] inventory = enemy.removeAllFromInventory();
+			Item[] inventory = character.removeAllFromInventory();
 			
 			for(int j = 0; j < inventory.length; j++) {
-				map.getLocation().addToInventory(inventory[j]);
+				currentLocation.addToInventory(inventory[j]);
 				if(inventory[j] != null) {
 					System.out.println("It looks like they dropped something!");
 				}
@@ -164,18 +202,18 @@ public class Encounter {
 			System.out.println("Recruitment successful!");
 			System.out.println("What would you like to name your new ally?");
 			String name = sc.nextLine();
-			ally.setName(name);
+			character.setName(name);
 			
-			Item[] inventory = ally.removeAllFromInventory();
+			Item[] inventory = character.removeAllFromInventory();
 			
 			for(int j = 0; j < inventory.length; j++) {
-				map.getLocation().addToInventory(inventory[j]);
+				currentLocation.addToInventory(inventory[j]);
 				if(inventory[j] != null) {
 					System.out.println("It looks like they dropped something!");
 				}
 			}
 			
-			player.addAlly(ally);
+			player.addAlly((Ally)character);
 		}
 		
 	}
