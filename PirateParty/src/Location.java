@@ -4,6 +4,7 @@ public class Location extends GameObject {
 	private boolean isSea;
 	
 	public Location() {
+		super();
 		int decide = (int)(Math.random() + 0.5);
 		
 		if(decide == 1) {

@@ -17,8 +17,8 @@ public class Player extends Character {
 		noOfRecruitedAllies++;
 	}
 	
-	public Ally getAlly(int i) {
-		return allies[i];
+	public Ally[] getAllies() {
+		return allies;
 	}
 	
 	public int getNoOfRecruitedAllies() {

@@ -157,6 +157,7 @@ public class Main {
 			Location currentLocation = map.getLocation(); //Get the actual location object where player is	
 			Item [] locationItems = currentLocation.getInventory(); //Get the items which are in the location
 			
+			
 			try {
 				if(input.matches("(?i).*[n][o][r][t][h].*")) { //If user types north, update player location accordingly				
 					System.out.println("You head north...");
@@ -220,6 +221,7 @@ public class Main {
 									player.addToInventory(currentLocation.removeFromInventory(locationItems[i].toString()));
 									System.out.println("Taking " + split[1]);
 									nothingTaken = false; //Updating taken flag
+									break;
 								}
 								else {
 									System.out.print("Inventory full!");
@@ -246,6 +248,7 @@ public class Main {
 									currentLocation.addToInventory(player.removeFromInventory(playerItems[i].toString()));
 									System.out.println("Dropping " + split[1]);
 									nothingDropped = false;
+									break;
 								}
 								else {
 									System.out.print("Location full!"); //This should never happen as there are not enough items.
@@ -357,6 +360,7 @@ public class Main {
 			
 			if(character != null) { //If player encounters another character
 				
+				currentLocation = map.getLocation();
 				//If character is an Enemy start battle
 				if(character instanceof Enemy) {
 					Enemy e = (Enemy)character;

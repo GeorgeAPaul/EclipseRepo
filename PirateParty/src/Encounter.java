@@ -68,10 +68,11 @@ public class Encounter {
 	}
 	
 	/**
+	 * Second constructor method starts recruitments.
 	 * 
-	 * @param player
-	 * @param ally
-	 * @param location
+	 * @param player The player object
+	 * @param ally The ally object
+	 * @param location The current location
 	 */
 	public Encounter(Player player, Ally ally, Location location) {
 		this.player = player;
@@ -79,51 +80,66 @@ public class Encounter {
 		
 		this.currentLocation = location;
 		
+		//For user input
 		sc = new Scanner(System.in);
 		
-		recruit();
+		recruit(); //Start recruitment
 		
 	}
 	
+	/**
+	 * A method that prompts the user for input on choices that they want to make during the battle
+	 * as well as handling the attacks between the characters.
+	 */
 	private void battle() {
 		
+		//Keeping track of whose turn it is
 		boolean playerTurn = true;
+		
+		//Prompt for user input
 		System.out.println("\nBattle commenced! Try attack/war cry/cry or use a weapon!");
+		Ally[] allies = player.getAllies();
 		
-		int noOfRecruitedAllies = player.getNoOfRecruitedAllies();
-		
+		//While both player and enemy health is over 0
 		while (player.getHealth() > 0 && character.getHealth() > 0)
 		{
+			//Inform user of how much health player and enemy has
 			System.out.println("\nYour health: " + player.getHealth());
 			System.out.println("Enemy health: " + character.getHealth());
+			
+			//If its players turn prompt for input to choose action
 			if (playerTurn) {
 				System.out.println("\nEn garde! Your opponent beckons you forward...");
-				String l = sc.nextLine();
-				if (l.matches("(?i).*[a][t][t][a][c][k].*")) {
+				String input = sc.nextLine();
+				
+				
+				if (input.matches("(?i).*[a][t][t][a][c][k].*")) { //Basic attack
 					System.out.println("Attacking with fists!");
 					player.attack(character,player.getAttackPower());
 				} 
-				else if (l.matches("(?i).*[f][i][s][t].*")) {
+				else if (input.matches("(?i).*[f][i][s][t].*")) {
 					System.out.println("Attacking with fists!");
 					player.attack(character,1);
-				} 
-				else if (l.matches("(?i).*[w][a][r].*[c][r][y].*")) {
+				}
+				else if (input.matches("(?i).*[w][a][r].*[c][r][y].*")) { //War cry is used to lower defence
 					player.warCry(character);
 				} 
-				else if (l.matches("(?i).*[c][r][y].*")) {
+				else if (input.matches("(?i).*[c][r][y].*")) {//Cry raises enemy defence
 					player.cry(character);
 				}
-				else if (l.matches("(?i).*[c][r][y].*")) {
-					player.cry(character);
-				}
-				else if (l.matches("(?i).*[u][s][e].*")) {
-					String[] split = l.split(" ");
+				else if (input.matches("(?i).*[u][s][e].*")) {//For using weapons
+					String[] split = input.split(" ");
 					Item[] items = player.getInventory();
 					
-					if(split.length == 2) {
+					if(split.length == 2) {//User must type 2 words or miss a turn
+						
+						//Iterate over items
 						for(int i = 0; i < items.length; i++) {
+							
+							//If item is not null and matches the user input
 							if(items[i] != null && split[1].matches("(?i)"+items[i].toString())) {
 					
+								//Can only attack with a weapon not an item
 								if(items[i] instanceof Weapon) {
 									player.attack(character, ((Weapon)items[i]).getDamage());
 								}
@@ -139,28 +155,37 @@ public class Encounter {
 						System.out.println("You fumbling around means you miss your turn!");
 					}
 				}
-				for (int i = 0; i < noOfRecruitedAllies; i++) {
-					System.out.println(player.getAlly(i).getName() + " is attacking!");
-					Ally al = player.getAlly(i);
-					al.attack(character,al.getAttackPower());
+				
+				//Iterate over allies so they attack the enemy
+				for (int i = 0; i < allies.length; i++) {
+					
+					if(allies[i] != null) {
+						System.out.println(allies[i].getName() + " is attacking!");
+						allies[i].attack(character,allies[i].getAttackPower());
+					}
+					
 				}
-				playerTurn = false;
+				playerTurn = false; //Switching to enemy turn
 			}
-			else {
+			else {//Enemy turn
 				System.out.println("\nYour opponent is attacking!");
 				Helpers.wait(2000);
 				character.attack(player,character.getAttackPower());
 				playerTurn = true;
 			}
 		}
+		
+		
+		//When loop is finished either player or enemy was killed. If player still alive continue else quit game.
 		if(player.getHealth() > 0) {
 			System.out.println("You win!");
-			Item[] inventory = character.removeAllFromInventory();
+			Item[] inventory = character.removeAllFromInventory(); //Enemy drops all items
 			
+			//Iterate over dropped items, add them to location inventory
 			for(int j = 0; j < inventory.length; j++) {
 				currentLocation.addToInventory(inventory[j]);
 				if(inventory[j] != null) {
-					System.out.println("It looks like they dropped something!");
+					System.out.println("It looks like they dropped something!"); //Alert user to dropped items
 				}
 			}
 		}
@@ -172,28 +197,36 @@ public class Encounter {
 	}
 	
 	
-	
+	/**
+	 * A method that prompts the user for input on the recruitment quiz
+	 */
 	private void recruit() {
 		
-		System.out.println("Answer the question correctly to recruit an Ally!");
+		System.out.println("Answer the question correctly to recruit an Ally!"); //Prompt user
 		int guesses = 3;
+		
+		//Random int for choosing random question
 		int i = (int)(riddleArray.length* Math.random());
 		
 		while(guesses > 0) {
 			
 			System.out.println(riddleArray[i]);
 			System.out.println("\nYou have " + guesses + " guesses remaining...");
-			String l = sc.nextLine();
+			
+			//Input for user answer
+			String answer = sc.nextLine();
 
-			if (l.matches(riddleAnswers[i])) {
+			if (answer.matches(riddleAnswers[i])) { //If correct answer break out of loop
 				System.out.println("Correct!");
 				break;
 			} 
 			else{
-				System.out.println("Wrong!");
+				System.out.println("Wrong!"); //If not continue with loop, decrease guesses
 				guesses--;
 			}
 		}
+		
+		//If guesses = 0 recruitment failed
 		if (guesses == 0) {
 			System.out.println("Recruitment failed!");
 			System.out.println("Your potential ally has wandered off...");
@@ -201,11 +234,13 @@ public class Encounter {
 		else {
 			System.out.println("Recruitment successful!");
 			System.out.println("What would you like to name your new ally?");
-			String name = sc.nextLine();
+			
+			String name = sc.nextLine();//Prompt user for ally name
 			character.setName(name);
 			
-			Item[] inventory = character.removeAllFromInventory();
+			Item[] inventory = character.removeAllFromInventory();//Ally drops all items
 			
+			//Iterate over dropped items, add them to location inventory
 			for(int j = 0; j < inventory.length; j++) {
 				currentLocation.addToInventory(inventory[j]);
 				if(inventory[j] != null) {
@@ -213,7 +248,7 @@ public class Encounter {
 				}
 			}
 			
-			player.addAlly((Ally)character);
+			player.addAlly((Ally)character); //Add ally to player ally list
 		}
 		
 	}

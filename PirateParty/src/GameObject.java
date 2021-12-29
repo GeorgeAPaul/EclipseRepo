@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 public class GameObject implements HasInventory {
 	
@@ -25,7 +26,7 @@ public class GameObject implements HasInventory {
 	@Override
 	public void addToInventory(Item item) {
 		for(int i = 0; i < inventory.length; i++) {
-			if(inventory[i] == null) {
+			if(inventory[i] == null && item != null) {
 				inventory[i] = item;
 				noOfItems++;
 				break;
@@ -40,7 +41,7 @@ public class GameObject implements HasInventory {
 			if(inventory[i] != null && inventory[i].toString() == itemName) {
 				item = inventory[i];
 				inventory[i] = null;
-				return item;
+				break;
 			}
 		}
 		noOfItems--;

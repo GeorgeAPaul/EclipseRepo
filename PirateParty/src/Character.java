@@ -7,6 +7,7 @@ public class Character extends GameObject implements Attackable{
 	
 	
 	public Character() {
+		super();
 		health = 100;
 	}
 
