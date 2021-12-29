@@ -110,11 +110,7 @@ public class Encounter {
 			}
 			else {
 				System.out.println("\nYour opponent is attacking!");
-				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
-				}
+				Helpers.wait(2000);
 				enemy.attack(player,enemy.getAttackPower());
 				playerTurn = true;
 			}

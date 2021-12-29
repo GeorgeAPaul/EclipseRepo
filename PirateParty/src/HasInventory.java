@@ -11,4 +11,6 @@ public interface HasInventory {
 
 	public void addToInventory(Item item);
 
+	void setInventory(Item[] inventory);
+
 }

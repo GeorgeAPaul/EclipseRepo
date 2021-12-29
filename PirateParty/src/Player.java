@@ -9,7 +9,7 @@ public class Player extends Character {
 		setAttackPower(30);
 		setDefence(1);
 		allies = new Ally[noOfAllies];
-		inventory = new Item[3];
+		setInventory(new Item[3]);
 	}
 	
 	public void addAlly(Ally a) {

@@ -1,67 +1,121 @@
-import java.util.Arrays;
+import java.io.IOException;
 
+/**
+ * 
+ * Class to represent the game Map
+ * 
+ * @author George Paul
+ *
+ */
 public class Map {
 	
+	/**
+	 *  2d array for storing the locations that make up the Map.
+	 */
 	private Location[][] locationGrid;
+	
+	/**
+	 * 2d array for storing the characters on the map.
+	 */
 	private Character[][] characterGrid;
+	//I see your point about characters being stored in locations somehow, the reason they are not was because originally there were going to
+	//be events where the map moves around but characters stay still. I'm leaving this the way it is so that the option to implement this in
+	//the future remains.
+	
+	/**
+	 * Array to store the players coordinates so that this can be retrieved easily and not searched for each time they are needed.
+	 */
 	private int[] playerLocation;
+	
+	/**
+	 * Width of the map.
+	 */
 	private int mapWidth;
 	
-
+	/**
+	 * Constructor method.
+	 * 
+	 * @param mapWidth Width of the map
+	 * @param noOfEnemies Number of enemies to populate
+	 * @param noOfAllies Number of allies to poulate
+	 */
 	public Map(int mapWidth, int noOfEnemies, int noOfAllies) {
 		
+		//Detect if there are more characters than spaces in the grid. The character numbers are hard coded in Main.java so
+		//shouldn't be a problem, unless the code is changed.
 		int space = mapWidth*mapWidth - (noOfEnemies + noOfAllies + 1);
-		
 		if(space < 0) {
 			System.out.println("Arrgahrhhrah! There be too many characters in the map!");
 			System.out.println("Reduce number of characters by " + (-space));
+			System.exit(0);
 		}
+		
 		
 		this.mapWidth = mapWidth;
 		
+		//Generate random map and items using class methods
 		generateRandomMap();
 		generateCharacters(noOfEnemies, noOfAllies);
 		generateItems();
 	
 	}
 	
+	/**
+	 * toString method with extra parameters so that map is printed differently depending on whether player has map and compass.
+	 * 
+	 * @param hasMap Flag indicating user has a map
+	 * @param hasCompass Flag indicating user has a compass
+	 * @return mapString String to represent the map
+	 */
 	public String toString(boolean hasMap, boolean hasCompass) {
 		
-		String s = "";
+		//Initialising return string
+		String mapString = "";
 		
+		//If player has map and compass
 		if (hasMap && hasCompass) {
+			
+			//Loop over i axis of locationGrid
 			for(int i = 0; i < locationGrid.length ; i++) {
+				
+				//Loop over j axis of locationGrid
 				for(int j = 0; j < locationGrid[0].length; j++) {
-					Character c = characterGrid[i][j];
 					
-					if(c == null) {
-						s += locationGrid[i][j];
+					//Get character at grid location
+					Character character = characterGrid[i][j];
+					
+					//If there is no character add empty map location to string
+					if(character == null) {
+						mapString += locationGrid[i][j];
 					}
-					else {
-						s += locationGrid[i][j].toString().substring(0,1) + c + locationGrid[i][j].toString().substring(2,3);
+					else { 
+						String locationString = locationGrid[i][j].toString();
+						
+						//If there is a character present take first char of map location string 
+						mapString += locationString.substring(0,1) + character + locationString.substring(2,3);
 					}
 				}
-				s += "\n";
+				mapString += "\n";
 
 			}
-			s += "Using your map and compass the map makes a lot of sense!\n";
-			s += "Perhaps squiggles are the sea and chevrons are the land...\n";
-			s += "Enemies could be E and maybe allies are A? I wonder what P is?\n";
+			mapString += "Using your map and compass the map makes a lot of sense!\n";
+			mapString += "Perhaps squiggles are the sea and chevrons are the land...\n";
+			mapString += "Enemies could be E and maybe allies are A? I wonder what P is?\n";
 		}
 		
 		else if (hasMap && !hasCompass) {
 			for(int i = 0; i < locationGrid.length; i++) {
 				for(int j = 0; j < locationGrid[0].length; j++) {
-					s += locationGrid[i][j];
+					mapString += locationGrid[i][j];
 				}
-				s += "\n";
+				mapString += "\n";
 			}
-			s += "Perhaps squiggles are the sea and chevrons are the land...";
+			mapString += "Perhaps squiggles are the sea and chevrons are the land...";
 		}
 		else {
-			s = "You need to find a map!";
+			mapString = "You need to find a map!";
 		}
-		return s;
+		return mapString;
 	}
 	
 	
@@ -138,8 +192,8 @@ public class Map {
 		
 		
 		String[] itemList = {"Map","Compass"};
-		String[] weaponList = {"Sword","Gun","Sausage"};
-		int[] weaponDamageList = {50, 100, 0};
+		String[] weaponList = {"Sword","Gun","Sausage","Sword","Gun","Sausage","Sword","Gun","Sausage","Sword","Gun","Sausage","Sword","Gun","Sausage","Sword","Gun","Sausage"};
+		int[] weaponDamageList = {50, 100, 0,50, 100, 0,50, 100, 0,50, 100, 0,50, 100, 0,50, 100, 0,50, 100, 0,50, 100, 0,50, 100, 0};
 		
 		for(int k = 0; k < itemList.length; k++) {
 			
@@ -159,12 +213,12 @@ public class Map {
 			
 			int i = (int)(Math.random() * mapWidth);
 			int j = (int)(Math.random() * mapWidth);
-			//int z = 0;
 			
 			if (characterGrid[i][j] != null) {
 				characterGrid[i][j].addToInventory(new Weapon(weaponList[k], weaponDamageList[k]));
 			}
 			else {
+				//System.out.println(i+","+j);
 				locationGrid[i][j].addToInventory(new Weapon(weaponList[k], weaponDamageList[k]));
 			}
 			
@@ -252,69 +306,89 @@ public class Map {
 		return s;
 	}
 	
-	public void loadLocationGrid(String locationGridString) {
+	public void loadLocationGrid(String locationGridString) throws IOException {
 		int i = 0;
 		int j = 0;
-		for(int k = 0; k < locationGridString.length(); k++) {
-			if(locationGridString.charAt(k) == 'S') {
-				locationGrid[i][j] = new Location();
-				locationGrid[i][j].setIsSea(true);
-				j++;
+		
+		try {
+			for(int k = 0; k < locationGridString.length(); k++) {
+				if(locationGridString.charAt(k) == 'S') {
+					locationGrid[i][j] = new Location();
+					locationGrid[i][j].setIsSea(true);
+					j++;
+				}
+				else if(locationGridString.charAt(k) == 'L') {
+					locationGrid[i][j] = new Location();
+					locationGrid[i][j].setIsSea(false);
+					j++;
+				}
+				else if(locationGridString.charAt(k) == 'B') {
+					i++;
+					j = 0;
+				}
+				else {
+					throw new IOException();
+				}
 			}
-			else if(locationGridString.charAt(k) == 'L') {
-				locationGrid[i][j] = new Location();
-				locationGrid[i][j].setIsSea(false);
-				j++;
-			}
-			else if(locationGridString.charAt(k) == 'B') {
-				i++;
-				j = 0;
-			}
+		} catch (Exception e) {
+			throw new IOException();
 		}
 	}
 	
-	public void loadCharacterGrid(String characterGridString, int noOfAllies, int mapWidth) {
+	public void loadCharacterGrid(String characterGridString, int noOfAllies, int mapWidth) throws IOException {
 		int i = 0;
 		int j = 0;
 		characterGrid = new Character[mapWidth][mapWidth];
-		for(int k = 0; k < characterGridString.length(); k++) {
-			if(characterGridString.charAt(k) == 'E') {
-				characterGrid[i][j] = new Enemy();
-				j++;
+		
+		try {
+			for(int k = 0; k < characterGridString.length(); k++) {
+				if(characterGridString.charAt(k) == 'E') {
+					characterGrid[i][j] = new Enemy();
+					j++;
+				}
+				else if(characterGridString.charAt(k) == 'A') {
+					characterGrid[i][j] = new Ally();
+					j++;
+				}
+				else if(characterGridString.charAt(k) == 'P') {
+					playerLocation[0] = i;
+					playerLocation[1] = j;
+					characterGrid[i][j] = new Player(noOfAllies);
+					j++;
+				}
+				else if(characterGridString.charAt(k) == 'N') {
+					j++;
+				}
+				else if(characterGridString.charAt(k) == 'B') {
+					i++;
+					j = 0;
+				}
+				else {
+					throw new IOException();
+				}
 			}
-			else if(characterGridString.charAt(k) == 'A') {
-				characterGrid[i][j] = new Ally();
-				j++;
-			}
-			else if(characterGridString.charAt(k) == 'P') {
-				playerLocation[0] = i;
-				playerLocation[1] = j;
-				characterGrid[i][j] = new Player(noOfAllies);
-				j++;
-			}
-			else if(characterGridString.charAt(k) == 'N') {
-				j++;
-			}
-			else if(characterGridString.charAt(k) == 'B') {
-				i++;
-				j = 0;
-	    	}
+		} catch (Exception e) {
+			throw new IOException();
 		}
 	}
 	
-	public void loadInventory(String inventoryString) {
-		String[] s = inventoryString.split(" ");
-		System.out.println(Arrays.toString(s));
-		int i  = Integer.parseInt(s[0]);
-		int j  = Integer.parseInt(s[1]);
-		char characterFlag = s[2].charAt(0);
-		String name = s[3];
+	public void loadInventory(String inventoryString) throws IOException {
 		
-		if(characterFlag == 'C') {
-			characterGrid[i][j].addToInventory(new Item(name));
-		}
-		else if(characterFlag == 'L') {
-			locationGrid[i][j].addToInventory(new Item(name));
+		try {
+			String[] s = inventoryString.split(" ");
+			int i  = Integer.parseInt(s[0]);
+			int j  = Integer.parseInt(s[1]);
+			char characterFlag = s[2].charAt(0);
+			String name = s[3];
+			
+			if(characterFlag == 'C') {
+				characterGrid[i][j].addToInventory(new Item(name));
+			}
+			else if(characterFlag == 'L') {
+				locationGrid[i][j].addToInventory(new Item(name));
+			}
+		} catch (Exception e) {
+			throw new IOException();
 		}
 	}
 }

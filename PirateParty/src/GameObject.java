@@ -1,8 +1,9 @@
 
 public class GameObject implements HasInventory {
 	
-	protected String name;
-	protected Item[] inventory;
+	private String name;
+	private Item[] inventory;
+	private int noOfItems;
 		
 	public GameObject() {
 		inventory = new Item[10];
@@ -17,10 +18,16 @@ public class GameObject implements HasInventory {
 	}
 	
 	@Override
+	public void setInventory(Item[] inventory) {
+		this.inventory = inventory;
+	}
+	
+	@Override
 	public void addToInventory(Item item) {
 		for(int i = 0; i < inventory.length; i++) {
 			if(inventory[i] == null) {
 				inventory[i] = item;
+				noOfItems++;
 				break;
 			}
 		}
@@ -36,6 +43,7 @@ public class GameObject implements HasInventory {
 				return item;
 			}
 		}
+		noOfItems--;
 		return item;
 	}
 	
@@ -47,6 +55,8 @@ public class GameObject implements HasInventory {
 			items[i] = inventory[i];
 			inventory[i] = null;
 		}
+		
+		noOfItems =  0;
 		return items;
 	}
 	
@@ -57,17 +67,9 @@ public class GameObject implements HasInventory {
 	
 	@Override
 	public boolean isInventoryfull() {
-		int noOfItems = 0;
-		for(int i = 0; i < inventory.length; i++) {
-			if(inventory[i] != null) {
-				noOfItems++;
-			}
-		}
-		
 		if(noOfItems == inventory.length) {
 			return true;
 		}
-		
 		return false;
 	}
 	

@@ -1,28 +1,13 @@
 
-public class Item extends GameObject implements Storable {
-	
-	private String name;
-	
+public class Item extends GameObject {
+		
 	public Item(String name) {
-		this.name = name;
-//		this.isTakeable = true;
+		setName(name);
 	}
-
-//	@Override
-//	public void setIsTakeable(boolean isTakeable) {
-//		this.isTakeable = isTakeable;
-//		
-//	}
-//	
-//	@Override
-//	public boolean getIsTakeable() {
-//		return isTakeable;
-//		
-//	}
 
 	@Override
 	public String toString() {
-		return name;
+		return getName();
 		
 	}
 
