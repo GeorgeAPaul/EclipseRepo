@@ -37,7 +37,7 @@ public class Map {
 	 * 
 	 * @param mapWidth Width of the map
 	 * @param noOfEnemies Number of enemies to populate
-	 * @param noOfAllies Number of allies to poulate
+	 * @param noOfAllies Number of allies to populate
 	 */
 	public Map(int mapWidth, int noOfEnemies, int noOfAllies) {
 		
@@ -153,8 +153,8 @@ public class Map {
 	 * 
 	 * Method to populate character grid.
 	 * 
-	 * @param noOfEnemies
-	 * @param noOfAllies
+	 * @param noOfEnemies number of enemies to populate
+	 * @param noOfAllies number of allies to populate
 	 */
 	private void generateCharacters(int noOfEnemies, int noOfAllies){
 		
@@ -394,7 +394,7 @@ public class Map {
 	 * Method to re-populate locationGrid based on a locationGridString
 	 * 
 	 * @param locationGridString String that represents a locationGrid.
-	 * @throws IOException 
+	 * @throws IOException if any issues reading the file
 	 */
 	public void loadLocationGrid(String locationGridString) throws IOException {
 		
@@ -431,9 +431,9 @@ public class Map {
 	 * Method to re-populate characterGrid based on a characterGridString
 	 * 
 	 * @param characterGridString String that represents a characterGrid.
-	 * @param noOfAllies
-	 * @param mapWidth
-	 * @throws IOException
+	 * @param noOfAllies Number of allies to populate
+	 * @param mapWidth width of map to load
+	 * @throws IOException if any issues reading the file
 	 */
 	public void loadCharacterGrid(String characterGridString, int noOfAllies, int mapWidth) throws IOException {
 		int i = 0;

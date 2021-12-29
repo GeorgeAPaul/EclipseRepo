@@ -48,7 +48,7 @@ public class Location extends GameObject {
 	/**
 	 * toString method to return string representation of Location for map
 	 * 
-	 * @return ~ ~ or < >
+	 * @return "~ ~" or "< >"
 	 */
 	public String toString() {
 		if(isSea) {

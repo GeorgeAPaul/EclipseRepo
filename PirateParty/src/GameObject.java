@@ -79,6 +79,7 @@ public class GameObject implements HasInventory {
 	 * Method for removing items from the inventory
 	 * 
 	 * @param itemName Name of item to be removed
+	 * @return item Item to be returned
 	 */
 	@Override
 	public Item removeFromInventory(String itemName) {

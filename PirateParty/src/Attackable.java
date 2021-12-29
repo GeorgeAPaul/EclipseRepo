@@ -38,16 +38,15 @@ public interface Attackable {
 	/**
 	 * Useless method for increasing the enemies defence.
 	 * 
-	 * @param enemy Target enemy
 	 */
-	public void cry(Character e);
+	public void cry(Character enemy);
 	
 	/**
 	 * Method for decreasing the enemies defence.
 	 * 
 	 * @param enemy Target enemy
 	 */
-	public void warCry(Character e);
+	public void warCry(Character enemy);
 	
 	/**
 	 * Method for returning health of character.
