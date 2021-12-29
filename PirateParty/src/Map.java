@@ -479,7 +479,7 @@ public class Map {
 	 * Method to re-populate inventories based on a inventoryString
 	 * 
 	 * @param inventoryString String that represents a item in an inventory
-	 * @throws IOException
+	 * @throws IOException if any issues reading the file
 	 */
 	public void loadInventory(String inventoryString) throws IOException {
 		

@@ -38,6 +38,7 @@ public interface Attackable {
 	/**
 	 * Useless method for increasing the enemies defence.
 	 * 
+	 * @param enemy Target enemy
 	 */
 	public void cry(Character enemy);
 	
