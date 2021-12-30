@@ -7,10 +7,10 @@ public class Main {
 		Library l = new Library(2, 2);
 		
 		// Adding one of each type of publication
-		l.addCD("George", "GCD", 1994);
-		l.addBook("George", "Gbook", 1994);
-		l.addMagazine("GMag", 1994, 12);
-		l.addBlueRay("GRay", 1994);
+		l.addCD("George", "GCD", 1994, "section1");
+		l.addBook("George", "Gbook", 1994, "section1");
+		l.addMagazine("GMag", 1994, 12, "section1");
+		l.addBlueRay("GRay", 1994, "section1");
 		
 		// Adding one of each type of client
 		l.addClient("George", "george@gib.com");
