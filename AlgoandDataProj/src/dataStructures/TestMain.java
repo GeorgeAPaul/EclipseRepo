@@ -262,14 +262,15 @@ public class TestMain {
 //		
 //		System.out.println(mg);
 		
-		Graph<Integer> g = new Graph<Integer>();
+		Graph<String,Integer> g = new Graph<String,Integer>();
 		
-		g.addNode(2);
-		g.addNode(3);
-		g.addNode(4);
+		g.addNode("Berlin");
+		g.addNode("London");
+		g.addNode("Brussels");
 		
-		g.addEdge(2, 3);
-		g.addEdge(2, 4);
+		g.addEdge("Berlin", "London", 5);
+		g.addEdge("Berlin", "Brussels", 2);
+		g.addEdge("Berlin", "Berlin", 1);
 		
 		System.out.println(g);
 		
