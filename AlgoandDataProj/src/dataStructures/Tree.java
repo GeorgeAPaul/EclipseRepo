@@ -58,9 +58,9 @@ public class Tree<E extends Comparable<E>> {
 			return value.compareTo(val);
 		}
 		
-		public String toString() {
-			return value.toString();
-		}
+//		public String toString() {
+//			return value.toString();
+//		}
 
 		
 		
@@ -180,7 +180,7 @@ public class Tree<E extends Comparable<E>> {
 	public String toString() {
 		traverse(new TreeAction<E>() {	
 			public void run(Tree<E>.TreeNode<E> n) {	
-				s += n.toString() + "\n";	
+				s += n.getValue() + "\n";	
 			}
 		});
 		return s ;

@@ -1,6 +1,7 @@
 package library;
 import dataStructures.Tree;
 import dataStructures.Vector;
+import dataStructures.Graph;
 
 /**
  * Class to represent a Library. The shelves and the clients are represented and there are methods to add publications/clients
@@ -204,11 +205,11 @@ public class Library implements ILibraryManagement {
 			}	
 		}
 		else {
-			try {
-				VIPClient test = (VIPClient) clientList.get(client - 1);
+			//If client is VIP client add them to waiting list with priority 0, if not add them with priority 1.
+			if(clientList.get(client - 1) instanceof VIPClient) {
 				m.addToWaitingList(client, 0);
 			}
-			catch(ClassCastException e) {
+			else {
 				m.addToWaitingList(client, 1);
 			}
 		}
@@ -235,11 +236,11 @@ public class Library implements ILibraryManagement {
 			}	
 		}
 		else {
-			try {
-				VIPClient test = (VIPClient) clientList.get(client - 1);
+			//If client is VIP client add them to waiting list with priority 0, if not add them with priority 1.
+			if(clientList.get(client - 1) instanceof VIPClient) {
 				br.addToWaitingList(client, 0);
 			}
-			catch(ClassCastException e) {
+			else {
 				br.addToWaitingList(client, 1);
 			}
 		}
@@ -266,11 +267,10 @@ public class Library implements ILibraryManagement {
 			}	
 		}
 		else {
-			try {
-				VIPClient test = (VIPClient) clientList.get(client - 1);
+			if(clientList.get(client - 1) instanceof VIPClient) {
 				c.addToWaitingList(client, 0);
 			}
-			catch(ClassCastException e) {
+			else {
 				c.addToWaitingList(client, 1);
 			}
 		}

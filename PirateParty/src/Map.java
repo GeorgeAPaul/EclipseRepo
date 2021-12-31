@@ -7,17 +7,17 @@ import java.io.IOException;
  * @author George Paul
  *
  */
-public class Map {
+public class Map<E extends Location, T extends Character> {
 	
 	/**
 	 *  2d array for storing the locations that make up the Map.
 	 */
-	private Location[][] locationGrid;
+	private E[][] locationGrid;
 	
 	/**
 	 * 2d array for storing the characters on the map.
 	 */
-	private Character[][] characterGrid;
+	private T[][] characterGrid;
 	//I see your point about characters being stored in locations somehow, the reason they are not was because originally there were going to
 	//be events where the map moves around but characters stay still. I'm leaving this the way it is so that the option to implement this in
 	//the future remains.
@@ -128,12 +128,12 @@ public class Map {
 	private void generateRandomMap(){
 		
 		//Define new array of Locations of correct size
-		locationGrid = new Location[mapWidth][mapWidth];
+		locationGrid = (E[][]) new Location[mapWidth][mapWidth];
 		
 		//Populating locationGrid with Locations
 		for(int i = 0; i < mapWidth; i++) {
 			for(int j = 0; j < mapWidth; j++) {
-				locationGrid[i][j] = new Location();
+				locationGrid[i][j] = (E) new Location();
 			}
 		}
 				
@@ -159,14 +159,14 @@ public class Map {
 	private void generateCharacters(int noOfEnemies, int noOfAllies){
 		
 		//Define new array of Characters of correct size
-		characterGrid = new Character[mapWidth][mapWidth];
+		characterGrid = (T[][]) new Character[mapWidth][mapWidth];
 		
 		//Random coordinates for the player
 		int i = (int)(Math.random() * mapWidth);
 		int j = (int)(Math.random() * mapWidth);
 		
 		//Assign player to coordinates and update the stored playerLocation
-		characterGrid[i][j] = new Player(noOfAllies);
+		characterGrid[i][j] = (T) new Player(noOfAllies);
 		playerLocation = new int[]{i, j};
 		
 		//Generate enemies
@@ -179,7 +179,7 @@ public class Map {
 			}
 			
 			//Assign enemy to slot
-			characterGrid[i][j] = new Enemy();
+			characterGrid[i][j] = (T) new Enemy();
 		}
 		
 		//Same process for Allys
@@ -189,7 +189,7 @@ public class Map {
 				i = (int)(Math.random() * mapWidth);
 				j = (int)(Math.random() * mapWidth);
 			}
-			characterGrid[i][j] = new Ally();
+			characterGrid[i][j] = (T) new Ally();
 		}
 	}
 	
@@ -405,12 +405,12 @@ public class Map {
 			//Iterate over locationGridString
 			for(int k = 0; k < locationGridString.length(); k++) {
 				if(locationGridString.charAt(k) == 'S') { //If S is found set location to sea
-					locationGrid[i][j] = new Location();
+					locationGrid[i][j] = (E) new Location();
 					locationGrid[i][j].setIsSea(true);
 					j++;
 				}
 				else if(locationGridString.charAt(k) == 'L') { //If L is found set location to land
-					locationGrid[i][j] = new Location();
+					locationGrid[i][j] = (E) new Location();
 					locationGrid[i][j].setIsSea(false);
 					j++;
 				}
@@ -440,23 +440,23 @@ public class Map {
 		int j = 0;
 		
 		//Overwrite current characterGrid with nulls
-		characterGrid = new Character[mapWidth][mapWidth];
+		characterGrid = (T[][]) new Character[mapWidth][mapWidth];
 		
 		try {
 			//Iterate over characterGridString
 			for(int k = 0; k < characterGridString.length(); k++) {
 				if(characterGridString.charAt(k) == 'E') {//If E is found set character to Enemy
-					characterGrid[i][j] = new Enemy();
+					characterGrid[i][j] = (T) new Enemy();
 					j++;
 				}
 				else if(characterGridString.charAt(k) == 'A') {//If A is found set character to Ally
-					characterGrid[i][j] = new Ally();
+					characterGrid[i][j] = (T) new Ally();
 					j++;
 				}
 				else if(characterGridString.charAt(k) == 'P') {//If P is found set character to Player
 					playerLocation[0] = i;
 					playerLocation[1] = j;
-					characterGrid[i][j] = new Player(noOfAllies);
+					characterGrid[i][j] = (T) new Player(noOfAllies);
 					j++;
 				}
 				else if(characterGridString.charAt(k) == 'N') {//If N is found leave character as null

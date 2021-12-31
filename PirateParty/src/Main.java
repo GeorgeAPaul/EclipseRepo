@@ -53,7 +53,7 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		
 		//Create new map for game
-		Map map = new Map(MAP_WIDTH, noOfEnemies, NO_OF_ALLIES);
+		Map<Location,Character> map = new Map<Location,Character>(MAP_WIDTH, noOfEnemies, NO_OF_ALLIES);
 		
 		//Get a pointer to the player and player inventory so that the player can be used
 		Player player = map.getPlayer();

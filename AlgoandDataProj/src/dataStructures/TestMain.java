@@ -256,14 +256,22 @@ public class TestMain {
 //		
 //		System.out.println(m);
 		
-		MatrixGraph<Integer> mg = new MatrixGraph<Integer>(10);
+//		MatrixGraph<Integer> mg = new MatrixGraph<Integer>(10);
+//		
+//		mg.addEdge(1, 1, 6);
+//		
+//		System.out.println(mg);
 		
-		mg.addEdge(1, 1, 6);
+		Graph<Integer> g = new Graph<Integer>();
 		
-		System.out.println(mg);
+		g.addNode(2);
+		g.addNode(3);
+		g.addNode(4);
 		
+		g.addEdge(2, 3);
+		g.addEdge(2, 4);
 		
-		
+		System.out.println(g);
 		
 		
 		
