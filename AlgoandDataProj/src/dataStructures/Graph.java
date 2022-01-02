@@ -5,11 +5,13 @@ public class Graph<E extends Comparable<E>, W extends Comparable<W>>
     {
         private P info;
         private Vector<Edge<P,T>> edges;
+        private boolean visited;
         
         public Node(P label)
         {
             info = label;
-            edges = new Vector<Edge<P,T>>(10);
+            edges = new Vector<Edge<P,T>>(1);
+            visited = false;
         }
         
         public void addEdge(Edge<P,T> e)
@@ -24,9 +26,13 @@ public class Graph<E extends Comparable<E>, W extends Comparable<W>>
             return n.info.compareTo(info);
         }
         
-        public Vector<Edge<P,T>> getEdges()
-        {
-            return edges;
+//        public Vector<Edge<P,T>> getEdges()
+//        {
+//            return edges;
+//        }
+        
+        public String toString() {
+        	return info.toString();
         }
         
         public P getLabel()
@@ -57,16 +63,16 @@ public class Graph<E extends Comparable<E>, W extends Comparable<W>>
             return n.toNode.compareTo(toNode);
         }
         
-        public Node<P,T> getToNode() {
-        	return toNode;
-        }
+//        public Node<P,T> getToNode() {
+//        	return toNode;
+//        }
+//        
+//        public T getWeight() {
+//        	return weight;
+//        }
         
-        public T getWeight() {
-        	return weight;
-        }
-        
-        public toString() {
-        	s
+        public String toString() {
+        	return "(" + toNode.getLabel() + " " + weight + ")";
         }
         
     }
@@ -114,17 +120,50 @@ public class Graph<E extends Comparable<E>, W extends Comparable<W>>
     	for(int i = 0; i < nodes.size(); i++) {
     		
     		Node<E,W> node = nodes.get(i);
-    		Vector<Edge<E,W>> edges = node.getEdges();
+    		Vector<Edge<E,W>> edges = node.edges;
     		
     		s += "Node: " + node.getLabel() + " Edges: ";
     		
     		for(int j = 0; j < edges.size(); j++) {
-    			s += edges.get(j).getToNode().getLabel() + ", ";
+    			s += edges.get(j) + ", ";
     		}
-    		s = s.substring(0,s.length() - 2);
+    		//s = s.substring(0,s.length() - 0);
     		s += "\n";
     	}
     	
     	return s;
+    }
+    
+    public Vector<Node<E,W>> findPath (E nodeLabel1 , E nodeLabel2) {
+    	
+    	Node<E,W> startState = findNode(nodeLabel1);
+    	Node<E,W> endState = findNode(nodeLabel2);
+    	
+    	Vector<Node<E,W>> path = new Vector<Node<E,W>>(10);
+    	
+    	path.addLast(startState);
+    	
+    	Stack<Node<E,W>> toDoList = new Stack<Node<E,W>>();
+    	
+    	toDoList.push(startState);
+    	
+    	while (!toDoList.isEmpty()){
+    		Node<E,W> current = toDoList.pop();
+    		if(current == endState) {
+    			return path;
+    		}
+    		else {
+    			for(int i = 0; i < current.edges.size(); i++) {
+    				Edge<E,W> e = current.edges.get(i);
+    				
+    				if(e.toNode.visited == false) {
+    					toDoList.push(e.toNode);
+    				}
+    				path.addLast(e.toNode);
+    				e.toNode.visited = true;
+    			}
+    		}
+    	}
+    	return new Vector<Node<E,W>>(1);
     }
 }

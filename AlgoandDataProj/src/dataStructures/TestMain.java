@@ -267,12 +267,17 @@ public class TestMain {
 		g.addNode("Berlin");
 		g.addNode("London");
 		g.addNode("Brussels");
+		g.addNode("Budapest");
+		g.addNode("Rome");
 		
-		g.addEdge("Berlin", "London", 5);
 		g.addEdge("Berlin", "Brussels", 2);
-		g.addEdge("Berlin", "Berlin", 1);
+		//g.addEdge("Berlin", "Berlin", 2);
+		g.addEdge("Brussels", "Rome", 4);
+		g.addEdge("Rome", "London", 6);
 		
 		System.out.println(g);
+		
+		System.out.println(g.findPath("Berlin", "London")); //No
 		
 		
 		
