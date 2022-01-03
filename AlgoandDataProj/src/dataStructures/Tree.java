@@ -72,6 +72,7 @@ public class Tree<E extends Comparable<E>> {
 	// the root of our tree
 	protected TreeNode<E> root;
 	private String s = "";
+	private int count;
 	
 	public Tree()
 	{
@@ -112,7 +113,12 @@ public class Tree<E extends Comparable<E>> {
 	public void insert(E element)
 	{
 		insertAtNode(element,root,null);
-	}	
+		count++;
+	}
+	
+	public int size() {
+		return count;
+	}
 	
 	// we traverse the tree.
 	// Current holds the pointer to the TreeNode we are currently checking
@@ -159,23 +165,15 @@ public class Tree<E extends Comparable<E>> {
 //		return depth;
 //	}
 	
-//	public String toString ()
-//	{
-//		String s = "";
-//		Queue<TreeNode> t = new Queue<TreeNode>();
-//		t.push(root);
-//		while (!t.isEmpty())
-//		{
-//			TreeNode n = (TreeNode)t.pop();
-//			s += n;
-//			if(n.getRightTree() != null)
-//				t.push(n.getRightTree());
-//			if(n.getLeftTree () != null)
-//				t.push(n.getLeftTree());
-//			s += "\n";
-//		}
-//		return s ;
-//	}
+	
+	public String toString() {
+		traverse(new TreeAction<E>() {	
+			public void run(Tree<E>.TreeNode<E> n) {	
+				s += n.getValue() + "\n";	
+			}
+		});
+		return s ;
+	}
 	
 	public String toString() {
 		traverse(new TreeAction<E>() {	

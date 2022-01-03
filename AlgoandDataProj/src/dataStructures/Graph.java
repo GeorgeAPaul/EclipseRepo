@@ -1,28 +1,30 @@
 package dataStructures;
-public class Graph<E extends Comparable<E>, W extends Comparable<W>>
+public class Graph<E extends Comparable<E>>
 {
-    public class Node<P extends Comparable<P>, T extends Comparable<T>> implements Comparable<Node<P,T>>
+    public class Node<P extends Comparable<P>> implements Comparable<Node<P>>
     {
         private P info;
-        private Vector<Edge<P,T>> edges;
+        private Vector<Edge<P>> edges;
         private boolean visited;
+        private int bForddistance;
+        private P bFordPi;
         
         public Node(P label)
         {
             info = label;
-            edges = new Vector<Edge<P,T>>(1);
+            edges = new Vector<Edge<P>>(1);
             visited = false;
         }
         
-        public void addEdge(Edge<P,T> e)
+        public void addEdge(Edge<P> e)
         {
             edges.addLast(e);
         }
         
-        public int compareTo(Node<P,T> o)
+        public int compareTo(Node<P> o)
         {
             // two nodes are equal if they have the same label
-            Node<P,T> n = (Node<P,T>)o;
+            Node<P> n = (Node<P>)o;
             return n.info.compareTo(info);
         }
         
@@ -32,7 +34,7 @@ public class Graph<E extends Comparable<E>, W extends Comparable<W>>
 //        }
         
         public String toString() {
-        	return info.toString();
+        	return info.toString() + " " + edges;
         }
         
         public P getLabel()
@@ -42,34 +44,26 @@ public class Graph<E extends Comparable<E>, W extends Comparable<W>>
         
     }
     
-    private class Edge<P extends Comparable<P>, T extends Comparable<T>> implements Comparable<Edge<P,T>>
+    private class Edge<P extends Comparable<P>> implements Comparable<Edge<P>>
     {
-        private Node<P,T> toNode;
-        private T weight;
+        private Node<P> toNode;
+        private int weight;
         
-        public Edge(Node<P,T> to, T w)
+        public Edge(Node<P> to, int w)
         {
             toNode = to;
             weight = w;
         }
         
-        public int compareTo(Edge<P,T> o)
+        public int compareTo(Edge<P> o)
         {
             // two edges are equal if they point
             // to the same node.
             // this assumes that the edges are
             // starting from the same node !!!
-            Edge<P,T> n = o;
+            Edge<P> n = o;
             return n.toNode.compareTo(toNode);
         }
-        
-//        public Node<P,T> getToNode() {
-//        	return toNode;
-//        }
-//        
-//        public T getWeight() {
-//        	return weight;
-//        }
         
         public String toString() {
         	return "(" + toNode.getLabel() + " " + weight + ")";
@@ -77,63 +71,61 @@ public class Graph<E extends Comparable<E>, W extends Comparable<W>>
         
     }
     
-    private Vector<Node<E,W>> nodes;
+    private Tree<Node<E>> nodes;
     
     public Graph()
     {
-        nodes = new Vector<Node<E,W>>(10);
+        nodes = new Tree<Node<E>>();
     }
     
     public void addNode(E label)
     {
-        nodes.addSorted(new Node<E,W>(label));
+        nodes.insert(new Node<E>(label));
     }
     
-    private Node<E,W> findNode(E nodeLabel)
+    private Node<E> findNode(E nodeLabel)
     {
-        return nodes.binarySearch(new Node<E,W>((nodeLabel)));
+        return nodes.find(new Node<E>((nodeLabel)));
     }
     
     public void addEdge(E nodeLabel1,
                         E nodeLabel2,
-                        W weight)
+                        int weight)
     {
-        Node<E,W> n1 = findNode(nodeLabel1);
-        Node<E,W> n2 = findNode(nodeLabel2);
-//        System.out.println(n1);
-//        System.out.println(n2);
-        n1.addEdge(new Edge<E,W>(n2, weight));
+        Node<E> n1 = findNode(nodeLabel1);
+        Node<E> n2 = findNode(nodeLabel2);
+        n1.addEdge(new Edge<E>(n2, weight));
     }
     
     public String toString() {
     	
-    	String s = "";
+//    	String s = "";
+//    	
+//    	for(int i = 0; i < nodes.size(); i++) {
+//    		
+//    		Node<E,W> node = nodes.get(i);
+//    		
+//    		s += "Node: " + node + " Edges: ";
+//    		
+//    		for(int j = 0; j < node.edges.size(); j++) {
+//    			s += node.edges.get(j) + ", ";
+//    		}
+//    		//s = s.substring(0,s.length() - 0);
+//    		s += "\n";
+//    	}
     	
-    	for(int i = 0; i < nodes.size(); i++) {
-    		
-    		Node<E,W> node = nodes.get(i);
-    		
-    		s += "Node: " + node + " Edges: ";
-    		
-    		for(int j = 0; j < node.edges.size(); j++) {
-    			s += node.edges.get(j) + ", ";
-    		}
-    		//s = s.substring(0,s.length() - 0);
-    		s += "\n";
-    	}
-    	
-    	return s;
+    	return nodes.toString();
     }
     
-    public Vector<Node<E,W>> findPath (E nodeLabel1 , E nodeLabel2) {
+    public Vector<Node<E>> findPath (E nodeLabel1 , E nodeLabel2) {
     	
-    	Node<E,W> startState = findNode(nodeLabel1);
-    	Node<E,W> endState = findNode(nodeLabel2);
+    	Node<E> startState = findNode(nodeLabel1);
+    	Node<E> endState = findNode(nodeLabel2);
     	
-    	Vector<Node<E,W>> path = new Vector<Node<E,W>>(10);
+    	Vector<Node<E>> path = new Vector<Node<E>>(10);
     	
     	startState.visited = true;
-    	Stack<Node<E,W>> toDoList = new Stack<Node<E,W>>();
+    	Stack<Node<E>> toDoList = new Stack<Node<E>>();
     	
     	int distanceFromDivergence = 0;
     	
@@ -141,7 +133,7 @@ public class Graph<E extends Comparable<E>, W extends Comparable<W>>
     	
     	while (!toDoList.isEmpty()){
     		
-    		Node<E,W> current = toDoList.pop();
+    		Node<E> current = toDoList.pop();
     		path.addLast(current);
     		
     		if(current == endState) {
@@ -157,10 +149,8 @@ public class Graph<E extends Comparable<E>, W extends Comparable<W>>
     				distanceFromDivergence++;
     			}
     			
-    			//System.out.println(current + " " + distanceFromDivergence);
-    			
     			for(int i = 0; i < current.edges.size(); i++) {
-    				Edge<E,W> e = current.edges.get(i);
+    				Edge<E> e = current.edges.get(i);
     				
     				if(e.toNode.visited == false) {
     					toDoList.push(e.toNode);
@@ -176,6 +166,32 @@ public class Graph<E extends Comparable<E>, W extends Comparable<W>>
     			}
     		}
     	}
-    	return new Vector<Node<E,W>>(10);
+    	return new Vector<Node<E>>(10);
+    }
+    
+    public Vector<Node<E>> findShortestPath(E nodeLabel1 , E nodeLabel2) {
+    	
+    	Node<E> startState = findNode(nodeLabel1);
+    	Node<E> endState = findNode(nodeLabel2);
+    	
+    	
+    	Vector<Node<E>> toDoList = new Vector<Node<E>>(10);
+    		
+    	toDoList.addLast(startState);
+    	
+    	for(int i = 0; i < toDoList.size(); i++) {
+    		
+    		Node<E> current = toDoList.get(i);
+    		
+    		for(int j = 0; j < current.edges.size(); j++) {
+    			
+    			Edge<E> edge = current.edges.get(i);
+    			edge.toNode.bForddistance = ((Object) edge.weight).add(((Object)current.bForddistance));
+    		}
+    		
+    		
+    	}
+    	
+		return null;
     }
 }

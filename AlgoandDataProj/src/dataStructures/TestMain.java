@@ -1,5 +1,6 @@
 package dataStructures;
-import java.util.Arrays;
+
+import dataStructures.Graph.Node;
 
 public class TestMain {
 	
@@ -298,43 +299,62 @@ public class TestMain {
 //		
 //		System.out.println(mg);
 		
-		Graph<String,Integer> g = new Graph<String,Integer>();
+//		Graph<String,Integer> g = new Graph<String,Integer>();
+//		
+//		g.addNode("Berlin");
+//		g.addNode("London");
+//		g.addNode("Brussels");
+//		g.addNode("Budapest");
+//		g.addNode("Rome");
+//		g.addNode("Amsterdam");
+//		g.addNode("Paris");
+//		g.addNode("Prague");
+//		g.addNode("Florence");
+//		g.addNode("Edinburgh");
+//		g.addNode("Dublin");
+//		g.addNode("Moscow");
+//		
+//		//System.out.println(g);
+//		
+//		g.addEdge("Brussels", "Florence", 2);
+//		g.addEdge("Berlin", "Brussels", 2);
+//		g.addEdge("Brussels", "Florence", 2);
+//		g.addEdge("Prague", "Brussels", 1);
+//		g.addEdge("Florence", "Edinburgh", 4);
+//		g.addEdge("Edinburgh", "London", 1);
+//		
+//		g.addEdge("Brussels", "Amsterdam", 4);
+//		
+//		g.addEdge("Berlin", "Prague", 1);
+//		g.addEdge("Amsterdam", "Florence", 1);
+//		g.addEdge("Rome", "Moscow", 6);
+//		g.addEdge("London", "Berlin", 6);
+//		System.out.println(g);
+//		
+//		Vector<Graph<String, Integer>.Node<String, Integer>> berlinLondon = g.findPath("Berlin", "London");
+//		
+//		for(int i = 0; i < berlinLondon.size(); i++) {
+//			System.out.println(berlinLondon.get(i));
+//		}
 		
-		g.addNode("Berlin");
-		g.addNode("London");
-		g.addNode("Brussels");
-		g.addNode("Budapest");
-		g.addNode("Rome");
-		g.addNode("Amsterdam");
-		g.addNode("Paris");
-		g.addNode("Prague");
-		g.addNode("Florence");
-		g.addNode("Edinburgh");
-		g.addNode("Dublin");
-		g.addNode("Moscow");
+		Graph<String,Integer> lubos = new Graph<String,Integer>();
 		
-		//System.out.println(g);
+		lubos.addNode("S");
+		lubos.addNode("A");
+		lubos.addNode("B");
+		lubos.addNode("C");
+		lubos.addNode("D");
 		
-		g.addEdge("Brussels", "Florence", 2);
-		g.addEdge("Berlin", "Brussels", 2);
-		g.addEdge("Brussels", "Prague", 2);
-		g.addEdge("Prague", "London", 1);
-		g.addEdge("Florence", "Edinburgh", 4);
-		g.addEdge("Edinburgh", "London", 1);
+		lubos.addEdge("S", "A", 6);
+		lubos.addEdge("S", "B", 4);
+		lubos.addEdge("B", "A", -5);
+		lubos.addEdge("A", "C", 3);
+		lubos.addEdge("C", "D", 2);
+		lubos.addEdge("B", "D", 1);
 		
-		g.addEdge("Brussels", "Amsterdam", 4);
+		System.out.println(lubos);
 		
-		g.addEdge("Berlin", "Prague", 1);
-		g.addEdge("Amsterdam", "Florence", 1);
-		g.addEdge("Rome", "Moscow", 6);
-		g.addEdge("London", "Berlin", 6);
-		System.out.println(g);
-		
-		System.out.println(g.findPath("Berlin", "London")); 
-		
-		
-		
-		
+
 	}
 }
 

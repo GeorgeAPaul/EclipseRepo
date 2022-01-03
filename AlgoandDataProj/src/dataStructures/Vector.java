@@ -204,9 +204,9 @@ public class Vector<E extends Comparable<E>>
 	 */
 	public String toString()
 	{
-		String s = "[ ";
+		String s = "[";
 		for (int i = 0; i < size(); i ++) { // For loop to iterate over contents of Vector and add them to the String.
-			s += data[i].toString() + "\n";
+			s += data[i].toString();
 		}
 		s += "]";
 		return s;

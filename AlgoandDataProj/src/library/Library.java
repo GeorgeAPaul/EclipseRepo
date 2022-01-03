@@ -148,8 +148,11 @@ public class Library implements ILibraryManagement {
 	@Override
 	public void printAllClients() {
 		
-		String outString = clientList.toString();
-		System.out.println(outString.substring(2, outString.length() -2));
+		String outString = "";
+		for(int i = 0; i < clientList.size(); i++) {
+			outString += clientList.get(i) + "\n";
+		}
+		System.out.println(outString);
 	}
 
 	/**
