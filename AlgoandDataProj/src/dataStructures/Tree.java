@@ -174,15 +174,7 @@ public class Tree<E extends Comparable<E>> {
 		});
 		return s ;
 	}
-	
-	public String toString() {
-		traverse(new TreeAction<E>() {	
-			public void run(Tree<E>.TreeNode<E> n) {	
-				s += n.getValue() + "\n";	
-			}
-		});
-		return s ;
-	}
+
 	
 	private E findNode (E element ,TreeNode<E> current) {
 		if (current == null) return null;

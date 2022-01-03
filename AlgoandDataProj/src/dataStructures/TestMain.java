@@ -337,7 +337,7 @@ public class TestMain {
 //			System.out.println(berlinLondon.get(i));
 //		}
 		
-		Graph<String,Integer> lubos = new Graph<String,Integer>();
+		Graph<String> lubos = new Graph<String>();
 		
 		lubos.addNode("S");
 		lubos.addNode("A");
