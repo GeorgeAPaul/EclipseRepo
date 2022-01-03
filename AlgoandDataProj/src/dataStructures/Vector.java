@@ -91,19 +91,12 @@ public class Vector<E extends Comparable<E>>
 	{
 		if (size() == data.length) { // Checks whether max size of data[] has been reached. Extends capacity if True.
 			extendCapacity();
-			for (int i = size(); i > 0; i--) { // For loop to increment the index of each element by 1.
-				data[i] = data[i-1];
-			}
-			data[0] = item; // Setting element 0 to new object.
-			count ++; // Increasing object count.
 		}
-		else { // Identical to above except extend capacity not required.
-			for (int i = size(); i > 0; i--) {
-				data[i] = data[i-1];
-			}
-			data[0] = item;
-			count ++;
+		for (int i = size(); i > 0; i--) { // For loop to increment the index of each element by 1.
+			data[i] = data[i-1];
 		}
+		data[0] = item; // Setting element 0 to new object.
+		count ++; // Increasing object count.
 	}
 
 	/**
@@ -114,23 +107,38 @@ public class Vector<E extends Comparable<E>>
 	{
 		if(size() == data.length) { // Checks whether max size of data[] has been reached. Extends capacity if True.
 			extendCapacity();
-			data[count] = o; // Setting last element to new object.
-			count++; // Increasing object count.
 		}
-		else { // Identical to above except extend capacity not required.
-			data[count] = o;
-			count++;
-		}
+		data[count] = o; // Setting last element to new object.
+		count++; // Increasing object count.
 	}
 	
-//	public void addSorted(E o) {
-//		
-//		for(int i = 0; i < size(); i++) {
-//			if((o).compareTo((E)data[i]) < 0) {
-//				
-//			}
-//		}
-//	}
+	public void addSorted(E o) {
+		
+		if(isEmpty()) {
+			data[0] = o;
+		}
+		else {
+			if(size() == data.length) { // Checks whether max size of data[] has been reached. Extends capacity if True.
+				extendCapacity();
+			}
+		
+			for(int i = 0; i < size(); i++) {
+					
+				if((o).compareTo((E)data[i]) < 0) {
+				
+					for (int j = size(); j > i; j--) { // For loop to increment the index of each element by 1.
+						data[j] = data[j-1];
+					}
+					data[i] = o; // Setting element 0 to new object.
+					break;
+				}
+				else {
+					data[count] = o;
+				}
+			}
+		}
+		count++; // Increasing object count.
+	}
 	
 	
 	/**
@@ -139,7 +147,7 @@ public class Vector<E extends Comparable<E>>
 	 * @return true if key is found else return false.
 	 */
 	
-	public boolean binarySearch(E key)
+	public E binarySearch(E key)
 	{
 	int start = 0; // Start of section of data[] to be searched. Initialised to be first element of data[].
 	int end = count - 1; // End of section of data[] to be searched. Initialised to be last element of data[].
@@ -148,9 +156,9 @@ public class Vector<E extends Comparable<E>>
 		int middle = (start + end + 1) / 2; // Defining middle element of data[]. 
 		if((key).compareTo((E)data[middle]) < 0) end = middle -1; // If key is less than middle element, move end to middle element - 1.
 		else if((key).compareTo((E)data[middle]) > 0) start = middle + 1; // If key is more than middle element, move start to middle element + 1.
-		else return true; // If key equals middle element then element has been found.
+		else return (E)data[middle]; // If key equals middle element then element has been found.
 	}
-	return false; // Return false if element was not found.
+	return null; // Return false if element was not found.
 	}
 	
 	/**

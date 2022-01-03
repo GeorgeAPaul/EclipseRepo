@@ -117,6 +117,42 @@ public class TestMain {
 //		
 //		System.out.println(v5.binarySearch(4));
 		
+		
+		Vector<Integer> vop = new Vector<Integer>(10);
+		
+//		vop.addLast(1);
+//		vop.addLast(2);
+//		vop.addLast(3);
+//		vop.addLast(4);
+//		vop.addLast(5);
+//		vop.addLast(6);
+//		vop.addLast(7);
+//		vop.addLast(8);
+//		vop.addLast(9);
+//		vop.addLast(10);
+//		vop.addLast(11);
+		
+//		vop.addFirst(1);
+//		vop.addFirst(2);
+//		vop.addFirst(3);
+//		vop.addFirst(4);
+//		vop.addFirst(5);
+//		//vop.addFirst(6);
+//		vop.addFirst(7);
+//		vop.addFirst(8);
+//		vop.addFirst(9);
+//		//vop.addFirst(10);
+//		//vop.addFirst(11);
+		
+//		System.out.println(vop);
+//		
+//		vop.addSorted(6);
+//		
+//		System.out.println(vop);
+//		
+//		System.out.println(vop.binarySearch(6));
+		
+		
 //		LinkedList<Integer> l = new LinkedList<Integer>();
 //		
 //		l.addFirst(1);
@@ -277,32 +313,24 @@ public class TestMain {
 		g.addNode("Dublin");
 		g.addNode("Moscow");
 		
+		//System.out.println(g);
 		
-		
-		//g.addEdge("Brussels", "Florence", 2);
-		g.addEdge("Florence", "Edinburgh", 4);
-		g.addEdge("Edinburgh", "London", 1);
+		g.addEdge("Brussels", "Florence", 2);
 		g.addEdge("Berlin", "Brussels", 2);
-		g.addEdge("Brussels", "Amsterdam", 4);
-		
-		g.addEdge("Amsterdam", "Prague", 1);
-		g.addEdge("Amsterdam", "London", 1);
-		
-		
 		g.addEdge("Brussels", "Prague", 2);
 		g.addEdge("Prague", "London", 1);
+		g.addEdge("Florence", "Edinburgh", 4);
+		g.addEdge("Edinburgh", "London", 1);
+		
+		g.addEdge("Brussels", "Amsterdam", 4);
+		
+		g.addEdge("Berlin", "Prague", 1);
+		g.addEdge("Amsterdam", "Florence", 1);
 		g.addEdge("Rome", "Moscow", 6);
-		
-		
-		
-		
-		
-		
-		
-		
+		g.addEdge("London", "Berlin", 6);
 		System.out.println(g);
 		
-		System.out.println(g.findPath("Berlin", "London")); //No
+		System.out.println(g.findPath("Berlin", "London")); 
 		
 		
 		

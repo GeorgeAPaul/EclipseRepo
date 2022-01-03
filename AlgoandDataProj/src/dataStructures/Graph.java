@@ -86,22 +86,12 @@ public class Graph<E extends Comparable<E>, W extends Comparable<W>>
     
     public void addNode(E label)
     {
-        nodes.addLast(new Node<E,W>(label));
+        nodes.addSorted(new Node<E,W>(label));
     }
     
     private Node<E,W> findNode(E nodeLabel)
     {
-        Node<E,W> res = null;
-        for (int i=0; i<nodes.size(); i++)
-        {
-            Node<E,W> n = (Node<E,W>)nodes.get(i);
-            if(n.getLabel() == nodeLabel)
-            {
-                res = n;
-                break;
-            }
-        }
-        return res;
+        return nodes.binarySearch(new Node<E,W>((nodeLabel)));
     }
     
     public void addEdge(E nodeLabel1,
@@ -110,6 +100,8 @@ public class Graph<E extends Comparable<E>, W extends Comparable<W>>
     {
         Node<E,W> n1 = findNode(nodeLabel1);
         Node<E,W> n2 = findNode(nodeLabel2);
+//        System.out.println(n1);
+//        System.out.println(n2);
         n1.addEdge(new Edge<E,W>(n2, weight));
     }
     
@@ -120,12 +112,11 @@ public class Graph<E extends Comparable<E>, W extends Comparable<W>>
     	for(int i = 0; i < nodes.size(); i++) {
     		
     		Node<E,W> node = nodes.get(i);
-    		Vector<Edge<E,W>> edges = node.edges;
     		
-    		s += "Node: " + node.getLabel() + " Edges: ";
+    		s += "Node: " + node + " Edges: ";
     		
-    		for(int j = 0; j < edges.size(); j++) {
-    			s += edges.get(j) + ", ";
+    		for(int j = 0; j < node.edges.size(); j++) {
+    			s += node.edges.get(j) + ", ";
     		}
     		//s = s.substring(0,s.length() - 0);
     		s += "\n";
@@ -166,23 +157,22 @@ public class Graph<E extends Comparable<E>, W extends Comparable<W>>
     				distanceFromDivergence++;
     			}
     			
-    			System.out.println(current + " " + distanceFromDivergence);
+    			//System.out.println(current + " " + distanceFromDivergence);
+    			
+    			for(int i = 0; i < current.edges.size(); i++) {
+    				Edge<E,W> e = current.edges.get(i);
+    				
+    				if(e.toNode.visited == false) {
+    					toDoList.push(e.toNode);
+    					e.toNode.visited = true;
+    				}
+    			}
     			
     			if(current.edges.size() == 0) {
     				for(int i = 0; i < distanceFromDivergence; i++) {
         				path.removeLast();
         			}
     				distanceFromDivergence = 0;
-    			}
-    			
-    			for(int i = 0; i < current.edges.size(); i++) {
-    				Edge<E,W> e = current.edges.get(i);
-    				
-//    				if(e.toNode.visited == false) {
-    					toDoList.push(e.toNode);
-    					e.toNode.visited = true;
-//    				}
-    				
     			}
     		}
     	}
