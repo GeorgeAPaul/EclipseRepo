@@ -269,11 +269,36 @@ public class TestMain {
 		g.addNode("Brussels");
 		g.addNode("Budapest");
 		g.addNode("Rome");
+		g.addNode("Amsterdam");
+		g.addNode("Paris");
+		g.addNode("Prague");
+		g.addNode("Florence");
+		g.addNode("Edinburgh");
+		g.addNode("Dublin");
+		g.addNode("Moscow");
 		
+		
+		
+		//g.addEdge("Brussels", "Florence", 2);
+		g.addEdge("Florence", "Edinburgh", 4);
+		g.addEdge("Edinburgh", "London", 1);
 		g.addEdge("Berlin", "Brussels", 2);
-		//g.addEdge("Berlin", "Berlin", 2);
-		g.addEdge("Brussels", "Rome", 4);
-		g.addEdge("Rome", "London", 6);
+		g.addEdge("Brussels", "Amsterdam", 4);
+		
+		g.addEdge("Amsterdam", "Prague", 1);
+		g.addEdge("Amsterdam", "London", 1);
+		
+		
+		g.addEdge("Brussels", "Prague", 2);
+		g.addEdge("Prague", "London", 1);
+		g.addEdge("Rome", "Moscow", 6);
+		
+		
+		
+		
+		
+		
+		
 		
 		System.out.println(g);
 		

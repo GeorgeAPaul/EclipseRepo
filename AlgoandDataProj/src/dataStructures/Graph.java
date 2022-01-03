@@ -141,29 +141,51 @@ public class Graph<E extends Comparable<E>, W extends Comparable<W>>
     	
     	Vector<Node<E,W>> path = new Vector<Node<E,W>>(10);
     	
-    	path.addLast(startState);
-    	
+    	startState.visited = true;
     	Stack<Node<E,W>> toDoList = new Stack<Node<E,W>>();
+    	
+    	int distanceFromDivergence = 0;
     	
     	toDoList.push(startState);
     	
     	while (!toDoList.isEmpty()){
+    		
     		Node<E,W> current = toDoList.pop();
+    		path.addLast(current);
+    		
     		if(current == endState) {
     			return path;
     		}
+    		
     		else {
+    			
+    			if(current.edges.size() > 1) {
+    				distanceFromDivergence = 0;
+    			}
+    			else {
+    				distanceFromDivergence++;
+    			}
+    			
+    			System.out.println(current + " " + distanceFromDivergence);
+    			
+    			if(current.edges.size() == 0) {
+    				for(int i = 0; i < distanceFromDivergence; i++) {
+        				path.removeLast();
+        			}
+    				distanceFromDivergence = 0;
+    			}
+    			
     			for(int i = 0; i < current.edges.size(); i++) {
     				Edge<E,W> e = current.edges.get(i);
     				
-    				if(e.toNode.visited == false) {
+//    				if(e.toNode.visited == false) {
     					toDoList.push(e.toNode);
-    				}
-    				path.addLast(e.toNode);
-    				e.toNode.visited = true;
+    					e.toNode.visited = true;
+//    				}
+    				
     			}
     		}
     	}
-    	return new Vector<Node<E,W>>(1);
+    	return new Vector<Node<E,W>>(10);
     }
 }

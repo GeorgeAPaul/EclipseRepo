@@ -123,14 +123,14 @@ public class Vector<E extends Comparable<E>>
 		}
 	}
 	
-	public void addSorted(E o) {
-		
-		for(int i = 0; i < size(); i++) {
-			if((o).compareTo((E)data[i]) < 0) {
-				
-			}
-		}
-	}
+//	public void addSorted(E o) {
+//		
+//		for(int i = 0; i < size(); i++) {
+//			if((o).compareTo((E)data[i]) < 0) {
+//				
+//			}
+//		}
+//	}
 	
 	
 	/**
