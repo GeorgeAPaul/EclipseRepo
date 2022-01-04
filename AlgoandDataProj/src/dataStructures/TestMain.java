@@ -1,7 +1,5 @@
 package dataStructures;
 
-import dataStructures.Graph.Node;
-
 public class TestMain {
 	
 	public static void main(String[] args) {
@@ -298,7 +296,7 @@ public class TestMain {
 //		mg.addEdge(1, 1, 6);
 //		
 //		System.out.println(mg);
-		
+	
 //		Graph<String> g = new Graph<String>();
 //		
 //		g.addNode("Berlin");
@@ -313,52 +311,71 @@ public class TestMain {
 //		g.addNode("Edinburgh");
 //		g.addNode("Dublin");
 //		g.addNode("Moscow");
-		
-		//System.out.println(g);
-		
+//		
+//		//System.out.println(g);
+//		
 //		g.addEdge("Brussels", "Florence", 2);
 //		g.addEdge("Berlin", "Brussels", 2);
-//		g.addEdge("Brussels", "Florence", 2);
+//		g.addEdge("Brussels", "London", 20);
 //		g.addEdge("Prague", "Brussels", 1);
 //		g.addEdge("Florence", "Edinburgh", 4);
 //		g.addEdge("Edinburgh", "London", 1);
 //		
-//		g.addEdge("Brussels", "Amsterdam", 4);
+//		//g.addEdge("Brussels", "Amsterdam", 4);
 //		
 //		g.addEdge("Berlin", "Prague", 1);
 //		g.addEdge("Amsterdam", "Florence", 1);
 //		g.addEdge("Rome", "Moscow", 6);
 //		g.addEdge("London", "Berlin", 6);
-//		System.out.println(g);
+//		//System.out.println(g);
 //		
-//		Vector<Graph<String>.Node<String> berlinLondon = g.findPath("Berlin", "London");
+//		Vector<Graph<String>.Node<String>> berlinLondon = g.findPath("Berlin", "London");
 //		
 //		for(int i = 0; i < berlinLondon.size(); i++) {
 //			System.out.println(berlinLondon.get(i));
 //		}
 //		
-//		System.out.println(g.findShortestPath("", "D"));
+//		System.out.println(g.findShortestPath("Berlin", "London"));
 		
-		Graph<String> lubos = new Graph<String>();
+//		Graph<String> lubos = new Graph<String>();
+//		
+//		lubos.addNode("S");
+//		lubos.addNode("A");
+//		lubos.addNode("B");
+//		lubos.addNode("C");
+//		lubos.addNode("D");
+//		
+//		lubos.addEdge("S", "A", 4);
+//		lubos.addEdge("S", "B", 6);
+//		lubos.addEdge("B", "A", -5);
+//		lubos.addEdge("A", "C", 3);
+//		lubos.addEdge("C", "D", 2);
+//		lubos.addEdge("B", "D", 1);
+//		
+//		System.out.println(lubos);
+//		
+//		LinkedList<Graph<String>.Node<String>> shortestpathSD = lubos.findShortestPath("S", "D");
+//		
+//		System.out.println(shortestpathSD);
 		
-		lubos.addNode("S");
-		lubos.addNode("A");
-		lubos.addNode("B");
-		lubos.addNode("C");
-		lubos.addNode("D");
+		Dictionary<Integer,String> d = new Dictionary<Integer,String>();
 		
-		lubos.addEdge("S", "A", 4);
-		lubos.addEdge("S", "B", 6);
-		lubos.addEdge("B", "A", -5);
-		lubos.addEdge("A", "C", 3);
-		lubos.addEdge("C", "D", 2);
-		lubos.addEdge("B", "D", 1);
+		d.add(1, "plop");
+		d.add(34, "plio");
+		d.add(23, "asdasd");
+		d.add(67, "asd656");
+		d.add(123123, "a2323");
+		d.add(53453, "asda2");
+		d.add(32, "asa[pkpk");
+		d.add(87, "asdasdasdcccc");
+		d.add(35345, "pplaop");
+		d.add(5134, "ploop");
+		d.add(5444, "plgg");
+		d.add(33434, "butt");
+		d.add(5555, "krurg");
 		
-		System.out.println(lubos);
+		System.out.println(d.find(1));
 		
-		LinkedList<Graph<String>.Node<String>> shortestpathSD = lubos.findShortestPath("S", "D");
-		
-		System.out.println(shortestpathSD);
 		
 
 	}

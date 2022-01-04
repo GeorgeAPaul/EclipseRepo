@@ -165,7 +165,7 @@ public class LinkedList<E extends Comparable<E>> {
 		ListElement d = head;
 		while (d != null) {
 			s += d.first();
-			s += " ";
+			s += ", ";
 			d = d.rest();
 		}
 		s += ")";

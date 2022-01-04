@@ -123,6 +123,15 @@ public class Graph<E extends Comparable<E>>
     	Node<E> startState = findNode(nodeLabel1);
     	Node<E> endState = findNode(nodeLabel2);
     	
+    	nodes.traverse(new TreeAction<Node<E>>() {	
+			@Override
+			public void run(Tree<Graph<E>.Node<E>>.TreeNode<Graph<E>.Node<E>> n) {
+				Node<E> node = n.getValue();
+				node.visited = false; 
+				
+			}
+		});
+    	
     	Vector<Node<E>> path = new Vector<Node<E>>(10);
     	
     	startState.visited = true;
@@ -174,6 +183,15 @@ public class Graph<E extends Comparable<E>>
     	
     	Node<E> startState = findNode(nodeLabel1);
     	Node<E> endState = findNode(nodeLabel2);
+    	
+    	nodes.traverse(new TreeAction<Node<E>>() {	
+			@Override
+			public void run(Tree<Graph<E>.Node<E>>.TreeNode<Graph<E>.Node<E>> n) {
+				Node<E> node = n.getValue();
+				node.visited = false; 
+				
+			}
+		});
     	
     	
     	Vector<Node<E>> toDoList = new Vector<Node<E>>(10);
