@@ -13,8 +13,8 @@ public class Blueray extends Publication {
 	 * @param title Title of Blueray
 	 * @param yearOfPub Year that the Blueray was published.
 	 */
-	public Blueray(int id, String title, int yearOfPub) {
-		super(id, title, yearOfPub);
+	public Blueray(int id, String title, int yearOfPub, String sectionName) {
+		super(id, title, yearOfPub, sectionName);
 	}
 	
 	public Blueray(int id) {

@@ -19,8 +19,8 @@ public class Book extends Publication {
 	 * @param yearOfPub Year that the Book was published.
 	 * @param author Name of the author.
 	 */
-	public Book(int id, String title, int yearOfPub, String author) {
-		super(id, title, yearOfPub);
+	public Book(int id, String title, int yearOfPub, String author, String sectionName) {
+		super(id, title, yearOfPub, sectionName);
 		this.author = author;	
 	}
 	

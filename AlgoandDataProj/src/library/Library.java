@@ -14,7 +14,7 @@ public class Library implements ILibraryManagement {
 	
 	/**
 	 * Tree to store the publications in so that id's can be searched for in O(log(n)) time (if tree is balanced).
-	 * Disadvantage is that multiple copies of same publication cannot be stored unless same different name used.
+	 * Disadvantage is that multiple copies of same publication cannot be stored unless different name used.
 	 */
 	private Tree<Publication> shelves;
 	// Since publication id's are now a hash of the input strings we can expect a reasonably 
@@ -25,6 +25,8 @@ public class Library implements ILibraryManagement {
 	 * which is just their index + 1.
 	 */
 	private Vector<AbstractClient> clientList;
+	
+	private Graph<String> sections;
 	
 	/**
 	 * int to represent the next available id for publications.  
@@ -53,7 +55,7 @@ public class Library implements ILibraryManagement {
 	@Override
 	public int addBook(String author, String title, int yearOfPublication, String section) {
 		int id = (author+title).hashCode(); //Create a hash int out of input strings, possible risk of collisions but very rare.
-		Book b = new Book(id, title, yearOfPublication, author); // Instantiating book object
+		Book b = new Book(id, title, yearOfPublication, author, section); // Instantiating book object
 		shelves.insert(b); // Adding book to shelves, 
 		
 		return b.getId(); // Return's id of added Book.
@@ -68,7 +70,7 @@ public class Library implements ILibraryManagement {
 	@Override
 	public int addMagazine(String title, int yearOfPublication, int issue, String section) { // Follows same logic as addBook.
 		int id = (title+yearOfPublication+issue).hashCode();
-		Magazine m = new Magazine(id, title, yearOfPublication, issue);
+		Magazine m = new Magazine(id, title, yearOfPublication, issue, section);
 		shelves.insert(m);
 
 		
@@ -83,7 +85,7 @@ public class Library implements ILibraryManagement {
 	@Override
 	public int addBlueRay(String title, int yearOfPublication, String section) { // Follows same logic as addBook.
 		int id = (title+yearOfPublication).hashCode();
-		Blueray br = new Blueray(id, title, yearOfPublication);
+		Blueray br = new Blueray(id, title, yearOfPublication, section);
 		shelves.insert(br);
 		
 		return br.getId();
@@ -98,7 +100,7 @@ public class Library implements ILibraryManagement {
 	@Override
 	public int addCD(String author, String title, int yearOfPublication, String section) { // Follows same logic as addBook.
 		int id = (author+title).hashCode();
-		CD c = new CD(id, title, yearOfPublication, author);
+		CD c = new CD(id, title, yearOfPublication, author, section);
 		shelves.insert(c);
 		
 		return c.getId();
@@ -299,20 +301,22 @@ public class Library implements ILibraryManagement {
 
 	@Override
 	public void addSection(String name) {
-		// TODO Auto-generated method stub
+		sections.addNode(name);
 		
 	}
 
 	@Override
 	public void connectSections(String section1, String section2) {
-		// TODO Auto-generated method stub
+		sections.addEdge(section1, section2, 1);
 		
 	}
 
 	@Override
 	public void findShortestPath(int publicationID, String startSection) {
-		// TODO Auto-generated method stub
-		
+		Publication p = new Publication(publicationID);
+		Publication pf = shelves.find(p);
+		String endSection = pf.getSection();
+		sections.findShortestPath(startSection, endSection);
 	}
 
 }

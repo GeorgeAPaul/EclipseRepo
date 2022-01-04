@@ -41,11 +41,15 @@ public class Publication implements Comparable<Publication> {
 	 * @param title Title of publication
 	 * @param yearOfPub Year that the publication was published.
 	 */
-	public Publication(int id, String title, int yearOfPub) {
+	
+	private String sectionName;
+	
+	public Publication(int id, String title, int yearOfPub, String sectionName) {
 		this.title = title;
 		this.yearOfPub = yearOfPub;
 		this.id = id;
 		waitingList = new PriorityQueue<Integer,Integer>();
+		this.sectionName = sectionName;
 	}
 	
 	/**
@@ -127,7 +131,10 @@ public class Publication implements Comparable<Publication> {
 	 * @param newOwner Client id of the new owner.
 	 */
 	public void setCurrentOwner(int newOwner) {
-		//System.out.println(waitingList);
 		this.currentOwner = newOwner;
+	}
+	
+	public String getSection() {
+		return sectionName;
 	}
 }

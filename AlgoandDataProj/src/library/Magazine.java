@@ -19,8 +19,8 @@ public class Magazine extends Publication{
 	 * @param yearOfPub Year that the Magazine was published.
 	 * @param issue Issue number of the Magazine.
 	 */
-	public Magazine(int id, String title, int yearOfPub, int issue) {
-		super(id, title, yearOfPub);
+	public Magazine(int id, String title, int yearOfPub, int issue, String sectionName) {
+		super(id, title, yearOfPub, sectionName);
 		this.issue = issue;
 	}
 	

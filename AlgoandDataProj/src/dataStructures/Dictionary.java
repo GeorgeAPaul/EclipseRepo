@@ -53,11 +53,12 @@ package dataStructures;
 			DictionaryPair<E,T> dp = new DictionaryPair<E,T>(key, null);
 			return data.find(dp).getValue();
 		}
-		public void removeKey(E key) {
-			DictionaryPair<E,T> dp = new DictionaryPair<E,T>(key, null);
-			Object k = data.find(dp).getKey();
-			k = null;
-		}
+		
+//		public void removeKey(E key) {
+//			DictionaryPair<E,T> dp = new DictionaryPair<E,T>(key, null);
+//			data.find(dp).setKey(null);
+//		}
+		
 		public int size() {
 			return data.size();
 		}

@@ -374,7 +374,13 @@ public class TestMain {
 		d.add(33434, "butt");
 		d.add(5555, "krurg");
 		
-		System.out.println(d.find(1));
+		System.out.println(d.contains(23));
+		System.out.println(d.find(23));
+		
+		System.out.println(d.contains(23));
+		System.out.println(d.find(23));
+		
+		//System.out.println(d.contains(13));
 		
 		
 

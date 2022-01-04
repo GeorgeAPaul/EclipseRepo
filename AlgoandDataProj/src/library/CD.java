@@ -14,8 +14,8 @@ public class CD extends Book {
 	 * @param yearOfPub Year that the CD was published.
 	 * @param author Name of the author.
 	 */
-	public CD(int id, String title, int yearOfPub, String author) {
-		super(id, title, yearOfPub, author);
+	public CD(int id, String title, int yearOfPub, String author, String sectionName) {
+		super(id, title, yearOfPub, author, sectionName);
 	}
 	
 	public CD(int id) {
