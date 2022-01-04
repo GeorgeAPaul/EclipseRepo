@@ -297,66 +297,68 @@ public class TestMain {
 //		
 //		System.out.println(mg);
 	
-//		Graph<String> g = new Graph<String>();
-//		
-//		g.addNode("Berlin");
-//		g.addNode("London");
-//		g.addNode("Brussels");
-//		g.addNode("Budapest");
-//		g.addNode("Rome");
-//		g.addNode("Amsterdam");
-//		g.addNode("Paris");
-//		g.addNode("Prague");
-//		g.addNode("Florence");
-//		g.addNode("Edinburgh");
-//		g.addNode("Dublin");
-//		g.addNode("Moscow");
-//		
-//		//System.out.println(g);
-//		
-//		g.addEdge("Brussels", "Florence", 2);
-//		g.addEdge("Berlin", "Brussels", 2);
-//		g.addEdge("Brussels", "London", 20);
-//		g.addEdge("Prague", "Brussels", 1);
-//		g.addEdge("Florence", "Edinburgh", 4);
-//		g.addEdge("Edinburgh", "London", 1);
-//		
-//		//g.addEdge("Brussels", "Amsterdam", 4);
-//		
-//		g.addEdge("Berlin", "Prague", 1);
-//		g.addEdge("Amsterdam", "Florence", 1);
-//		g.addEdge("Rome", "Moscow", 6);
-//		g.addEdge("London", "Berlin", 6);
-//		//System.out.println(g);
-//		
-//		Vector<Graph<String>.Node<String>> berlinLondon = g.findPath("Berlin", "London");
-//		
-//		for(int i = 0; i < berlinLondon.size(); i++) {
-//			System.out.println(berlinLondon.get(i));
-//		}
-//		
-//		System.out.println(g.findShortestPath("Berlin", "London"));
+		Graph<String> g = new Graph<String>();
 		
-		Graph<String> lubos = new Graph<String>();
+		g.addNode("Berlin");
+		g.addNode("London");
+		g.addNode("Brussels");
+		g.addNode("Budapest");
+		g.addNode("Rome");
+		g.addNode("Amsterdam");
+		g.addNode("Paris");
+		g.addNode("Prague");
+		g.addNode("Florence");
+		g.addNode("Edinburgh");
+		g.addNode("Dublin");
+		g.addNode("Moscow");
 		
-		lubos.addNode("S");
-		lubos.addNode("A");
-		lubos.addNode("B");
-		lubos.addNode("C");
-		lubos.addNode("D");
+		//System.out.println(g);
 		
-		lubos.addEdge("S", "A", 4);
-		lubos.addEdge("S", "B", 6);
-		lubos.addEdge("B", "A", -5);
-		lubos.addEdge("A", "C", 3);
-		lubos.addEdge("C", "C", 2);
-		lubos.addEdge("B", "B", 1);
+		g.addEdge("Brussels", "Florence", 2);
+		g.addEdge("Berlin", "Brussels", 2);
+		g.addEdge("Brussels", "London", 20);
+		g.addEdge("Prague", "Brussels", 1);
+		g.addEdge("Florence", "Edinburgh", 4);
+		g.addEdge("Edinburgh", "London", 1);
 		
-		System.out.println(lubos);
+		//g.addEdge("Brussels", "Amsterdam", 4);
 		
-		LinkedList<String> shortestpathSD = lubos.findShortestPath("S", "D");
+		g.addEdge("Berlin", "Prague", 1);
+		g.addEdge("Amsterdam", "Florence", 1);
+		g.addEdge("Rome", "Moscow", 6);
+		g.addEdge("London", "Berlin", 6);
+		//System.out.println(g);
+//		
+		Vector<String> berlinLondon = g.findPath("Berlin", "London");
 		
-		System.out.println(shortestpathSD);
+		
+//		
+		for(int i = 0; i < berlinLondon.size(); i++) {
+			System.out.println(berlinLondon.get(i));
+		}
+//		
+		System.out.println(g.findShortestPath("Berlin", "London"));
+		
+//		Graph<String> lubos = new Graph<String>();
+//		
+//		lubos.addNode("S");
+//		lubos.addNode("A");
+//		lubos.addNode("B");
+//		lubos.addNode("C");
+//		lubos.addNode("D");
+//		
+//		lubos.addEdge("S", "A", 4);
+//		lubos.addEdge("S", "B", 6);
+//		lubos.addEdge("B", "A", -5);
+//		lubos.addEdge("A", "C", 3);
+//		lubos.addEdge("C", "C", 2);
+//		lubos.addEdge("B", "B", 1);
+//		
+//		System.out.println(lubos);
+//		
+//		LinkedList<String> shortestpathSD = lubos.findShortestPath("S", "D");
+//		
+//		System.out.println(shortestpathSD);
 		
 //		Dictionary<Integer,String> d = new Dictionary<Integer,String>();
 //		
@@ -382,6 +384,11 @@ public class TestMain {
 		
 		//System.out.println(d.contains(13));
 		
+//		String a = "Poopoopeepee";
+//		
+//		System.out.println(a);
+//		System.out.println(a.hashCode());
+//		System.out.println(((Integer)a.hashCode()).hashCode());
 		
 
 	}

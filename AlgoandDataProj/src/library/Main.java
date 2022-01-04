@@ -7,10 +7,12 @@ public class Main {
 		Library l = new Library(2, 2);
 		
 		// Adding one of each type of publication
-		l.addCD("George", "GCD", 1994, "section1");
-		l.addBook("George", "Gbook", 1994, "section1");
-		l.addMagazine("GMag", 1994, 12, "section1");
-		l.addBlueRay("GRay", 1994, "section1");
+		int id1 = l.addCD("George", "GCD", 1994, "section1");
+		int id2 = l.addCD("George", "GCD", 1994, "section1");
+		int id3 = l.addBook("George", "Gbook", 1994, "section1");
+		int id4 = l.addBook("George", "Gbodok", 1994, "section1");
+		int id5 = l.addMagazine("GMag", 1994, 12, "section1");
+		int id6 = l.addBlueRay("GRay", 1994, "section1");
 		
 		// Adding one of each type of client
 		l.addClient("George", "george@gib.com");
@@ -33,30 +35,38 @@ public class Main {
 		l.printAllClients();
 	
 		l.borrowBook(1, "George", "Gbook");
-//		l.borrowBook(2, "George", "Gbook");
-//		l.borrowBook(3, "George", "Gbook");
-//		l.borrowBook(4, "George", "Gbook");
-//		l.borrowBook(5, "George", "Gbook");
-//		l.borrowBook(6, "George", "Gbook");
-//		l.borrowBook(7, "George", "Gbook");
-//		l.borrowBook(8, "George", "Gbook");
-		
-		System.out.println(l.returnItem(829120273));
-		System.out.println(l.returnItem(829120273));
-		System.out.println(l.returnItem(829120273));
-		System.out.println(l.returnItem(829120273));
-		System.out.println(l.returnItem(829120273));
-		System.out.println(l.returnItem(829120273));
-		System.out.println(l.returnItem(829120273));
-		System.out.println(l.returnItem(829120273));
-		
+		l.borrowBook(2, "George", "Gbook");
+		l.borrowBook(3, "George", "Gbook");
+		l.borrowBook(4, "George", "Gbook");
+		l.borrowBook(5, "George", "Gbook");
+		l.borrowBook(6, "George", "Gbook");
 		l.borrowBook(7, "George", "Gbook");
-		
-		System.out.println(l.returnItem(829120273));
-		
 		l.borrowBook(8, "George", "Gbook");
 		
-		System.out.println(l.returnItem(829120273));
+//		System.out.println(l.returnItem(2));
+//		System.out.println(l.returnItem(2));
+//		System.out.println(l.returnItem(2));
+//		System.out.println(l.returnItem(2));
+//		System.out.println(l.returnItem(2));
+//		System.out.println(l.returnItem(2));
+//		System.out.println(l.returnItem(2));
+//		System.out.println(l.returnItem(2));
+		
+//		l.borrowBook(7, "George", "Gbook");
+		
+		System.out.println(l.returnItem(id3));
+		System.out.println(l.returnItem(id3));
+		System.out.println(l.returnItem(id3));
+		System.out.println(l.returnItem(id3));
+		l.borrowBook(7, "George", "Gbook");
+		System.out.println(l.returnItem(id3));
+		System.out.println(l.returnItem(id3));
+		System.out.println(l.returnItem(id3));
+		
+		
+//		l.borrowBook(8, "George", "Gbook");
+		
+		System.out.println(l.returnItem(id3));
 		
 		l.addSection("section1");
 		l.addSection("section2");
@@ -69,9 +79,9 @@ public class Main {
 		l.addSection("section9");
 		
 		l.connectSections("section2", "section1");
-		l.connectSections("section2", "section3");
+		l.connectSections("section3", "section2");
 		
-		l.findShortestPath(829120273, "section2");
+		l.findShortestPath(id3, "section3");
 		
 		
 		

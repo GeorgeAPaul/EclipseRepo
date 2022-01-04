@@ -1,12 +1,11 @@
 package library;
-import dataStructures.Tree;
 import dataStructures.Vector;
 import dataStructures.Dictionary;
 import dataStructures.Graph;
 import dataStructures.LinkedList;
 
 /**
- * Class to represent a Library. The shelves and the clients are represented and there are methods to add publications/clients
+ * Class to represent a Library. The shelves clients and sections are represented and there are methods to add publications/clients/sections
  * to the library. 
  * 
  * @author George Paul
@@ -15,12 +14,16 @@ import dataStructures.LinkedList;
 public class Library implements ILibraryManagement {
 	
 	/**
-	 * Tree to store the publications in so that id's can be searched for in O(log(n)) time (if tree is balanced).
+	 * Dictionary to store the publications in so that strings can be searched for in O(log(n)) time (if tree is balanced).
 	 * Disadvantage is that multiple copies of same publication cannot be stored unless different name used.
 	 */
-	private Dictionary<Integer,Publication> shelves;
-	// Since publication id's are now a hash of the input strings we can expect a reasonably 
-	//balanced tree but perhaps a red black tree would be better?
+	private Dictionary<String,Publication> shelves;
+	
+	/**
+	 * Dictionary to so that searchStrings can be found from ids, this enables methods that take ids as arguments to search the shelves
+	 * dictionary using a searchString. 
+	 */
+	private Dictionary<Integer,String> idToString;
 	
 	/**
 	 * Vector to represent the list of clients of the Library. Vector was so that clients can be address in O(1) time by id
@@ -31,9 +34,13 @@ public class Library implements ILibraryManagement {
 	private Graph<String> sections;
 	
 	/**
-	 * int to represent the next available id for publications.  
+	 * int to represent the next available id for clients.  
 	 */
 	private int nextAvailableClientId;
+	
+	/**
+	 * int to represent the next available id for publications.  
+	 */
 
 	/**
 	 * Constructor method.
@@ -42,7 +49,9 @@ public class Library implements ILibraryManagement {
 	 */
 	public Library(int shelfSpace, int clientSpace) {
 			
-		shelves = new Dictionary<Integer,Publication>();
+		shelves = new Dictionary<String,Publication>();
+		idToString = new Dictionary<Integer,String>();
+		
 		clientList = new Vector<AbstractClient>(clientSpace);
 		nextAvailableClientId = 1;
 		
@@ -58,9 +67,21 @@ public class Library implements ILibraryManagement {
 	 */
 	@Override
 	public int addBook(String author, String title, int yearOfPublication, String section) {
-		int id = (author+title).hashCode(); //Create a hash int out of input strings, possible risk of collisions but very rare.
+		
+		//Generating a random publication id, checks the idToString dictionary to avoid collisions
+		int id = 0;
+		while(idToString.contains(id)) {
+			id = (int)(Math.random()*(double)Integer.MAX_VALUE);
+		}
+		
+		//Generating search key to use in the shelves dictionary
+		String searchString = author+title+"BOOK";
+		
+		//Add new id and search string to idToString dictionary
+		idToString.add(id, searchString);
+		
 		Book b = new Book(id, title, yearOfPublication, author, section); // Instantiating book object
-		shelves.add(id, b); // Adding book to shelves, 
+		shelves.add(searchString, b); // Adding book to shelves, 
 		
 		return b.getId(); // Return's id of added Book.
 	}
@@ -73,9 +94,19 @@ public class Library implements ILibraryManagement {
 	 */
 	@Override
 	public int addMagazine(String title, int yearOfPublication, int issue, String section) { // Follows same logic as addBook.
-		int id = (title+yearOfPublication+issue).hashCode();
+		
+		int id = 0;
+		
+		while(idToString.contains(id)) {
+			id = (int)(Math.random()*(double)Integer.MAX_VALUE);
+		}
+		
+		String searchString = title+yearOfPublication+issue+"MAGAZINE";
+		
+		idToString.add(id, searchString);
+		
 		Magazine m = new Magazine(id, title, yearOfPublication, issue, section);
-		shelves.add(id,m);
+		shelves.add(searchString,m);
 		
 		return m.getId();
 	}
@@ -87,9 +118,19 @@ public class Library implements ILibraryManagement {
 	 */
 	@Override
 	public int addBlueRay(String title, int yearOfPublication, String section) { // Follows same logic as addBook.
-		int id = (title+yearOfPublication).hashCode();
+		
+		int id = 0;
+		
+		while(idToString.contains(id)) {
+			id = (int)(Math.random()*(double)Integer.MAX_VALUE);
+		}
+		
+		String searchString = title+yearOfPublication+"BLURAY";
+		
+		idToString.add(id, searchString);
+		
 		Blueray br = new Blueray(id, title, yearOfPublication, section);
-		shelves.add(id,br);
+		shelves.add(searchString,br);
 		
 		return br.getId();
 	}
@@ -102,9 +143,19 @@ public class Library implements ILibraryManagement {
 	 */
 	@Override
 	public int addCD(String author, String title, int yearOfPublication, String section) { // Follows same logic as addBook.
-		int id = (author+title).hashCode();
+		
+		int id = 0;
+		
+		while(idToString.contains(id)) {
+			id = (int)(Math.random()*(double)Integer.MAX_VALUE);
+		}
+		
+		String searchString = author+title+"CD";
+		
+		idToString.add(id, searchString);
+		
 		CD c = new CD(id, title, yearOfPublication, author, section);
-		shelves.add(id,c);
+		shelves.add(searchString,c);
 		
 		return c.getId();
 	}
@@ -169,9 +220,10 @@ public class Library implements ILibraryManagement {
 	 */
 	@Override
 	public int borrowBook(int client, String author, String title) {
-		int id  = (author+title).hashCode(); //Generate hash int
-		//Publication p = new Publication(id);
-		Book b = (Book)shelves.find(id); //Search shelves for book.
+		
+		
+		String searchString = author+title+"BOOK";
+		Book b = (Book)shelves.find(searchString); //Search shelves for book.
 		
 		//If no one currently owns the book and client/no one is next line, allow client to borrow book. Else add client to waiting list.
 		if (b.getCurrentOwner() == 0 && (b.isWaitingListEmpty() || b.getNextInLine() == client)) {
@@ -189,7 +241,7 @@ public class Library implements ILibraryManagement {
 				b.addToWaitingList(client, 1);
 			}
 		}
-		return id;
+		return b.getId();
 	}
 
 	/**
@@ -202,8 +254,8 @@ public class Library implements ILibraryManagement {
 	 */
 	@Override
 	public int lookAtMagazine(int client, String title, int yearOfPublication, int issue) { //Follows same logic as borrowBook.
-		int id  = (title+yearOfPublication+issue).hashCode();
-		Magazine m = (Magazine)shelves.find(id); 
+		String searchString = title+yearOfPublication+issue+"MAGAZINE";
+		Magazine m = (Magazine)shelves.find(searchString); 
 		
 		if (m.getCurrentOwner() == 0 && (m.isWaitingListEmpty() || m.getNextInLine() == client)) {
 			m.setCurrentOwner(client);
@@ -220,7 +272,7 @@ public class Library implements ILibraryManagement {
 				m.addToWaitingList(client, 1);
 			}
 		}
-		return id;
+		return m.getId();
 	}
 
 	/**
@@ -232,8 +284,8 @@ public class Library implements ILibraryManagement {
 	 */
 	@Override
 	public int borrowBlueRay(int client, String title, int yearOfPublication) { //Follows same logic as borrowBook.
-		int id  = (title+yearOfPublication).hashCode();
-		Blueray br = (Blueray)shelves.find(id); 
+		String searchString = title+yearOfPublication+"BLURAY";
+		Blueray br = (Blueray)shelves.find(searchString); 
 
 		if (br.getCurrentOwner() == 0 && (br.isWaitingListEmpty() || br.getNextInLine() == client)) {
 			br.setCurrentOwner(client);
@@ -250,7 +302,7 @@ public class Library implements ILibraryManagement {
 				br.addToWaitingList(client, 1);
 			}
 		}
-		return id;
+		return br.getId();
 	}
 
 	/**
@@ -262,8 +314,8 @@ public class Library implements ILibraryManagement {
 	 */
 	@Override
 	public int borrowCD(int client, String author, String title) { //Follows same logic as borrowBook.
-		int id  = (author+title).hashCode();
-		CD c = (CD)shelves.find(id); 
+		String searchString = author+title+"CD";
+		CD c = (CD)shelves.find(searchString); 
 
 		if (c.getCurrentOwner() == 0 && (c.isWaitingListEmpty() || c.getNextInLine() == client)) {
 			c.setCurrentOwner(client);
@@ -279,7 +331,7 @@ public class Library implements ILibraryManagement {
 				c.addToWaitingList(client, 1);
 			}
 		}
-		return id;
+		return c.getId();
 	}
 
 	/**
@@ -289,7 +341,10 @@ public class Library implements ILibraryManagement {
 	 */
 	@Override
 	public int returnItem(int publicationID) {
-		Publication pf = shelves.find(publicationID); //Find the publication in the tree.
+		
+		String searchString = idToString.find(publicationID);
+		
+		Publication pf = shelves.find(searchString); //Find the publication in the dict.
 		int nextInLine = -1; // Return this if there is no one in the waiting list.
 		if(!pf.isWaitingListEmpty()) {
 			nextInLine = pf.getNextInLine();
@@ -298,22 +353,42 @@ public class Library implements ILibraryManagement {
 		return nextInLine;
 	}
 
+	/**
+	 * Method to add a section the library
+	 * @param name Name of the section
+	 */
 	@Override
 	public void addSection(String name) {
 		sections.addNode(name);
 		
 	}
 
+	/**
+	 * Method to add a connection between sections
+	 * @param section1 Starting section
+	 * @oaram section2 Ending section
+	 */
 	@Override
 	public void connectSections(String section1, String section2) {
 		sections.addEdge(section1, section2, 1);
 		
 	}
 
+	/**
+	 * Method to print the shortest path from a section to a section where a publication is held
+	 * @param publicationID Id of the publication whose section is to be navigated to.
+	 * @param startSection Name of the section to begin in
+	 */
 	@Override
 	public void findShortestPath(int publicationID, String startSection) {
-		Publication pf = shelves.find(publicationID);
+		
+		//Get search key from id O(logn)
+		String searchString = idToString.find(publicationID);
+		
+		//Retrieve which section the publication is in O(logn)
+		Publication pf = shelves.find(searchString);
 		String endSection = pf.getSection();
+		
 		LinkedList<String> path = sections.findShortestPath(startSection, endSection);
 		
 		System.out.println(path);

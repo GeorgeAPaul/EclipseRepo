@@ -38,13 +38,20 @@ package dataStructures;
 		
 		public void add(E key, T value) {
 			
+			
+			
+			if(contains(key)) {
+				
+			}
+			
 			DictionaryPair<E,T> dp = new DictionaryPair<E,T>(key, value);
+			
 			data.insert(dp);
 		}
 		
 		public boolean contains(E key) {
 			DictionaryPair<E,T> dp = new DictionaryPair<E,T>(key, null);
-			if(data.find(dp)!= null) {
+			if(data.find(dp) != null) {
 				return true;
 			}
 			return false;
