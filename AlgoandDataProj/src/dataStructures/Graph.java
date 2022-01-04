@@ -6,14 +6,15 @@ public class Graph<E extends Comparable<E>>
         private P info;
         private Vector<Edge<P>> edges;
         private boolean visited;
-        private int bForddistance;
-        private P bFordPi;
+        private int bFordDistance;
+        private Node<P> bFordPi;
         
         public Node(P label)
         {
             info = label;
             edges = new Vector<Edge<P>>(1);
             visited = false;
+            bFordDistance = Integer.MAX_VALUE;
         }
         
         public void addEdge(Edge<P> e)
@@ -169,29 +170,62 @@ public class Graph<E extends Comparable<E>>
     	return new Vector<Node<E>>(10);
     }
     
-    public Vector<Node<E>> findShortestPath(E nodeLabel1 , E nodeLabel2) {
+    public LinkedList<Node<E>> findShortestPath(E nodeLabel1 , E nodeLabel2) {
     	
     	Node<E> startState = findNode(nodeLabel1);
     	Node<E> endState = findNode(nodeLabel2);
     	
     	
     	Vector<Node<E>> toDoList = new Vector<Node<E>>(10);
+    	
+    	LinkedList<Node<E>> path = new LinkedList<Node<E>>();
     		
     	toDoList.addLast(startState);
+    	startState.bFordDistance = 0;
     	
-    	for(int i = 0; i < toDoList.size(); i++) {
+    	for(int k = 0; k < nodes.size(); k++) {
     		
-    		Node<E> current = toDoList.get(i);
+    		boolean updated = false;
     		
-    		for(int j = 0; j < current.edges.size(); j++) {
+    		for(int i = 0; i < toDoList.size(); i++) {
+    		
+    			Node<E> current = toDoList.get(i);
+    		
+    			for(int j = 0; j < current.edges.size(); j++) {
     			
-    			Edge<E> edge = current.edges.get(i);
-    			edge.toNode.bForddistance = ((Object) edge.weight).add(((Object)current.bForddistance));
+    				Edge<E> edge = current.edges.get(j);
+    				Node<E> to = edge.toNode;
+    			
+    				if (to.visited == false) {
+    					toDoList.addLast(to);
+    					to.visited = true;
+    				}
+    			
+    				int calculatedBFordDistance = edge.weight + current.bFordDistance;
+    			
+    				if(calculatedBFordDistance < to.bFordDistance) {
+    					to.bFordDistance = calculatedBFordDistance;
+    					to.bFordPi = current;
+    					updated = true;
+    				}
+    			}
+//    			System.out.println(i);
+//    			System.out.println(current.edges.size());
+//    			System.out.println(current + " " + current.bFordDistance);
+//    			System.out.println(toDoList);
     		}
-    		
-    		
+    		if(!updated) {
+    			break;
+    		}
     	}
     	
-		return null;
+    	Node<E> pathNode = endState;
+    	
+    	while(pathNode != null) {
+    		path.addFirst(pathNode);
+    		pathNode = pathNode.bFordPi;
+    	}
+    	
+		return path;
     }
 }

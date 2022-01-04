@@ -299,7 +299,7 @@ public class TestMain {
 //		
 //		System.out.println(mg);
 		
-//		Graph<String,Integer> g = new Graph<String,Integer>();
+//		Graph<String> g = new Graph<String>();
 //		
 //		g.addNode("Berlin");
 //		g.addNode("London");
@@ -313,9 +313,9 @@ public class TestMain {
 //		g.addNode("Edinburgh");
 //		g.addNode("Dublin");
 //		g.addNode("Moscow");
-//		
-//		//System.out.println(g);
-//		
+		
+		//System.out.println(g);
+		
 //		g.addEdge("Brussels", "Florence", 2);
 //		g.addEdge("Berlin", "Brussels", 2);
 //		g.addEdge("Brussels", "Florence", 2);
@@ -331,11 +331,13 @@ public class TestMain {
 //		g.addEdge("London", "Berlin", 6);
 //		System.out.println(g);
 //		
-//		Vector<Graph<String, Integer>.Node<String, Integer>> berlinLondon = g.findPath("Berlin", "London");
+//		Vector<Graph<String>.Node<String> berlinLondon = g.findPath("Berlin", "London");
 //		
 //		for(int i = 0; i < berlinLondon.size(); i++) {
 //			System.out.println(berlinLondon.get(i));
 //		}
+//		
+//		System.out.println(g.findShortestPath("", "D"));
 		
 		Graph<String> lubos = new Graph<String>();
 		
@@ -345,14 +347,18 @@ public class TestMain {
 		lubos.addNode("C");
 		lubos.addNode("D");
 		
-		lubos.addEdge("S", "A", 6);
-		lubos.addEdge("S", "B", 4);
+		lubos.addEdge("S", "A", 4);
+		lubos.addEdge("S", "B", 6);
 		lubos.addEdge("B", "A", -5);
 		lubos.addEdge("A", "C", 3);
 		lubos.addEdge("C", "D", 2);
 		lubos.addEdge("B", "D", 1);
 		
 		System.out.println(lubos);
+		
+		LinkedList<Graph<String>.Node<String>> shortestpathSD = lubos.findShortestPath("S", "D");
+		
+		System.out.println(shortestpathSD);
 		
 
 	}
