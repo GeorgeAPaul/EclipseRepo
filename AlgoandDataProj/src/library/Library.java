@@ -2,6 +2,7 @@ package library;
 import dataStructures.Tree;
 import dataStructures.Vector;
 import dataStructures.Graph;
+import dataStructures.LinkedList;
 
 /**
  * Class to represent a Library. The shelves and the clients are represented and there are methods to add publications/clients
@@ -43,6 +44,8 @@ public class Library implements ILibraryManagement {
 		shelves = new Tree<Publication>();
 		clientList = new Vector<AbstractClient>(clientSpace);
 		nextAvailableClientId = 1;
+		
+		sections = new Graph<String>();
 		
 	}
 	
@@ -316,7 +319,9 @@ public class Library implements ILibraryManagement {
 		Publication p = new Publication(publicationID);
 		Publication pf = shelves.find(p);
 		String endSection = pf.getSection();
-		sections.findShortestPath(startSection, endSection);
+		LinkedList<String> path = sections.findShortestPath(startSection, endSection);
+		
+		System.out.println(path);
 	}
 
 }

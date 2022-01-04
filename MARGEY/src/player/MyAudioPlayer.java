@@ -156,7 +156,7 @@ public class MyAudioPlayer {
 		    audioBytes = new byte[(int)byteLength];
 		    
 		    originalSampleRate = gFormat.getSampleRate(); // Get sample rate of file
-		    gFormat.setSampleRate(sampleRate); // Set sample rate to current sample rate, selected on gui.
+		    gFormat.setSampleRate(originalSampleRate); // Set sample rate to current sample rate, selected on gui.
 		    
 		    isPlayingForward = true;
 		   

@@ -58,6 +58,22 @@ public class Main {
 		
 		System.out.println(l.returnItem(829120273));
 		
+		l.addSection("section1");
+		l.addSection("section2");
+		l.addSection("section3");
+		l.addSection("section4");
+		l.addSection("section5");
+		l.addSection("section6");
+		l.addSection("section7");
+		l.addSection("section8");
+		l.addSection("section9");
+		
+		l.connectSections("section2", "section1");
+		l.connectSections("section2", "section3");
+		
+		l.findShortestPath(829120273, "section2");
+		
+		
 		
 	}
 

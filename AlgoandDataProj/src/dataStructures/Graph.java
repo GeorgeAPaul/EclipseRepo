@@ -179,10 +179,18 @@ public class Graph<E extends Comparable<E>>
     	return new Vector<Node<E>>(10);
     }
     
-    public LinkedList<Node<E>> findShortestPath(E nodeLabel1 , E nodeLabel2) {
+    public LinkedList<E> findShortestPath(E nodeLabel1 , E nodeLabel2) {
     	
     	Node<E> startState = findNode(nodeLabel1);
     	Node<E> endState = findNode(nodeLabel2);
+    	
+    	LinkedList<E> path = new LinkedList<E>();
+    	
+    	if(startState == endState) {
+    		path.addFirst(startState.getLabel());
+    		path.addFirst(endState.getLabel());
+    		return path;
+    	}
     	
     	nodes.traverse(new TreeAction<Node<E>>() {	
 			@Override
@@ -195,8 +203,6 @@ public class Graph<E extends Comparable<E>>
     	
     	
     	Vector<Node<E>> toDoList = new Vector<Node<E>>(10);
-    	
-    	LinkedList<Node<E>> path = new LinkedList<Node<E>>();
     		
     	toDoList.addLast(startState);
     	startState.bFordDistance = 0;
@@ -240,8 +246,12 @@ public class Graph<E extends Comparable<E>>
     	Node<E> pathNode = endState;
     	
     	while(pathNode != null) {
-    		path.addFirst(pathNode);
+    		path.addFirst(pathNode.getLabel());
     		pathNode = pathNode.bFordPi;
+    	}
+    	
+    	if(path.size() == 1) {
+    		return new LinkedList<E>();
     	}
     	
 		return path;

@@ -337,48 +337,48 @@ public class TestMain {
 //		
 //		System.out.println(g.findShortestPath("Berlin", "London"));
 		
-//		Graph<String> lubos = new Graph<String>();
-//		
-//		lubos.addNode("S");
-//		lubos.addNode("A");
-//		lubos.addNode("B");
-//		lubos.addNode("C");
-//		lubos.addNode("D");
-//		
-//		lubos.addEdge("S", "A", 4);
-//		lubos.addEdge("S", "B", 6);
-//		lubos.addEdge("B", "A", -5);
-//		lubos.addEdge("A", "C", 3);
-//		lubos.addEdge("C", "D", 2);
-//		lubos.addEdge("B", "D", 1);
-//		
-//		System.out.println(lubos);
-//		
-//		LinkedList<Graph<String>.Node<String>> shortestpathSD = lubos.findShortestPath("S", "D");
-//		
-//		System.out.println(shortestpathSD);
+		Graph<String> lubos = new Graph<String>();
 		
-		Dictionary<Integer,String> d = new Dictionary<Integer,String>();
+		lubos.addNode("S");
+		lubos.addNode("A");
+		lubos.addNode("B");
+		lubos.addNode("C");
+		lubos.addNode("D");
 		
-		d.add(1, "plop");
-		d.add(34, "plio");
-		d.add(23, "asdasd");
-		d.add(67, "asd656");
-		d.add(123123, "a2323");
-		d.add(53453, "asda2");
-		d.add(32, "asa[pkpk");
-		d.add(87, "asdasdasdcccc");
-		d.add(35345, "pplaop");
-		d.add(5134, "ploop");
-		d.add(5444, "plgg");
-		d.add(33434, "butt");
-		d.add(5555, "krurg");
+		lubos.addEdge("S", "A", 4);
+		lubos.addEdge("S", "B", 6);
+		lubos.addEdge("B", "A", -5);
+		lubos.addEdge("A", "C", 3);
+		lubos.addEdge("C", "C", 2);
+		lubos.addEdge("B", "B", 1);
 		
-		System.out.println(d.contains(23));
-		System.out.println(d.find(23));
+		System.out.println(lubos);
 		
-		System.out.println(d.contains(23));
-		System.out.println(d.find(23));
+		LinkedList<String> shortestpathSD = lubos.findShortestPath("S", "D");
+		
+		System.out.println(shortestpathSD);
+		
+//		Dictionary<Integer,String> d = new Dictionary<Integer,String>();
+//		
+//		d.add(1, "plop");
+//		d.add(34, "plio");
+//		d.add(23, "asdasd");
+//		d.add(67, "asd656");
+//		d.add(123123, "a2323");
+//		d.add(53453, "asda2");
+//		d.add(32, "asa[pkpk");
+//		d.add(87, "asdasdasdcccc");
+//		d.add(35345, "pplaop");
+//		d.add(5134, "ploop");
+//		d.add(5444, "plgg");
+//		d.add(33434, "butt");
+//		d.add(5555, "krurg");
+//		
+//		System.out.println(d.contains(23));
+//		System.out.println(d.find(23));
+//		
+//		System.out.println(d.contains(23));
+//		System.out.println(d.find(23));
 		
 		//System.out.println(d.contains(13));
 		
