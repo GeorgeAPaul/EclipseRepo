@@ -25,6 +25,9 @@ package dataStructures;
 			public int compareTo(DictionaryPair<K,V> o) {
 				return o.key.compareTo(key);
 			}
+			public String toString() {
+				return value.toString();
+			}
 		}
 		private Tree<DictionaryPair<E,T>> data;
 		
@@ -61,5 +64,9 @@ package dataStructures;
 		
 		public int size() {
 			return data.size();
+		}
+		
+		public String toString() {
+			return data.toString();
 		}
 	}
