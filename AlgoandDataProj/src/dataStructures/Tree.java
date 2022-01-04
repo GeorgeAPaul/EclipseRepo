@@ -1,17 +1,6 @@
 package dataStructures;
 
 public class Tree<E extends Comparable<E>> {
-	/*
-	private class NaturalComparator implements Comparator
-	{
-		public int compare(Object a, Object b)
-		{
-			return ((Comparable)a).compareTo(b);
-		}
-	}
-	*/
-	// the class for implementing a node in the tree.
-	// contains a value, a pointer to the left child and a pointer to the right child
 	
 	public class TreeNode<P extends Comparable<P>> implements Comparable<TreeNode<P>>
 	{
@@ -82,8 +71,7 @@ public class Tree<E extends Comparable<E>> {
 	
 	public void traverse(TreeAction<E> action)
 	{
-		Queue<TreeNode<E>> t = new Queue<TreeNode<E>>();
-		//Stack t = new Stack();
+		Stack<TreeNode<E>> t = new Stack<TreeNode<E>>();
 		t.push(root);
 		while(!t.isEmpty())
 		{

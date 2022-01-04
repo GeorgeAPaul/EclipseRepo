@@ -57,17 +57,10 @@ package dataStructures;
 			return false;
 		}
 		
-//		public int findPosition(E key) {
-//		}
 		public T find(E key) {
 			DictionaryPair<E,T> dp = new DictionaryPair<E,T>(key, null);
 			return data.find(dp).getValue();
 		}
-		
-//		public void removeKey(E key) {
-//			DictionaryPair<E,T> dp = new DictionaryPair<E,T>(key, null);
-//			data.find(dp).setKey(null);
-//		}
 		
 		public int size() {
 			return data.size();
