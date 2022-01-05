@@ -85,7 +85,7 @@ public class GameObject implements HasInventory {
 	public Item removeFromInventory(String itemName) {
 		Item item = null;
 		for(int i = 0; i < inventory.length; i++) {//Loop over inventory to find item
-			if(inventory[i] != null && inventory[i].toString() == itemName) { //If item is found and not null
+			if(inventory[i] != null && inventory[i].toString().matches("(?i)"+itemName)) { //If item is found and not null
 				item = inventory[i];//Save item to temp variable
 				inventory[i] = null; //Remove item from inventory
 				break; //Only remove 1 item
@@ -93,6 +93,26 @@ public class GameObject implements HasInventory {
 		}
 		noOfItems--;
 		return item;
+	}
+	
+	/**
+	 * Method for transferring items between inventories
+	 * @param itemName item to transfer
+	 * @param toInventory gameobject to transfer to
+	 * @return success whether the transfer was successful or not
+	 */
+	public boolean transferItem(String itemName, GameObject toInventory) {
+		
+		boolean success = false;
+		
+		if(!toInventory.isInventoryfull()) {
+			Item itemToTransfer = removeFromInventory(itemName);
+			if(itemToTransfer != null) {
+				toInventory.addToInventory(itemToTransfer);
+				success = true;
+			}	
+		}
+		return success;
 	}
 	
 	/**

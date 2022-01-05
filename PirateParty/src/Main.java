@@ -3,9 +3,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
+ * ~~Unnamed Pirate Game 3~~
+ * Read the guide in game for instructions on how to play!
  * 
  * Main class for running main method.
  * 
@@ -53,7 +56,7 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		
 		//Create new map for game
-		Map<Location,Character> map = new Map<Location,Character>(MAP_WIDTH, noOfEnemies, NO_OF_ALLIES);
+		Map map = new Map(MAP_WIDTH, noOfEnemies, NO_OF_ALLIES);
 		
 		//Get a pointer to the player and player inventory so that the player can be used
 		Player player = map.getPlayer();
@@ -157,7 +160,6 @@ public class Main {
 			Location currentLocation = map.getLocation(); //Get the actual location object where player is	
 			Item [] locationItems = currentLocation.getInventory(); //Get the items which are in the location
 			
-			
 			try {
 				if(input.matches("(?i).*[n][o][r][t][h].*")) { //If user types north, update player location accordingly				
 					System.out.println("You head north...");
@@ -208,28 +210,16 @@ public class Main {
 				else if(input.matches("(?i).*[t][a][k][e].*")) { //Moves items from location inventory to player inventory
 					
 					String[] split = input.split(" "); //Split user input into words
-					boolean nothingTaken = true; //For checking whether the "take" was successful
 					
 					if(split.length == 2) { //If user entered 2 words continue, else do nothing and prompt user
-						for(int i = 0; i < locationItems.length; i++) { //Loop over items at location
-							
-							//If item slot is not null and matches the user input continue, else prompt user
-							if(locationItems[i] != null && split[1].matches("(?i)"+locationItems[i].toString())) { 
-								
-								//If player inventory if not full continue, else prompt user
-								if(!player.isInventoryfull()) {
-									player.addToInventory(currentLocation.removeFromInventory(locationItems[i].toString()));
-									System.out.println("Taking " + split[1]);
-									nothingTaken = false; //Updating taken flag
-									break;
-								}
-								else {
-									System.out.print("Inventory full!");
-								}
-							}
-						}
-						if(nothingTaken) { //Prompt user for potential spelling mistakes
+						
+						boolean success = currentLocation.transferItem(split[1], player);
+
+						if(!success) { //Prompt user for potential spelling mistakes
 							System.out.println(split[1] + " has not been picked up, did you spell it correctly? Is your inventory full?");
+						}
+						else {
+							System.out.println("Taking " + split[1]);
 						}
 					}
 					else { //If user did not enter 2 words
@@ -239,24 +229,16 @@ public class Main {
 				else if(input.matches("(?i).*[d][r][o][p].*")) { //Moves items from player inventory to location inventory
 					
 					String[] split = input.split(" "); //Same logic as "take" case except item is moved the opposite direction
-					boolean nothingDropped = true; 
-					
+	
 					if(split.length == 2) { 
-						for(int i = 0; i < playerItems.length; i++) {
-							if(playerItems[i] != null && split[1].matches("(?i)"+playerItems[i].toString())) {
-								if (!currentLocation.isInventoryfull()) {
-									currentLocation.addToInventory(player.removeFromInventory(playerItems[i].toString()));
-									System.out.println("Dropping " + split[1]);
-									nothingDropped = false;
-									break;
-								}
-								else {
-									System.out.print("Location full!"); //This should never happen as there are not enough items.
-								}
-							}
-						}
-						if(nothingDropped) {
+						
+						boolean success = player.transferItem(split[1], currentLocation);
+						
+						if(!success) {
 							System.out.println(split[1] + " has not been dropped, did you spell it correctly?");
+						}
+						else {
+							System.out.println("Dropping " + split[1]);
 						}
 					}
 					else {
@@ -292,13 +274,15 @@ public class Main {
 					for(int i = 0; i < playerItems.length; i++)
 					{
 						//If player has the relevant item update the respective flag
-						if(playerItems[i] != null && playerItems[i].toString() == "Map") {
+						if(playerItems[i] != null && playerItems[i].toString().equals("Map")) {
 							hasMap = true;
 						}
-						if(playerItems[i] != null && playerItems[i].toString() == "Compass") {
+						if(playerItems[i] != null && playerItems[i].toString().equals("Compass")) {
 							hasCompass = true;
 						}
 					}
+					System.out.println(Arrays.toString(playerItems));
+					System.out.println(hasMap+" "+hasCompass);
 					System.out.println(map.toString(hasMap, hasCompass)); //Print map
 				}
 				else if(input.matches("(?i).*[g][u][i][d][e].*")) { // For printing guide

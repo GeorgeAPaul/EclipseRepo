@@ -15,12 +15,13 @@ public class Weapon extends Item {
 	 * List of possible weapons in the game, used for assigning damage when weapon is created.
 	 */
 	private String[] weaponList = {"Sword", "Gun", "Sausage", "Bow", "Whip", "Bazooka"};
+	//Not ideal as this list of weapons needs to be updated here and in map class.
 	
 	/**
 	 * List of possible weapon damages in the game, used for assigning damage when weapon is created.
 	 */
 	private int[] weaponDamageList = {50, 90, 0, 75, 20, 500};
-	//Not ideal as this list of weapons and damage needs to be updated here and in map class.
+	
 	
 	/**
 	 * Constructor method
@@ -31,7 +32,7 @@ public class Weapon extends Item {
 		super(name);
 		
 		for(int i = 0; i < weaponList.length; i++) {//Loop over weapon list until weapon found, assign damage
-			if(name == weaponList[i]) {
+			if(name.equals(weaponList[i])) {
 				this.damage = weaponDamageList[i];
 				break;
 			}

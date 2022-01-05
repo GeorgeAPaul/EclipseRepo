@@ -119,7 +119,7 @@ public class Encounter {
 				} 
 				else if (input.matches("(?i).*[f][i][s][t].*")) {
 					System.out.println("Attacking with fists!");
-					player.attack(character,1);
+					player.attack(character,player.getAttackPower());
 				}
 				else if (input.matches("(?i).*[w][a][r].*[c][r][y].*")) { //War cry is used to lower defence
 					player.warCry(character);
@@ -138,7 +138,6 @@ public class Encounter {
 							
 							//If item is not null and matches the user input
 							if(items[i] != null && split[1].matches("(?i)"+items[i].toString())) {
-					
 								//Can only attack with a weapon not an item
 								if(items[i] instanceof Weapon) {
 									player.attack(character, ((Weapon)items[i]).getDamage());
