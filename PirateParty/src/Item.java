@@ -14,15 +14,6 @@ public class Item extends GameObject {
 		setName(name);
 	}
 
-	/**
-	 * toString method that returns the name of the item
-	 * 
-	 * @return name of item
-	 */
-	@Override
-	public String toString() {
-		return getName();
-		
-	}
+
 
 }

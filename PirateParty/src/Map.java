@@ -238,9 +238,6 @@ public class Map {
 		//Useful items
 		String[] itemList = {"Map","Compass"};
 		
-		//Weapons
-		String[] weaponList = {"Sword", "Gun", "Sausage", "Bow", "Whip", "Bazooka"};
-		
 		//Loop over item list
 		for(int k = 0; k < itemList.length; k++) {
 			
@@ -259,16 +256,16 @@ public class Map {
 		}
 		
 		//Same logic as for items but for the weapons
-		for(int k = 0; k < weaponList.length; k++) {
-			
+		for(WeaponList w : WeaponList.values()) {
+						
 			int i = (int)(Math.random() * mapWidth);
 			int j = (int)(Math.random() * mapWidth);
 			
 			if (characterGrid[i][j] != null) {
-				characterGrid[i][j].addToInventory(new Weapon(weaponList[k]));
+				characterGrid[i][j].addToInventory(new Weapon(w.name()));
 			}
 			else {
-				locationGrid[i][j].addToInventory(new Weapon(weaponList[k]));
+				locationGrid[i][j].addToInventory(new Weapon(w.name()));
 			}
 			
 		}
@@ -360,7 +357,7 @@ public class Map {
 					}
 					
 					if(item != null) { //If item is not null add line that contains coordinates + "L" + item name
-						inventoryString += i + " " + j + " " + "L" + " " + itemType + " " + item.toString() + "\n";
+						inventoryString += i + " " + j + " " + "L" + " " + itemType + " " + item.getName() + "\n";
 					}
 				}
 				
@@ -381,7 +378,7 @@ public class Map {
 						}
 						
 						if(item != null) { //If item is not null add line that contains coordinates + "C" + item name
-							inventoryString += i + " " + j + " " + "C" + " " + itemType + " " + item.toString() + "\n";
+							inventoryString += i + " " + j + " " + "C" + " " + itemType + " " + item + "\n";
 						}
 					}
 				}

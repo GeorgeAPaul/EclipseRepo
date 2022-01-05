@@ -10,12 +10,12 @@ public class GameObject implements HasInventory {
 	/**
 	 * Name of object
 	 */
-	private String name;
+	private String objectName;
 	
 	/**
 	 * Inventory for storing items
 	 */
-	private Item[] inventory;
+	private Item[] objectInventory;
 	
 	/**
 	 * Running total of items
@@ -26,8 +26,8 @@ public class GameObject implements HasInventory {
 	 * Constructor method
 	 */
 	public GameObject() {
-		inventory = new Item[50]; 
-		//All objects by default have space for 50 items well above whats needed but not ideal for 
+		objectInventory = new Item[50]; 
+		//All objects by default have space for 50 items, well above whats needed but not ideal for 
 		//when game gets bigger as code would have to be updated
 	}
 	
@@ -37,7 +37,7 @@ public class GameObject implements HasInventory {
 	 * @param name Desired name of object
 	 */
 	public void setName(String name) {
-		this.name = name;
+		this.objectName = name;
 	}
 	
 	/**
@@ -46,7 +46,7 @@ public class GameObject implements HasInventory {
 	 * @return name Name of object
 	 */
 	public String getName() {
-		return name;
+		return objectName;
 	}
 	
 	/**
@@ -56,7 +56,7 @@ public class GameObject implements HasInventory {
 	 */
 	@Override
 	public void setInventory(Item[] inventory) {
-		this.inventory = inventory;
+		this.objectInventory = inventory;
 	}
 	
 	/**
@@ -66,9 +66,9 @@ public class GameObject implements HasInventory {
 	 */
 	@Override
 	public void addToInventory(Item item) {
-		for(int i = 0; i < inventory.length; i++) { //Loop over inventory to find a space
-			if(inventory[i] == null && item != null) {//Only add item if its not null!
-				inventory[i] = item;
+		for(int i = 0; i < objectInventory.length; i++) { //Loop over inventory to find a space
+			if(objectInventory[i] == null && item != null) {//Only add item if its not null!
+				objectInventory[i] = item;
 				noOfItems++;
 				break; // Only add item once
 			}
@@ -84,10 +84,10 @@ public class GameObject implements HasInventory {
 	@Override
 	public Item removeFromInventory(String itemName) {
 		Item item = null;
-		for(int i = 0; i < inventory.length; i++) {//Loop over inventory to find item
-			if(inventory[i] != null && inventory[i].toString().matches("(?i)"+itemName)) { //If item is found and not null
-				item = inventory[i];//Save item to temp variable
-				inventory[i] = null; //Remove item from inventory
+		for(int i = 0; i < objectInventory.length; i++) {//Loop over inventory to find item
+			if(objectInventory[i] != null && objectInventory[i].toString().matches("(?i)"+itemName)) { //If item is found and not null
+				item = objectInventory[i];//Save item to temp variable
+				objectInventory[i] = null; //Remove item from inventory
 				break; //Only remove 1 item
 			}
 		}
@@ -122,11 +122,11 @@ public class GameObject implements HasInventory {
 	 */
 	@Override
 	public Item[] removeAllFromInventory() {
-		Item[] items = new Item[inventory.length];
+		Item[] items = new Item[objectInventory.length];
 		
-		for(int i = 0; i < inventory.length; i++) {
-			items[i] = inventory[i]; //Add item to array
-			inventory[i] = null; //Remove item from inventory
+		for(int i = 0; i < objectInventory.length; i++) {
+			items[i] = objectInventory[i]; //Add item to array
+			objectInventory[i] = null; //Remove item from inventory
 		}
 		
 		noOfItems =  0;
@@ -140,7 +140,7 @@ public class GameObject implements HasInventory {
 	 */
 	@Override
 	public Item[] getInventory() {
-		return inventory;
+		return objectInventory;
 	}
 	
 	/**
@@ -150,10 +150,21 @@ public class GameObject implements HasInventory {
 	 */
 	@Override
 	public boolean isInventoryfull() {
-		if(noOfItems == inventory.length) { //If noOfItems = inventory size inventory is full
+		if(noOfItems == objectInventory.length) { //If noOfItems = inventory size inventory is full
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * toString method that returns the name of the object
+	 * 
+	 * @return name of item
+	 */
+	@Override
+	public String toString() {
+		return getName();
+		
 	}
 	
 }

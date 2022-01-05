@@ -198,7 +198,7 @@ public class Main {
 					for(int i = 0; i < locationItems.length; i++) { //Iterate over locations inventory
 						Item item = locationItems[i];
 						if(item != null) { //If inventory slot does not contain null print it's name
-							System.out.println("You can see a " + item + " nearby.");
+							System.out.println("You can see a " + item.getName() + " nearby.");
 							empty = false; //If there are any items present update flag
 						}
 					}

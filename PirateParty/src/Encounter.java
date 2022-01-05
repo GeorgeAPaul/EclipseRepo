@@ -140,6 +140,7 @@ public class Encounter {
 							if(items[i] != null && split[1].matches("(?i)"+items[i].toString())) {
 								//Can only attack with a weapon not an item
 								if(items[i] instanceof Weapon) {
+									System.out.println("Using " + items[i].toString());
 									player.attack(character, ((Weapon)items[i]).getDamage());
 								}
 								else {
