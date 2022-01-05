@@ -1,19 +1,21 @@
 package dataStructures;
 
-public class RedBlackTree {
+import dataStructures.Tree.TreeNode;
+
+public class RedBlackTree<E extends Comparable<E>> {
 	
 	public enum TreeNodeColor {
 		Red, Black
 	}
 
-	protected class ColouredTreeNode implements Comparable {
+	protected class ColouredTreeNode<P extends Comparable<P>> implements Comparable<ColouredTreeNode<P>> {
 		protected TreeNodeColor color;
-		protected Comparable value;
-		protected ColouredTreeNode leftNode;
-		protected ColouredTreeNode rightNode;
-		protected ColouredTreeNode parentNode;
+		protected P value;
+		protected ColouredTreeNode<P> leftNode;
+		protected ColouredTreeNode<P> rightNode;
+		protected ColouredTreeNode<P> parentNode;
 
-		public ColouredTreeNode(Comparable value, TreeNodeColor color) {
+		public ColouredTreeNode(P value, TreeNodeColor color) {
 			this.value = value;
 			this.color = color;
 		}
@@ -25,9 +27,17 @@ public class RedBlackTree {
 				return value.toString() + " : " + color;
 		}
 
-		public int compareTo(Object arg0) {
-			ColouredTreeNode node2 = (ColouredTreeNode) arg0;
+		public int compareTo(ColouredTreeNode<P> arg0) {
+			ColouredTreeNode<P> node2 = arg0;
 			return value.compareTo(node2.value);
+		}
+		
+		public ColouredTreeNode<P> getLeftTree(){
+			return this.leftNode;
+		}
+		
+		public ColouredTreeNode<P> getRightTree(){
+			return this.rightNode;
 		}
 	}
 
@@ -71,7 +81,7 @@ public class RedBlackTree {
 		y.parentNode = x;
 	}
 
-	public void rbInsert(Comparable element) {
+	public void rbInsert(E element) {
 		ColouredTreeNode z = new ColouredTreeNode(element, TreeNodeColor.Red);
 		ColouredTreeNode y = nilNode;
 		ColouredTreeNode x = root;
@@ -150,5 +160,19 @@ public class RedBlackTree {
 
 		}
 	}
+	
+	private E findNode (E element, ColouredTreeNode<E> current) {
+		if (current == null) return null;
+		else if (element.compareTo(current.value) == 0)
+			return (E)current.value;
+		else if (element.compareTo(current.value) < 0) {
+			return findNode (element, current.getLeftTree( )) ;
+		}
+		else return findNode(element, current.getRightTree()) ;
+	}
+	
+//	public E find (E element) {
+//		return findNode(element, root);
+//	}
 
 }

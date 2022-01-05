@@ -23,10 +23,6 @@ public class Magazine extends Publication{
 		super(id, title, yearOfPub, sectionName);
 		this.issue = issue;
 	}
-	
-	public Magazine(int id) {
-		super(id);	
-	}
 
 	/**
 	 * Returns contents of Magazine as a formatted String.  

@@ -24,10 +24,6 @@ public class Book extends Publication {
 		this.author = author;	
 	}
 	
-	public Book(int id) {
-		super(id);	
-	}
-	
 	/**
 	 * Returns contents of Book as a formatted String.  
 	 */

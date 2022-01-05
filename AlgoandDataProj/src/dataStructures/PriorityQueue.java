@@ -1,12 +1,36 @@
 package dataStructures;
 
+/**
+ * 
+ * @author George Paul
+ *
+ * @param <E> Data type of the stored data
+ * @param <T> Data type of the priority
+ */
 public class PriorityQueue<E, T extends Comparable<T>> 
 {       
+	/**
+	 * Class to store data with their priorities
+	 * @param <P> Data type of the stored data
+	 * @param <U> Data type of the priority
+	 */
 	private class PriorityPair<P, U extends Comparable<U>> implements Comparable<PriorityPair<P,U>> {
 		
+		/**
+		 * Stored data
+		 */
 		private E element;
+		
+		/**
+		 * Priority to be removed from the queue
+		 */
 		private T priority;
 		
+		/**
+		 * Constructor method
+		 * @param element
+		 * @param priority
+		 */
 		public PriorityPair(E element, T priority) {
 			this.element = element;
 			this.priority = priority;

@@ -16,10 +16,6 @@ public class Blueray extends Publication {
 	public Blueray(int id, String title, int yearOfPub, String sectionName) {
 		super(id, title, yearOfPub, sectionName);
 	}
-	
-	public Blueray(int id) {
-		super(id);	
-	}
 
 	/**
 	 * Returns contents of Blueray as a formatted String.  

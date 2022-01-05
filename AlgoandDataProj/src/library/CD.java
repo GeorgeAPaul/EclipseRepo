@@ -17,10 +17,6 @@ public class CD extends Book {
 	public CD(int id, String title, int yearOfPub, String author, String sectionName) {
 		super(id, title, yearOfPub, author, sectionName);
 	}
-	
-	public CD(int id) {
-		super(id);	
-	}
 
 	/**
 	 * Returns contents of CD as a formatted String.  

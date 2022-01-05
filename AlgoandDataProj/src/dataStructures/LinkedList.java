@@ -1,98 +1,180 @@
 package dataStructures;
+
+/**
+ * 
+ * @author George Paul
+ *
+ * @param <E> data type to be stored
+ */
 public class LinkedList<E extends Comparable<E>> {
 	
-	
-	private class ListElement implements Comparable<E> {
-		private E el1;
-		private ListElement el2;
+	/**
+	 * Class to represent the list elements
+	 * 
+	 * @param P the data type to be stored
+	 */
+	private class ListElement<P extends Comparable<P>> implements Comparable<ListElement<P>> {
+		
+		/**
+		 * Holds the data
+		 */
+		private P el1;
+		
+		/**
+		 * Points to the next element in the list
+		 */
+		private ListElement<P> el2;
 
-		public ListElement(E el, ListElement nextElement) {
+		/**
+		 * Constructor method
+		 * @param el data to be stored
+		 * @param nextElement pointer to the next element
+		 */
+		public ListElement(P el, ListElement<P> nextElement) {
 			el1 = el;
 			el2 = nextElement;
 		}
 
-		public ListElement(E el) {
+		/**
+		 * Constructor method for when no next element is defined
+		 * @param el data to be stored
+		 */
+		public ListElement(P el) {
 			this(el, null);
 		}
 
-		public E first() {
+		/**
+		 * Method to return the data stored in element
+		 * @return el1 data stored in list element
+		 */
+		public P first() {
 			return el1;
 		}
 
-		public ListElement rest() {
+		/**
+		 * Method to return the next list element
+		 * @return el2 the next list element
+		 */
+		public ListElement<P> rest() {
 			return el2;
 		}
 
-		public void setFirst(E value) {
+		/**
+		 * Method to set the data element
+		 * @param value new value for the data element
+		 */
+		public void setFirst(P value) {
 			el1 = value;
 		}
 
-		public void setRest(ListElement value) {
+		/**
+		 * Method to set the pointer to the next element
+		 * @param value next list element
+		 */
+		public void setRest(ListElement<P> value) {
 			el2 = value;
 		}
 
+		/**
+		 * CompareTo method to compare list elements
+		 * @return  -ve if o is less, +ve if o is greater, 0 if the elements are equal
+		 */
 		@Override
-		public int compareTo(E o) {
-			return this.compareTo(o);
+		public int compareTo(ListElement<P> o) {
+			return this.first().compareTo(o.first());
 		}
 	}
 	
-	private ListElement head;
+	/**
+	 * To store the first element in the list
+	 */
+	private ListElement<E> head;
+	
+	/**
+	 * To store the size of the list
+	 */
 	private int count;
 
+	/**
+	 * Constructor method
+	 */
 	public LinkedList() {
 		head = null;
 	}
 
+	/**
+	 * Method to add list element to beginning of list
+	 * @param o data to put in element
+	 */
 	public void addFirst(E o) {
-		head = new ListElement(o, head);
+		head = new ListElement<E>(o, head);
 		count++;
 	}
 	
+	/**
+	 * Method to add elements to a list in a sorted fashion, this method was taken from the course slides
+	 * @param o element to add to a list
+	 */
 	public void addSorted (E o)
 	{
 		// an empty list , add element in front
-		if(head == null) head = new ListElement(o, null);
+		if(head == null) head = new ListElement<E>(o, null);
 		else if(head.first().compareTo(o) > 0)
 		{
 			// we have to add the element in front
-			head = new ListElement (o , head);
+			head = new ListElement<E>(o , head);
 		}
 		else
 		{
 			// we have to find the first element which is bigger
-			ListElement d = head ;
-			while ((d.rest() != null) && (((Comparable<E>)d.rest().first()).compareTo(o) <= 0))
+			ListElement<E> d = head ;
+			while ((d.rest() != null) && ((d.rest().first()).compareTo(o) <= 0))
 			{
 				d = d.rest();
 			}
-			ListElement next = d.rest();
-			d.setRest(new ListElement (o, next));
+			ListElement<E> next = d.rest();
+			d.setRest(new ListElement<E>(o, next));
 		}
 		count ++;
 	}
 
-
+	/**
+	 * Method to return the first element of the list
+	 * @return first element of the list
+	 */
 	public E getFirst() {
 		return head.first();
 	}
 	
+	/**
+	 * Method to remove the first element of the list
+	 */
 	public void removeFirst() {
 		head = head.rest();
 		count--;
 	}
 
+	/**
+	 * Method to get an element by position in the list
+	 * @param n position in the list
+	 * @return found data
+	 */
 	public E get(int n) {
-		ListElement d = head;
-		while (n > 0) {
+		ListElement<E> d = head; //Start from head
+		while (n > 0) { //Traverse list until position is reached
 			d = d.rest();
 			n--;
 		}
 		return d.first();
 	}
 	
+	/**
+	 * Method to set the value of an element at a given position
+	 * @param n position at which to set the value
+	 * @param o value to update to
+	 */
 	public void set(int n, E o) {
-		ListElement d = head;
+		ListElement<E> d = head;
 		while (n > 0) {
 			d = d.rest();
 			n--;
@@ -100,21 +182,28 @@ public class LinkedList<E extends Comparable<E>> {
 		d.setFirst(o);
 	}
 	
+	/**
+	 * Method to get the last element in the list
+	 * @return last element in the list
+	 */
 	public E getLast() {
-		ListElement d = head;
+		ListElement<E> d = head;
 		while (d.rest() != null) {
 			d = d.rest();
 		}
 		return d.first();
 	}
 	
+	/**
+	 * Method to remove the last element in the list
+	 */
 	public void removeLast() {
 		
 		if (size() == 1) {
 			head = null;
 		}
 		else {
-			ListElement d = head;
+			ListElement<E> d = head;
 			while (d.rest().rest() != null) {
 				d = d.rest();
 			}
@@ -123,24 +212,33 @@ public class LinkedList<E extends Comparable<E>> {
 		count--;
 	}
 	
+	/**
+	 * Method to add an element to the end of a list
+	 * @param o data to add to end of list
+	 */
 	public void addLast(E o) {
-		ListElement d = head;
+		ListElement<E> d = head;
 		while (d.rest() != null) {
 			d = d.rest();
 		}
 		
-		ListElement l = new ListElement(o);
+		ListElement<E> l = new ListElement<E>(o);
 		d.setRest(l);
 		count++;
 	}
 	
+	/**
+	 * Method to check whether list contains element
+	 * @param obj data to search for
+	 * @return true if element is found, else false
+	 */
 	public boolean contains(E obj)
 	{
 		if(isEmpty()) {
 			return false;
 			
 		}
-		ListElement d = head;
+		ListElement<E> d = head;
 		while(d != null) {
 			if(d.first() == obj) {
 				return true;
@@ -160,9 +258,13 @@ public class LinkedList<E extends Comparable<E>> {
 		return size() == 0;
 	}
 	
+	/**
+	 * toString method
+	 * @return string representation of List
+	 */
 	public String toString() {
 		String s = "(";
-		ListElement d = head;
+		ListElement<E> d = head;
 		while (d != null) {
 			s += d.first();
 			s += ", ";
@@ -172,9 +274,16 @@ public class LinkedList<E extends Comparable<E>> {
 		return s;
 	}
 	
+	/**
+	 * Method to return number of elements in list
+	 * @return count size of list
+	 */
 	public int size() {
 		return count;
 	}
+	
+	//Below are methods made for exercises
+	
 	
 	public void fropple(){
 		
@@ -182,10 +291,10 @@ public class LinkedList<E extends Comparable<E>> {
 			return;
 		}
 		
-		ListElement d = head;
+		ListElement<E> d = head;
 		boolean first = true;
 		while (d.rest() != null) {
-			ListElement tmp = d.rest().rest();
+			ListElement<E> tmp = d.rest().rest();
 			if (tmp == null) {
 				return;
 			}
@@ -205,7 +314,7 @@ public class LinkedList<E extends Comparable<E>> {
 	}
 	
 	public void append(LinkedList<E> list2) {
-		ListElement d = list2.head;
+		ListElement<E> d = list2.head;
 		
 		if(list2.isEmpty()) {
 			return;

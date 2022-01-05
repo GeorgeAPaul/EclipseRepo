@@ -6,15 +6,13 @@ package dataStructures;
  *
  * @param <E> Data type to be stored in the Graph.
  */
-public class Graph<E extends Comparable<E>>
-{
+public class Graph<E extends Comparable<E>>{
 	/**
 	 * 
 	 * Nodes store the data in the graph
 	 * @param <P> Data type to be stored in the Node.
 	 */
-    public class Node<P extends Comparable<P>> implements Comparable<Node<P>>
-    {
+    public class Node<P extends Comparable<P>> implements Comparable<Node<P>>{
     	/**
     	 * Stores the data in the node
     	 */
@@ -44,8 +42,7 @@ public class Graph<E extends Comparable<E>>
          * Constructor method
          * @param label Data to be stored in the node
          */
-        public Node(P label)
-        {
+        public Node(P label){
             info = label;
             edges = new Vector<Edge<P>>(1);
             visited = false; //All nodes are unvisited to begin with
@@ -56,8 +53,7 @@ public class Graph<E extends Comparable<E>>
          * Method to add an edge to the Node
          * @param e Edge to be added
          */
-        public void addEdge(Edge<P> e)
-        {
+        public void addEdge(Edge<P> e){
             edges.addLast(e); //O(1) for a Vector
         }
         
@@ -66,8 +62,7 @@ public class Graph<E extends Comparable<E>>
          * @param o Node to be compared
          * @return -ve if o is less, +ve if o is greater, 0 if the nodes are equal
          */
-        public int compareTo(Node<P> o)
-        {
+        public int compareTo(Node<P> o){
             // two nodes are equal if they have the same label
             Node<P> n = (Node<P>)o;
             return n.info.compareTo(info);
@@ -85,8 +80,7 @@ public class Graph<E extends Comparable<E>>
          * Method to return the data stored in the node
          * @return info the data stored in the node
          */
-        public P getLabel()
-        {
+        public P getLabel(){
             return info;
         }
         
@@ -97,8 +91,7 @@ public class Graph<E extends Comparable<E>>
      *Edges store the connections between nodes
      * @param <P> Data type to be stored in the Edge
      */
-    private class Edge<P extends Comparable<P>> implements Comparable<Edge<P>>
-    {
+    private class Edge<P extends Comparable<P>> implements Comparable<Edge<P>>{
     	/**
     	 * The node that this Edge connects to
     	 */
@@ -107,7 +100,7 @@ public class Graph<E extends Comparable<E>>
         /**
          * The distance between the edges
          */
-        private int weight;
+        private int weight; //I tried to make weight generic but couln't figure out how to use operators on the weight on line 328
         
         /**
          * Constructor method

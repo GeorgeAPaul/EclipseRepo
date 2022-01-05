@@ -53,14 +53,6 @@ public class Publication implements Comparable<Publication> {
 	}
 	
 	/**
-	 * Constructor method for creating dummy publications for use when searching the shelves in the library.
-	 * @param id id to search for
-	 */
-	public Publication(int id) {
-		this.id = id;
-	}
-	
-	/**
 	 * Returns contents of Publication as a formatted String.  
 	 */
 	public String toString() {
