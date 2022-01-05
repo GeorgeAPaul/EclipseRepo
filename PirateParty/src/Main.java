@@ -122,8 +122,7 @@ public class Main {
 					
 					//Loop over inventory lines and load inventories
 					while (inventoryString != null) {
-						
-						System.out.println(inventoryString);
+		
 						map.loadInventory(inventoryString);
 						
 						inventoryString = br.readLine();

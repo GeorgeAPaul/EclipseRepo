@@ -498,7 +498,6 @@ public class Map {
 				}
 				else if(itemType == 'W') {
 					characterGrid[i][j].addToInventory(new Weapon(name));
-					System.out.print(new Weapon(name).getDamage());
 				}
 			}
 			else if(characterFlag == 'L') {
@@ -507,7 +506,6 @@ public class Map {
 				}
 				else if(itemType == 'W') {
 					locationGrid[i][j].addToInventory(new Weapon(name));
-					System.out.print(new Weapon(name).getDamage());
 				}
 			}
 		} catch (Exception e) {
