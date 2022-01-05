@@ -18,6 +18,7 @@ public class Magazine extends Publication{
 	 * @param title Title of the Magazine.
 	 * @param yearOfPub Year that the Magazine was published.
 	 * @param issue Issue number of the Magazine.
+	 * @param sectionName The name of the section that Magazine is added to
 	 */
 	public Magazine(int id, String title, int yearOfPub, int issue, String sectionName) {
 		super(id, title, yearOfPub, sectionName);

@@ -35,15 +35,15 @@ public class Publication implements Comparable<Publication> {
 	 */
 	private int currentOwner;
 	
-	/**
-	 * Constructor method.
-	 * @param id Unique id of the publication, is determined externally in the Library class.
-	 * @param title Title of publication
-	 * @param yearOfPub Year that the publication was published.
-	 */
-	
 	private String sectionName;
 	
+	/**
+	 * Constructor method
+	 * @param id Unique id of the Blueray, is determined externally in the Library class.
+	 * @param title Title of Publication
+	 * @param yearOfPub Year that the Publication was published.
+	 * @param sectionName The name of the section that Publication is added to
+	 */
 	public Publication(int id, String title, int yearOfPub, String sectionName) {
 		this.title = title;
 		this.yearOfPub = yearOfPub;

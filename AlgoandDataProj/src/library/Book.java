@@ -18,6 +18,7 @@ public class Book extends Publication {
 	 * @param title Title of the Book.
 	 * @param yearOfPub Year that the Book was published.
 	 * @param author Name of the author.
+	 * @param sectionName The name of the section that Book is added to
 	 */
 	public Book(int id, String title, int yearOfPub, String author, String sectionName) {
 		super(id, title, yearOfPub, sectionName);

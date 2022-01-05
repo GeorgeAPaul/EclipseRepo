@@ -366,7 +366,7 @@ public class Library implements ILibraryManagement {
 	/**
 	 * Method to add a connection between sections
 	 * @param section1 Starting section
-	 * @oaram section2 Ending section
+	 * @param section2 Ending section
 	 */
 	@Override
 	public void connectSections(String section1, String section2) {

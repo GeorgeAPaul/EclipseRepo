@@ -39,7 +39,7 @@ public class Location extends GameObject {
 	/**
 	 * Method to set isSea flag
 	 * 
-	 * @param isSea whether Location is sea
+	 * @param sea whether Location is sea
 	 */
 	public void setIsSea(boolean sea) {
 		this.isSea = sea;

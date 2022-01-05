@@ -47,7 +47,7 @@ package dataStructures;
 			
 			/**
 			 * Method to set the key
-			 * @param the new key value
+			 * @param key the new key value
 			 */
 			public void setKey(K key) {
 				this.key = key;

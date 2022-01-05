@@ -11,7 +11,7 @@ public class LinkedList<E extends Comparable<E>> {
 	/**
 	 * Class to represent the list elements
 	 * 
-	 * @param P the data type to be stored
+	 * @param <P> the data type to be stored
 	 */
 	private class ListElement<P extends Comparable<P>> implements Comparable<ListElement<P>> {
 		
