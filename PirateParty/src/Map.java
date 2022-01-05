@@ -235,11 +235,8 @@ public class Map {
 	 */
 	public void generateItems() {
 		
-		//Useful items
-		String[] itemList = {"Map","Compass"};
-		
 		//Loop over item list
-		for(int k = 0; k < itemList.length; k++) {
+		for(ItemList item : ItemList.values()) {
 			
 			//Generate random coordinates for the item
 			int i = (int)(Math.random() * mapWidth);
@@ -247,10 +244,10 @@ public class Map {
 			
 			//If there is a character at the coordinates put the item in the character inventory, else put it in the location.
 			if (characterGrid[i][j] != null) {
-				characterGrid[i][j].addToInventory(new Item(itemList[k]));
+				characterGrid[i][j].addToInventory(new Item(item.name()));
 			}
 			else {
-				locationGrid[i][j].addToInventory(new Item(itemList[k]));
+				locationGrid[i][j].addToInventory(new Item(item.name()));
 			}
 		
 		}
