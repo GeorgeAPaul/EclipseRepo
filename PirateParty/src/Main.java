@@ -85,18 +85,18 @@ public class Main {
 			
 			//Use regex to match with input, allows for capitalisation or extra words/spaces e.g. "easy mode" will still work
 			if(input.matches("(?i).*[e][a][s][y].*")) { 
-				System.out.println("Playing in easy difficulty!");
+				System.out.println("Playing in easy difficulty!\n");
 				player.addToInventory(new Item("Map"));
 				player.addToInventory(new Item("Compass"));
 				break;
 			}
 			else if(input.matches("(?i).*[m][e][d][i][u][m].*")) {
-				System.out.println("Playing in medium difficulty!");
+				System.out.println("Playing in medium difficulty!\n");
 				player.addToInventory(new Item("Map"));
 				break;
 			}
 			else if(input.matches("(?i).*[h][a][r][d].*")) {
-				System.out.println("Playing in hard difficulty! Good luck!");
+				System.out.println("Playing in hard difficulty! Good luck!\n");
 				break;
 			}
 			else if(input.matches("(?i).*[l][o][a][d].*")) { //Load game from file, map is overwritten with data from file
@@ -149,6 +149,22 @@ public class Main {
 				System.out.println("Easy, medium, hard or load... try again");
 			}
 		}
+		
+		
+		System.out.println("You open your eyes and find yourself in a strange land...");
+		Helpers.wait(3000);
+		System.out.println("It truly is a huge world! It must be " + MAP_WIDTH + "km across!");
+		Helpers.wait(3000);
+		System.out.println("All you can remember of your past life is that...");
+		Helpers.wait(3000);
+		System.out.println("YOU ARE THE UNNAMED PIRATE!");
+		Helpers.wait(3000);
+		System.out.println("And you will defeat your sworn enemies...");
+		Helpers.wait(3000);
+		System.out.println("...all " + noOfEnemies + " of them!");
+		Helpers.wait(3000);
+		System.out.println("If you ever get stuck you can consult the guide by typing 'guide'");
+		System.out.print("Good luck!");
 		
 		//Main play loop, keeps going until number of enemies is 0
 		while(noOfEnemies > 0) {
@@ -280,8 +296,6 @@ public class Main {
 							hasCompass = true;
 						}
 					}
-					System.out.println(Arrays.toString(playerItems));
-					System.out.println(hasMap+" "+hasCompass);
 					System.out.println(map.toString(hasMap, hasCompass)); //Print map
 				}
 				else if(input.matches("(?i).*[g][u][i][d][e].*")) { // For printing guide

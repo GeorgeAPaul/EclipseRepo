@@ -1,4 +1,7 @@
-~~~~~Welcome to Unamed Pirate Game 3!!!!~~~~~
-In this game you play as the Unamed Pirate, your objective is to try to defeat all the enemies on the map.
+~~~~~Welcome to Unnamed Pirate Game 3!!!!~~~~~
+In this game you play as the Unnamed Pirate, your objective is to try to defeat all the enemies on the map.
+The map is generated randomly each time you play, feel free to play this game 1 million times to experience all the combinations!
+
 You probably aren't strong enough to win yet...maybe you should try to find some weapons...maybe a map would help...
+
 If you ever get stuck you can consult the guide by typing 'guide'
