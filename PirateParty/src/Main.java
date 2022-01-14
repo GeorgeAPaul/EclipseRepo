@@ -60,19 +60,19 @@ public class Main {
 		UserPrompt.chooseDifficulty(map, NO_OF_ALLIES, sc);
 		
 		//More intro text
-//		System.out.println("You open your eyes and find yourself in a strange land...");
-//		Helpers.wait(3000);
-//		System.out.println("It truly is a huge world! It must be " + MAP_WIDTH + "km across!");
-//		Helpers.wait(3000);
-//		System.out.println("All you can remember of your past life is that...");
-//		Helpers.wait(3000);
-//		System.out.println("YOU ARE THE UNNAMED PIRATE!");
-//		Helpers.wait(3000);
-//		System.out.println("And you will defeat your sworn enemies...");
-//		Helpers.wait(3000);
-//		System.out.println("...all " + noOfEnemies + " of them!");
-//		Helpers.wait(3000);
-//		System.out.println("If you ever get stuck you can consult the guide by typing 'guide'");
+		System.out.println("You open your eyes and find yourself in a strange land...");
+		Helpers.wait(3000);
+		System.out.println("It truly is a huge world! It must be " + MAP_WIDTH + "km across!");
+		Helpers.wait(3000);
+		System.out.println("All you can remember of your past life is that...");
+		Helpers.wait(3000);
+		System.out.println("YOU ARE THE UNNAMED PIRATE!");
+		Helpers.wait(3000);
+		System.out.println("And you will defeat your sworn enemies...");
+		Helpers.wait(3000);
+		System.out.println("...all " + noOfEnemies + " of them!");
+		Helpers.wait(3000);
+		System.out.println("If you ever get stuck you can consult the guide by typing 'guide'");
 		System.out.print("Good luck!");
 		
 		//Main play loop, keeps going until number of enemies is 0
