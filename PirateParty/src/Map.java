@@ -212,6 +212,15 @@ public class Map {
 	}
 	
 	/**
+	 * Method to return the mapWidth.
+	 * 
+	 * @return mapWidth The width of the map.
+	 */
+	public int getWidth() {
+		return mapWidth;
+	}
+	
+	/**
 	 * Method to move the player object around the map
 	 * 
 	 * @param i New i coordinate to move the player to.
@@ -493,6 +502,9 @@ public class Map {
 				else if(itemType == 'W') {
 					characterGrid[i][j].addToInventory(new Weapon(name));
 				}
+				else {
+					throw new IOException();
+				}
 			}
 			else if(characterFlag == 'L') {
 				if(itemType == 'I') {
@@ -501,9 +513,16 @@ public class Map {
 				else if(itemType == 'W') {
 					locationGrid[i][j].addToInventory(new Weapon(name));
 				}
+				else {
+					throw new IOException();
+				}
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+			else {
+				throw new IOException();
+			}
+		} 
+		catch (Exception e) {
+			//e.printStackTrace();
 			throw new IOException();
 		}
 	}

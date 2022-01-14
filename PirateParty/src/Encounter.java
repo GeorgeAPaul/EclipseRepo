@@ -130,6 +130,7 @@ public class Encounter {
 				else if (input.matches("(?i).*[u][s][e].*")) {//For using weapons
 					String[] split = input.split(" ");
 					Item[] items = player.getInventory();
+					boolean found = false;
 					
 					if(split.length == 2) {//User must type 2 words or miss a turn
 						
@@ -142,18 +143,34 @@ public class Encounter {
 								if(items[i] instanceof Weapon) {
 									System.out.println("Using " + items[i].toString());
 									player.attack(character, ((Weapon)items[i]).getDamage());
+									found = true;
+									break;
 								}
 								else {
 									System.out.println("You can't use that in a fight!");
 									System.out.println("You fumbling around means you miss your turn!");
+									found = true;
 								}
 							}
+						}
+						if(!found) {
+							System.out.println("You haven't got a " + split[1]);
+							System.out.println("You fumbling around means you miss your turn!");
 						}
 					}
 					else {
 						System.out.println("Use what?");
 						System.out.println("You fumbling around means you miss your turn!");
 					}
+				}
+				
+				else if(input.matches("(?i).*[q][u][i][t].*")) { //For exiting the game
+					System.out.println("Quitting");
+					System.exit(0);
+				}
+				else {//Cry raises enemy defence
+					System.out.println("What does that mean?");
+					System.out.println("You fumbling around means you miss your turn!");
 				}
 				
 				//Iterate over allies so they attack the enemy
@@ -219,7 +236,11 @@ public class Encounter {
 			if (answer.matches(riddleAnswers[i])) { //If correct answer break out of loop
 				System.out.println("Correct!");
 				break;
-			} 
+			}
+			else if(answer.matches("(?i).*[q][u][i][t].*")) { //For exiting the game
+				System.out.println("Quitting");
+				System.exit(0);
+			}
 			else{
 				System.out.println("Wrong!"); //If not continue with loop, decrease guesses
 				guesses--;
@@ -237,6 +258,7 @@ public class Encounter {
 			
 			String name = sc.nextLine();//Prompt user for ally name
 			character.setName(name);
+			System.out.println(name + " has joined your team!");
 			
 			Item[] inventory = character.removeAllFromInventory();//Ally drops all items
 			

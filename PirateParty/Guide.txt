@@ -20,5 +20,7 @@ attack/cry/war cry
 
 If you have a weapon try "use" followed by the weapon e.g. use gun
 
+To exit the game type "quit"
+
 
 

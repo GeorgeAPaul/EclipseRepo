@@ -3,7 +3,7 @@
  * 
  * @author George Paul
  * 
- * Enum to store the weapons an their attack damages
+ * Enum to store the weapons and their attack damages
  *
  */
 public enum WeaponList {
