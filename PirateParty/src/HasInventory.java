@@ -29,6 +29,14 @@ public interface HasInventory {
 	 * @return item Item to be returned
 	 */
 	public Item removeFromInventory(String itemName);
+	
+	/**
+	 * Method for transferring items between inventories
+	 * @param itemName item to transfer
+	 * @param toInventory gameobject to transfer to
+	 * @return success whether the transfer was successful or not
+	 */
+	public boolean transferItem(String itemName, GameObject toInventory);
 
 	/**
 	 * Method for adding an item to the inventory

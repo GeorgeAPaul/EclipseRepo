@@ -101,6 +101,7 @@ public class GameObject implements HasInventory {
 	 * @param toInventory gameobject to transfer to
 	 * @return success whether the transfer was successful or not
 	 */
+	@Override
 	public boolean transferItem(String itemName, GameObject toInventory) {
 		
 		boolean success = false;
