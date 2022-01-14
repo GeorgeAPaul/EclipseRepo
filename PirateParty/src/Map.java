@@ -99,7 +99,7 @@ public class Map {
 				mapString += "\n";
 
 			}
-			mapString += "Using your map and compass the map makes a lot of sense!\n"; //Some instructions for reading the map
+			mapString += "Using your map with the compass makes a lot of sense!\n"; //Some instructions for reading the map
 			mapString += "Perhaps squiggles are the sea and chevrons are the land...\n";
 			mapString += "Enemies could be E and maybe allies are A? I wonder what P is?\n";
 		}
