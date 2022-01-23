@@ -224,6 +224,7 @@ public class Tree<E extends Comparable<E>> {
 	 * @return null if node not found, the nodes data if the node is found
 	 */
 	private E findNode (E element ,TreeNode<E> current) { //O(logn)
+		
 		if (current == null) { //If node not found
 			return null;
 		}

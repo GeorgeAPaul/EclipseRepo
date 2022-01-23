@@ -67,6 +67,7 @@ public class Library implements ILibraryManagement {
 	 * @param author Name of the author
 	 * @param title Title of the book
 	 * @param yearOfPublication Year the book was published
+	 * @return id of the book, -1 if book is already in library
 	 */
 	@Override
 	public int addBook(String author, String title, int yearOfPublication, String section) { 
@@ -102,6 +103,7 @@ public class Library implements ILibraryManagement {
 	 * @param title Title of the magazine
 	 * @param yearOfPublication Year the magazine was published
 	 * @param issue Issue number of the magazine
+	 * @return id of the magazine, -1 if magazine is already in library
 	 */
 	@Override
 	public int addMagazine(String title, int yearOfPublication, int issue, String section) { // Follows same logic as addBook.
@@ -128,6 +130,7 @@ public class Library implements ILibraryManagement {
 	 * Method to add a Blueray to the Library
 	 * @param title Title of the Blueray
 	 * @param yearOfPublication Year the Blueray was published
+	 * @return id of the blueray, -1 if blueray is already in library
 	 */
 	@Override
 	public int addBlueRay(String title, int yearOfPublication, String section) { // Follows same logic as addBook.
@@ -155,6 +158,7 @@ public class Library implements ILibraryManagement {
 	 * @param author Name of the artist
 	 * @param title Title of the CD
 	 * @param yearOfPublication Year the CD was published
+	 * @return id of the CD, -1 if CD is already in library
 	 */
 	@Override
 	public int addCD(String author, String title, int yearOfPublication, String section) { // Follows same logic as addBook.
@@ -233,7 +237,7 @@ public class Library implements ILibraryManagement {
 	 * @param client id of client who is borrowing the book.
 	 * @param author author of the book
 	 * @param title title of the book
-	 * @return id of the book
+	 * @return id of the book, -1 if book not found
 	 */
 	@Override
 	public int borrowBook(int client, String author, String title) {
@@ -263,7 +267,7 @@ public class Library implements ILibraryManagement {
 	 * @param yearOfPublication year that the magazine was published
 	 * @param title title of the magazine
 	 * @param issue issue number of the magazine
-	 * @return id of the book
+	 * @return id of the magazine, -1 if magazine not found
 	 */
 	@Override
 	public int lookAtMagazine(int client, String title, int yearOfPublication, int issue) { //Follows same logic as borrowBook.
@@ -289,7 +293,7 @@ public class Library implements ILibraryManagement {
 	 * @param client id of client who is borrowing the BlueRay.
 	 * @param title title of the BlueRay
 	 * @param yearOfPublication year that the blueray was published
-	 * @return id of the book
+	 * @return id of the blueray, -1 if blueray not found
 	 */
 	@Override
 	public int borrowBlueRay(int client, String title, int yearOfPublication) { //Follows same logic as borrowBook.
@@ -315,7 +319,7 @@ public class Library implements ILibraryManagement {
 	 * @param client id of client who is borrowing the CD.
 	 * @param author author of the CD
 	 * @param title title of the CD
-	 * @return id of the book
+	 * @return id of the CD, -1 if CD not found
 	 */
 	@Override
 	public int borrowCD(int client, String author, String title) { //Follows same logic as borrowBook.
@@ -339,14 +343,22 @@ public class Library implements ILibraryManagement {
 	/**
 	 * Method to return a publication, i.e set publication owner id back to 0.
 	 * @param publicationID publication id to return.
-	 * @return id of the next in line client
+	 * @return id of the next in line client, -1 if the publication does not exist
 	 */
 	@Override
 	public int returnItem(int publicationID) { //O(logn)
 		
 		String searchString = idToString.find(publicationID);
 		
+		if(searchString == null) {
+			System.out.println("Publication does not exist");
+			return -1;
+		}
+		
 		Publication pf = shelves.find(searchString); //Find the publication in the dict.
+		
+		
+		
 		int nextInLine = -1; // Return this if there is no one in the waiting list.
 		if(!pf.isWaitingListEmpty()) {
 			nextInLine = pf.getNextInLine();
@@ -387,6 +399,11 @@ public class Library implements ILibraryManagement {
 		
 		//Get search key from id O(logn)
 		String searchString = idToString.find(publicationID);
+		
+		if(searchString == null) {
+			System.out.println("Publication does not exist");
+			return;
+		}
 		
 		//Retrieve which section the publication is in O(logn)
 		Publication pf = shelves.find(searchString);

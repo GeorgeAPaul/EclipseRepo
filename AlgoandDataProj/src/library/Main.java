@@ -35,8 +35,8 @@ public class Main {
 		l.printAllPublications();
 		l.printAllClients();
 	
-		l.borrowBook(1, "George", "Gbook");
-		l.borrowBook(2, "George", "Gbook");
+		System.out.println(l.borrowBook(1, "George", "Gbook"));
+		System.out.println(l.borrowBook(2, "George", "Gbook"));
 		l.borrowBook(3, "George", "Gbook");
 		l.borrowBook(4, "George", "Gbook");
 		l.borrowBook(5, "George", "Gbook");
@@ -44,30 +44,30 @@ public class Main {
 		l.borrowBook(7, "George", "Gbook");
 		l.borrowBook(8, "George", "Gbook");
 		
+//		System.out.println(l.returnItem(id1));
 //		System.out.println(l.returnItem(2));
 //		System.out.println(l.returnItem(2));
-//		System.out.println(l.returnItem(2));
-//		System.out.println(l.returnItem(2));
-//		System.out.println(l.returnItem(2));
-//		System.out.println(l.returnItem(2));
-//		System.out.println(l.returnItem(2));
-//		System.out.println(l.returnItem(2));
+////		System.out.println(l.returnItem(2));
+////		System.out.println(l.returnItem(2));
+////		System.out.println(l.returnItem(2));
+////		System.out.println(l.returnItem(2));
+////		System.out.println(l.returnItem(2));
 		
-//		l.borrowBook(7, "George", "Gbook");
+		//l.borrowBook(7, "George", "Gbook");
 		
-//		System.out.println(l.returnItem(id3));
-//		System.out.println(l.returnItem(id3));
-//		System.out.println(l.returnItem(id3));
-//		System.out.println(l.returnItem(id3));
-//		l.borrowBook(7, "George", "Gbook");
-//		System.out.println(l.returnItem(id3));
-//		System.out.println(l.returnItem(id3));
-//		System.out.println(l.returnItem(id3));
-//		
-//		
-//		l.borrowBook(8, "George", "Gbook");
-//		
-//		System.out.println(l.returnItem(id3));
+		System.out.println(l.returnItem(id3));
+		System.out.println(l.returnItem(id3));
+		System.out.println(l.returnItem(id3));
+		System.out.println(l.returnItem(id3));
+		l.borrowBook(7, "George", "Gbook");
+		System.out.println(l.returnItem(id3));
+		System.out.println(l.returnItem(id3));
+		System.out.println(l.returnItem(id3));
+		
+		
+		l.borrowBook(8, "George", "Gbook");
+		
+		System.out.println(l.returnItem(id3));
 		
 		l.addSection("section1");
 		l.addSection("section2");
@@ -78,9 +78,19 @@ public class Main {
 		l.addSection("section7");
 		l.addSection("section8");
 		l.addSection("section9");
+		l.addSection("section10");
 		
 		l.connectSections("section1", "section2");
 		l.connectSections("section2", "section3");
+		l.connectSections("section3", "section4");
+		l.connectSections("section4", "section5");
+		l.connectSections("section5", "section6");
+		l.connectSections("section6", "section7");
+		l.connectSections("section7", "section8");
+//		l.connectSections("section8", "section9");
+//		l.connectSections("section9", "section10");
+		l.connectSections("section1", "section6");
+		
 		
 		l.findShortestPath(id1, "section10");
 		
