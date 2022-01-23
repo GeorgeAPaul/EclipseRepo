@@ -100,7 +100,7 @@ public class Graph<E extends Comparable<E>>{
         /**
          * The distance between the edges
          */
-        private int weight; //I tried to make weight generic but couln't figure out how to use operators on the weight on line 328
+        private int weight; //I tried to make weight generic but couldn't figure out how to use operators on the weight on line 328
         
         /**
          * Constructor method
@@ -166,7 +166,7 @@ public class Graph<E extends Comparable<E>>{
      * @param nodeLabel2 Node to end at
      * @param weight Length of the edge
      */
-    public void addEdge(E nodeLabel1, E nodeLabel2, int weight){
+    public void addEdge(E nodeLabel1, E nodeLabel2, int weight){ //O(logn)
     	
         Node<E> n1 = findNode(nodeLabel1);
         Node<E> n2 = findNode(nodeLabel2);
@@ -177,8 +177,8 @@ public class Graph<E extends Comparable<E>>{
      * strinTo method
      * @return string representation of the graph
      */
-    public String toString() {
-    	return nodes.toString();
+    public String toString() { //O(n)
+    	return nodes.toString(); 
     }
     
     /**
@@ -187,24 +187,27 @@ public class Graph<E extends Comparable<E>>{
      * @param nodeLabel2 End node
      * @return the path between the two node that has been found, if no path is found and empty Vector is returned
      */
-    public Vector<E> findPath (E nodeLabel1 , E nodeLabel2) {
+    public Vector<E> findPath (E nodeLabel1 , E nodeLabel2) { //O(n) because always has to traverse whole tree at beginning
     	
     	//Finding the start and end nodes
-    	Node<E> startState = findNode(nodeLabel1);
+    	Node<E> startState = findNode(nodeLabel1); //O(logn)
     	Node<E> endState = findNode(nodeLabel2);
+    	
+    	if(startState == null || endState == null) {
+    		return null;
+    	}
     	
     	//If startState is same as endState return a path
     	Vector<E> path = new Vector<E>(10);
     	
     	//If startState is same as endState return a path
     	if(startState == endState) {
-    		path.addLast(startState.getLabel());
-    		path.addLast(endState.getLabel());
+    		path.addLast(startState.getLabel()); //O(1)
     		return path;
     	}
     	
     	//Traverse the whole tree and make sure all nodes are set to unvisited
-    	nodes.traverse(new TreeAction<Node<E>>() {	
+    	nodes.traverse(new TreeAction<Node<E>>() {	//O(n)
 			@Override
 			public void run(Tree<Graph<E>.Node<E>>.TreeNode<Graph<E>.Node<E>> n) {
 				Node<E> node = n.getValue();
@@ -267,11 +270,16 @@ public class Graph<E extends Comparable<E>>{
      * @param nodeLabel2 End node
      * @return LinkedList containing the data from each node
      */
-    public LinkedList<E> findShortestPath(E nodeLabel1 , E nodeLabel2) {
+    public LinkedList<E> findShortestPath(E nodeLabel1 , E nodeLabel2) { //O(n) because always has to traverse whole tree at beginning
     	
     	//Finding the start and end nodes
     	Node<E> startState = findNode(nodeLabel1);
     	Node<E> endState = findNode(nodeLabel2);
+    	
+    	//If one of the nodes does not exist return null
+    	if(startState == null || endState == null) {
+    		return null;
+    	}
     	
     	//Shortest path between two nodes
     	LinkedList<E> path = new LinkedList<E>();
@@ -279,7 +287,6 @@ public class Graph<E extends Comparable<E>>{
     	//If startState is same as endState return a path 
     	if(startState == endState) {
     		path.addFirst(startState.getLabel());
-    		path.addFirst(endState.getLabel());
     		return path;
     	}
     	
@@ -307,7 +314,7 @@ public class Graph<E extends Comparable<E>>{
     		//For checking whether any nodes were updated on this loop
     		boolean updated = false;
     		
-    		//Iterate over all nodes ecountered so far
+    		//Iterate over all nodes encountered so far
     		for(int i = 0; i < toDoList.size(); i++) {
     		
     			Node<E> current = toDoList.get(i);

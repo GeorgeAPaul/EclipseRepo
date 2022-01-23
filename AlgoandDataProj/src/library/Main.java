@@ -3,8 +3,8 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		// Instatiating Library with shelf space of 2 and clientList space of 2.
-		Library l = new Library(2, 2);
+		// Instantiating Library with clientList space of 2.
+		Library l = new Library(2);
 		
 		// Adding one of each type of publication
 		int id1 = l.addCD("George", "GCD", 1994, "section1");
@@ -64,7 +64,7 @@ public class Main {
 		System.out.println(l.returnItem(id3));
 		
 		
-//		l.borrowBook(8, "George", "Gbook");
+		l.borrowBook(8, "George", "Gbook");
 		
 		System.out.println(l.returnItem(id3));
 		
@@ -78,10 +78,10 @@ public class Main {
 		l.addSection("section8");
 		l.addSection("section9");
 		
-		l.connectSections("section2", "section1");
-		l.connectSections("section3", "section2");
+		l.connectSections("section1", "section2");
+		l.connectSections("section2", "section3");
 		
-		l.findShortestPath(id3, "section3");
+		l.findShortestPath(id1, "section10");
 		
 		
 		

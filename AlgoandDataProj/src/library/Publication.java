@@ -126,6 +126,29 @@ public class Publication implements Comparable<Publication> {
 		this.currentOwner = newOwner;
 	}
 	
+	/**
+	 * Method to borrow a publication add clients to waiting list depending on client priority and who is in waitinglist
+	 * @param client id of client that wants to borrow publication
+	 * @param priority priority specifying whether they are VIP or normal client
+	 */
+	public void borrow(int client, int priority) {
+		
+		//If no one currently owns the book and client/no one is next in line, allow client to borrow book. Else add client to waiting list.
+		if (getCurrentOwner() == 0 && (isWaitingListEmpty() || getNextInLine() == client)) {
+			setCurrentOwner(client);
+			if(!isWaitingListEmpty()) { // If waiting list was not empty remove client from waiting list as they now have the book.
+				removeFromWaitingList();
+			}	
+		}			
+		else {
+			addToWaitingList(client, priority);
+		}
+	}
+	
+	/**
+	 * Method to return the name of the section that the Publication is in
+	 * @return sectionName name of the section that the Publication is in
+	 */
 	public String getSection() {
 		return sectionName;
 	}

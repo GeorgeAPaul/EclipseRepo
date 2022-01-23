@@ -103,7 +103,7 @@ package dataStructures;
 		 * @param key key to be added
 		 * @param value data to be added
 		 */
-		public void add(E key, T value) {
+		public void add(E key, T value) { //O(logn)
 			
 			if(contains(key)) {
 				
@@ -119,7 +119,7 @@ package dataStructures;
 		 * @param key key to check
 		 * @return true if key found, else false
 		 */
-		public boolean contains(E key) {
+		public boolean contains(E key) { //O(logn)
 			DictionaryPair<E,T> dp = new DictionaryPair<E,T>(key, null);
 			if(data.find(dp) != null) {
 				return true;
@@ -132,7 +132,7 @@ package dataStructures;
 		 * @param key Key to search for
 		 * @return data associated with key
 		 */
-		public T find(E key) {
+		public T find(E key) { //O(logn)
 			DictionaryPair<E,T> dp = new DictionaryPair<E,T>(key, null);
 			return data.find(dp).getValue();
 		}
@@ -149,7 +149,7 @@ package dataStructures;
 		 * toString method
 		 * @return String representation of dictionary
 		 */
-		public String toString() {
+		public String toString() { //O(logn)
 			return data.toString();
 		}
 	}

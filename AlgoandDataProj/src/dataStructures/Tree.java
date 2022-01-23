@@ -123,7 +123,7 @@ public class Tree<E extends Comparable<E>> {
 	 * Method to traverse the whole tree and perform action specified by the tree action
 	 * @param action Tree action to perform to each node
 	 */
-	public void traverse(TreeAction<E> action){
+	public void traverse(TreeAction<E> action){ //O(n)
 		Stack<TreeNode<E>> t = new Stack<TreeNode<E>>();
 		t.push(root);
 		
@@ -132,8 +132,12 @@ public class Tree<E extends Comparable<E>> {
 			TreeNode<E> n = t.pop(); 
 			action.run(n); //Run action on popped node
 			 
-			if(n.getLeftTree() != null) t.push(n.getLeftTree());
-			if(n.getRightTree() != null) t.push(n.getRightTree());
+			if(n.getLeftTree() != null) {
+				t.push(n.getLeftTree());
+			}
+			if(n.getRightTree() != null) {
+				t.push(n.getRightTree());
+			}
 		}
 	}
 	
@@ -149,7 +153,7 @@ public class Tree<E extends Comparable<E>> {
 	 * Method to insert a treenode
 	 * @param element data to insert in the node
 	 */
-	public void insert(E element){
+	public void insert(E element){ //O(logn)
 		insertAtNode(element,root,null);
 	}
 	
@@ -161,7 +165,7 @@ public class Tree<E extends Comparable<E>> {
 	 * @param current node from which to examine the children nodes
 	 * @param parent pointer back to the parent node
 	 */
-	private void insertAtNode(E element,TreeNode<E> current,TreeNode<E> parent){	
+	private void insertAtNode(E element,TreeNode<E> current,TreeNode<E> parent){ //O(logn)
 		// we traverse the tree.
 		// Current holds the pointer to the TreeNode we are currently checking
 		// Parent holds the pointer to the parent of the current TreeNode
@@ -203,7 +207,7 @@ public class Tree<E extends Comparable<E>> {
 	 *toString method
 	 *@return string representation of the tree
 	 */
-	public String toString() {
+	public String toString() { //O(n)
 		traverse(new TreeAction<E>() {	
 			public void run(Tree<E>.TreeNode<E> n) {	
 				s += n.getValue() + "\n";	
@@ -219,7 +223,7 @@ public class Tree<E extends Comparable<E>> {
 	 * @param current current node being examined
 	 * @return null if node not found, the nodes data if the node is found
 	 */
-	private E findNode (E element ,TreeNode<E> current) {
+	private E findNode (E element ,TreeNode<E> current) { //O(logn)
 		if (current == null) { //If node not found
 			return null;
 		}
@@ -229,7 +233,9 @@ public class Tree<E extends Comparable<E>> {
 		else if (element.compareTo(current.value) < 0) { //If element is smaller than current search left tree
 			return findNode (element, current.getLeftTree( )) ;
 		}
-		else return findNode(element, current.getRightTree()) ; //If element is smaller than current search right tree
+		else {
+			return findNode(element, current.getRightTree()) ; //If element is smaller than current search right tree
+		}
 	}
 	
 	/**

@@ -20,17 +20,20 @@ public class Library implements ILibraryManagement {
 	private Dictionary<String,Publication> shelves;
 	
 	/**
-	 * Dictionary to so that searchStrings can be found from ids, this enables methods that take ids as arguments to search the shelves
+	 * Dictionary so that searchStrings can be found from ids, this enables methods that take ids as arguments to search the shelves
 	 * dictionary using a searchString. 
 	 */
 	private Dictionary<Integer,String> idToString;
 	
 	/**
-	 * Vector to represent the list of clients of the Library. Vector was so that clients can be address in O(1) time by id
+	 * Vector to represent the list of clients of the Library. Vector so that clients can be address in O(1) time by id
 	 * which is just their index + 1.
 	 */
 	private Vector<AbstractClient> clientList;
 	
+	/**
+	 * Graph to store sections, graph allows linking of sections 
+	 */
 	private Graph<String> sections;
 	
 	/**
@@ -47,7 +50,7 @@ public class Library implements ILibraryManagement {
 	 * @param shelfSpace the initial number of spaces on the shelves available to hold publications.
 	 * @param clientSpace the initial space on the client list available to hold clients.
 	 */
-	public Library(int shelfSpace, int clientSpace) {
+	public Library(int clientSpace) {
 			
 		shelves = new Dictionary<String,Publication>();
 		idToString = new Dictionary<Integer,String>();
@@ -66,7 +69,8 @@ public class Library implements ILibraryManagement {
 	 * @param yearOfPublication Year the book was published
 	 */
 	@Override
-	public int addBook(String author, String title, int yearOfPublication, String section) {
+	public int addBook(String author, String title, int yearOfPublication, String section) { 
+		//O(logn), goes to O(n) as number of items in library approaches max range of integer
 		
 		//Generating a random publication id, checks the idToString dictionary to avoid collisions
 		int id = 0;
@@ -81,7 +85,7 @@ public class Library implements ILibraryManagement {
 		idToString.add(id, searchString);
 		
 		Book b = new Book(id, title, yearOfPublication, author, section); // Instantiating book object
-		shelves.add(searchString, b); // Adding book to shelves, 
+		shelves.add(searchString, b); // Adding book to shelves, O(logn)
 		
 		return b.getId(); // Return's id of added Book.
 	}
@@ -166,11 +170,11 @@ public class Library implements ILibraryManagement {
 	 * @param email Email address of Client
 	 */
 	@Override
-	public int addClient(String name, String email) { // Follows same logic as addBook.
+	public int addClient(String name, String email) { // Creates new client record then adds to clientList //O(1)
 		
 		Client c = new Client(nextAvailableClientId, name, email);
 		clientList.addLast(c);
-		nextAvailableClientId++;
+		nextAvailableClientId++; // Incrementing clientId
 		
 		return c.getId();
 	}
@@ -181,7 +185,7 @@ public class Library implements ILibraryManagement {
 	 * @param email Email address of VIP Client
 	 */
 	@Override
-	public int addVIPClient(String name, String email) { // Follows same logic as addBook.
+	public int addVIPClient(String name, String email) { // Follows same logic as addClient.
 		
 		VIPClient v = new VIPClient(nextAvailableClientId, name, email);
 		clientList.addLast(v);
@@ -194,7 +198,7 @@ public class Library implements ILibraryManagement {
 	 * Method to prettily print all Publications in the Library.
 	 */
 	@Override
-	public void printAllPublications() {
+	public void printAllPublications() { //O(n) 
 		System.out.println(shelves);
 	}
 
@@ -202,7 +206,7 @@ public class Library implements ILibraryManagement {
 	 * Method to prettily print all Clients of the Library.
 	 */
 	@Override
-	public void printAllClients() {
+	public void printAllClients() { //O(n) 
 		
 		String outString = "";
 		for(int i = 0; i < clientList.size(); i++) {
@@ -225,21 +229,12 @@ public class Library implements ILibraryManagement {
 		String searchString = author+title+"BOOK";
 		Book b = (Book)shelves.find(searchString); //Search shelves for book.
 		
-		//If no one currently owns the book and client/no one is next line, allow client to borrow book. Else add client to waiting list.
-		if (b.getCurrentOwner() == 0 && (b.isWaitingListEmpty() || b.getNextInLine() == client)) {
-			b.setCurrentOwner(client);
-			if(! b.isWaitingListEmpty()) { // If waiting list was not empty remove client from waiting list as the now have the book.
-				b.removeFromWaitingList();
-			}	
+		//If client is VIP client add them to waiting list with priority 0, if not add them with priority 1.
+		if(clientList.get(client - 1) instanceof VIPClient) {
+			b.borrow(client, 0);
 		}
 		else {
-			//If client is VIP client add them to waiting list with priority 0, if not add them with priority 1.
-			if(clientList.get(client - 1) instanceof VIPClient) {
-				b.addToWaitingList(client, 0);
-			}
-			else {
-				b.addToWaitingList(client, 1);
-			}
+			b.borrow(client, 1);
 		}
 		return b.getId();
 	}
@@ -257,20 +252,11 @@ public class Library implements ILibraryManagement {
 		String searchString = title+yearOfPublication+issue+"MAGAZINE";
 		Magazine m = (Magazine)shelves.find(searchString); 
 		
-		if (m.getCurrentOwner() == 0 && (m.isWaitingListEmpty() || m.getNextInLine() == client)) {
-			m.setCurrentOwner(client);
-			if(! m.isWaitingListEmpty()) {
-				m.removeFromWaitingList();
-			}	
+		if(clientList.get(client - 1) instanceof VIPClient) {
+			m.borrow(client, 0);
 		}
 		else {
-			//If client is VIP client add them to waiting list with priority 0, if not add them with priority 1.
-			if(clientList.get(client - 1) instanceof VIPClient) {
-				m.addToWaitingList(client, 0);
-			}
-			else {
-				m.addToWaitingList(client, 1);
-			}
+			m.borrow(client, 1);
 		}
 		return m.getId();
 	}
@@ -287,20 +273,11 @@ public class Library implements ILibraryManagement {
 		String searchString = title+yearOfPublication+"BLURAY";
 		Blueray br = (Blueray)shelves.find(searchString); 
 
-		if (br.getCurrentOwner() == 0 && (br.isWaitingListEmpty() || br.getNextInLine() == client)) {
-			br.setCurrentOwner(client);
-			if(! br.isWaitingListEmpty()) {
-				br.removeFromWaitingList();
-			}	
+		if(clientList.get(client - 1) instanceof VIPClient) {
+			br.borrow(client, 0);
 		}
 		else {
-			//If client is VIP client add them to waiting list with priority 0, if not add them with priority 1.
-			if(clientList.get(client - 1) instanceof VIPClient) {
-				br.addToWaitingList(client, 0);
-			}
-			else {
-				br.addToWaitingList(client, 1);
-			}
+			br.borrow(client, 1);
 		}
 		return br.getId();
 	}
@@ -317,19 +294,11 @@ public class Library implements ILibraryManagement {
 		String searchString = author+title+"CD";
 		CD c = (CD)shelves.find(searchString); 
 
-		if (c.getCurrentOwner() == 0 && (c.isWaitingListEmpty() || c.getNextInLine() == client)) {
-			c.setCurrentOwner(client);
-			if(! c.isWaitingListEmpty()) {
-				c.removeFromWaitingList();
-			}	
+		if(clientList.get(client - 1) instanceof VIPClient) {
+			c.borrow(client, 0);
 		}
 		else {
-			if(clientList.get(client - 1) instanceof VIPClient) {
-				c.addToWaitingList(client, 0);
-			}
-			else {
-				c.addToWaitingList(client, 1);
-			}
+			c.borrow(client, 1);
 		}
 		return c.getId();
 	}
@@ -340,7 +309,7 @@ public class Library implements ILibraryManagement {
 	 * @return id of the next in line client
 	 */
 	@Override
-	public int returnItem(int publicationID) {
+	public int returnItem(int publicationID) { //O(logn)
 		
 		String searchString = idToString.find(publicationID);
 		
@@ -358,19 +327,20 @@ public class Library implements ILibraryManagement {
 	 * @param name Name of the section
 	 */
 	@Override
-	public void addSection(String name) {
+	public void addSection(String name) { //O(logn)
 		sections.addNode(name);
 		
 	}
 
 	/**
-	 * Method to add a connection between sections
+	 * Method to add a connection between sections, all connections are given equal weight and are bi-directional
 	 * @param section1 Starting section
 	 * @param section2 Ending section
 	 */
 	@Override
-	public void connectSections(String section1, String section2) {
-		sections.addEdge(section1, section2, 1);
+	public void connectSections(String section1, String section2) { //O(logn) because uses findNode
+		sections.addEdge(section1, section2, 1); 
+		sections.addEdge(section2, section1, 1);
 		
 	}
 
@@ -380,7 +350,7 @@ public class Library implements ILibraryManagement {
 	 * @param startSection Name of the section to begin in
 	 */
 	@Override
-	public void findShortestPath(int publicationID, String startSection) {
+	public void findShortestPath(int publicationID, String startSection) { //O(n) because has to traverse every node
 		
 		//Get search key from id O(logn)
 		String searchString = idToString.find(publicationID);
@@ -389,9 +359,15 @@ public class Library implements ILibraryManagement {
 		Publication pf = shelves.find(searchString);
 		String endSection = pf.getSection();
 		
-		LinkedList<String> path = sections.findShortestPath(startSection, endSection);
+		LinkedList<String> path = sections.findShortestPath(startSection, endSection); //O(n) 
 		
-		System.out.println(path);
+		//If no path found one of the sections does not exist
+		if(path == null) {
+			System.out.println("Section does not exist");
+		}
+		else {
+			System.out.println(path);
+		}
 	}
 
 }
