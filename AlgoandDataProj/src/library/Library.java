@@ -47,15 +47,13 @@ public class Library implements ILibraryManagement {
 
 	/**
 	 * Constructor method.
-	 * @param shelfSpace the initial number of spaces on the shelves available to hold publications.
-	 * @param clientSpace the initial space on the client list available to hold clients.
 	 */
-	public Library(int clientSpace) {
+	public Library() {
 			
 		shelves = new Dictionary<String,Publication>();
 		idToString = new Dictionary<Integer,String>();
 		
-		clientList = new Vector<AbstractClient>(clientSpace);
+		clientList = new Vector<AbstractClient>(10);
 		nextAvailableClientId = 1;
 		
 		sections = new Graph<String>();
@@ -411,7 +409,7 @@ public class Library implements ILibraryManagement {
 		
 		LinkedList<String> path = sections.findShortestPath(startSection, endSection); //O(n) 
 		
-		//If no path found one of the sections does not exist
+		//If null returned the section does not exist
 		if(path == null) {
 			System.out.println("Section does not exist");
 		}

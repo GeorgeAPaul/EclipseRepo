@@ -4,7 +4,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		// Instantiating Library with clientList space of 2.
-		Library l = new Library(2);
+		Library l = new Library();
 		
 		// Adding one of each type of publication
 		int id1 = l.addCD("George", "GCD", 1994, "section1");
