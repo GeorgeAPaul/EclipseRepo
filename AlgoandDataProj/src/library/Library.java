@@ -72,22 +72,29 @@ public class Library implements ILibraryManagement {
 	public int addBook(String author, String title, int yearOfPublication, String section) { 
 		//O(logn), goes to O(n) as number of items in library approaches max range of integer
 		
-		//Generating a random publication id, checks the idToString dictionary to avoid collisions
-		int id = 0;
-		while(idToString.contains(id)) {
-			id = (int)(Math.random()*(double)Integer.MAX_VALUE);
-		}
-		
 		//Generating search key to use in the shelves dictionary
 		String searchString = author+title+"BOOK";
 		
-		//Add new id and search string to idToString dictionary
-		idToString.add(id, searchString);
-		
-		Book b = new Book(id, title, yearOfPublication, author, section); // Instantiating book object
-		shelves.add(searchString, b); // Adding book to shelves, O(logn)
-		
-		return b.getId(); // Return's id of added Book.
+		//Checks whether book already in library
+		if(!shelves.contains(searchString)) {
+			int id = 0;
+			
+			//Generating a random publication id, checks the idToString dictionary to avoid collisions
+			//-1 is reserved for already present publications
+			while(idToString.contains(id) && id != -1) { 
+				id = (int)(Math.random()*(double)Integer.MAX_VALUE);
+			}
+			
+			//Add new id and search string to idToString dictionary
+			idToString.add(id, searchString);
+			
+			Book b = new Book(id, title, yearOfPublication, author, section); // Instantiating book object
+			shelves.add(searchString,b); // Adding book to shelves, O(logn)
+			
+			return b.getId();// Return's id of added Book.
+		}
+		System.out.println("Library already contains this Book");
+		return -1;
 	}
 
 	/**
@@ -99,20 +106,22 @@ public class Library implements ILibraryManagement {
 	@Override
 	public int addMagazine(String title, int yearOfPublication, int issue, String section) { // Follows same logic as addBook.
 		
-		int id = 0;
-		
-		while(idToString.contains(id)) {
-			id = (int)(Math.random()*(double)Integer.MAX_VALUE);
-		}
-		
 		String searchString = title+yearOfPublication+issue+"MAGAZINE";
 		
-		idToString.add(id, searchString);
-		
-		Magazine m = new Magazine(id, title, yearOfPublication, issue, section);
-		shelves.add(searchString,m);
-		
-		return m.getId();
+		if(!shelves.contains(searchString)) {
+			int id = 0;
+			while(idToString.contains(id) && id != -1) { 
+				id = (int)(Math.random()*(double)Integer.MAX_VALUE);
+			}
+			idToString.add(id, searchString);
+			
+			Magazine m = new Magazine(id, title, yearOfPublication, issue, section);
+			shelves.add(searchString,m);
+			
+			return m.getId();
+		}
+		System.out.println("Library already contains this Magazine");
+		return -1;
 	}
 
 	/**
@@ -123,20 +132,22 @@ public class Library implements ILibraryManagement {
 	@Override
 	public int addBlueRay(String title, int yearOfPublication, String section) { // Follows same logic as addBook.
 		
-		int id = 0;
-		
-		while(idToString.contains(id)) {
-			id = (int)(Math.random()*(double)Integer.MAX_VALUE);
-		}
-		
 		String searchString = title+yearOfPublication+"BLURAY";
 		
-		idToString.add(id, searchString);
-		
-		Blueray br = new Blueray(id, title, yearOfPublication, section);
-		shelves.add(searchString,br);
-		
-		return br.getId();
+		if(!shelves.contains(searchString)) {
+			int id = 0;
+			while(idToString.contains(id) && id != -1) { 
+				id = (int)(Math.random()*(double)Integer.MAX_VALUE);
+			}
+			idToString.add(id, searchString);
+			
+			Blueray br = new Blueray(id, title, yearOfPublication, section);
+			shelves.add(searchString,br);
+			
+			return br.getId();
+		}
+		System.out.println("Library already contains this Blueray");
+		return -1;
 	}
 
 	/**
@@ -148,20 +159,22 @@ public class Library implements ILibraryManagement {
 	@Override
 	public int addCD(String author, String title, int yearOfPublication, String section) { // Follows same logic as addBook.
 		
-		int id = 0;
-		
-		while(idToString.contains(id)) {
-			id = (int)(Math.random()*(double)Integer.MAX_VALUE);
-		}
-		
 		String searchString = author+title+"CD";
 		
-		idToString.add(id, searchString);
-		
-		CD c = new CD(id, title, yearOfPublication, author, section);
-		shelves.add(searchString,c);
-		
-		return c.getId();
+		if(!shelves.contains(searchString)) {
+			int id = 0;
+			while(idToString.contains(id) && id != -1) { 
+				id = (int)(Math.random()*(double)Integer.MAX_VALUE);
+			}
+			idToString.add(id, searchString);
+			
+			CD c = new CD(id, title, yearOfPublication, author, section);
+			shelves.add(searchString,c);
+			
+			return c.getId();
+		}
+		System.out.println("Library already contains this CD");
+		return -1;
 	}
 
 	/**
@@ -229,6 +242,11 @@ public class Library implements ILibraryManagement {
 		String searchString = author+title+"BOOK";
 		Book b = (Book)shelves.find(searchString); //Search shelves for book.
 		
+		if(b == null) {
+			System.out.println("Book not found");
+			return -1;
+		}
+		
 		//If client is VIP client add them to waiting list with priority 0, if not add them with priority 1.
 		if(clientList.get(client - 1) instanceof VIPClient) {
 			b.borrow(client, 0);
@@ -250,7 +268,12 @@ public class Library implements ILibraryManagement {
 	@Override
 	public int lookAtMagazine(int client, String title, int yearOfPublication, int issue) { //Follows same logic as borrowBook.
 		String searchString = title+yearOfPublication+issue+"MAGAZINE";
-		Magazine m = (Magazine)shelves.find(searchString); 
+		Magazine m = (Magazine)shelves.find(searchString);
+		
+		if(m == null) {
+			System.out.println("Magazine not found");
+			return -1;
+		}
 		
 		if(clientList.get(client - 1) instanceof VIPClient) {
 			m.borrow(client, 0);
@@ -272,6 +295,11 @@ public class Library implements ILibraryManagement {
 	public int borrowBlueRay(int client, String title, int yearOfPublication) { //Follows same logic as borrowBook.
 		String searchString = title+yearOfPublication+"BLURAY";
 		Blueray br = (Blueray)shelves.find(searchString); 
+		
+		if(br == null) {
+			System.out.println("Blueray not found");
+			return -1;
+		}
 
 		if(clientList.get(client - 1) instanceof VIPClient) {
 			br.borrow(client, 0);
@@ -292,7 +320,12 @@ public class Library implements ILibraryManagement {
 	@Override
 	public int borrowCD(int client, String author, String title) { //Follows same logic as borrowBook.
 		String searchString = author+title+"CD";
-		CD c = (CD)shelves.find(searchString); 
+		CD c = (CD)shelves.find(searchString);
+		
+		if(c == null) {
+			System.out.println("CD not found");
+			return -1;
+		}
 
 		if(clientList.get(client - 1) instanceof VIPClient) {
 			c.borrow(client, 0);

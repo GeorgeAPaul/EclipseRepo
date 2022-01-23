@@ -105,12 +105,7 @@ package dataStructures;
 		 */
 		public void add(E key, T value) { //O(logn)
 			
-			if(contains(key)) {
-				
-			}
-			
 			DictionaryPair<E,T> dp = new DictionaryPair<E,T>(key, value);
-			
 			data.insert(dp);
 		}
 		
@@ -133,8 +128,13 @@ package dataStructures;
 		 * @return data associated with key
 		 */
 		public T find(E key) { //O(logn)
-			DictionaryPair<E,T> dp = new DictionaryPair<E,T>(key, null);
-			return data.find(dp).getValue();
+			DictionaryPair<E,T> dp = data.find(new DictionaryPair<E,T>(key, null));
+			if(dp == null) {
+				return null;
+			}
+			else {
+				return dp.getValue();
+			}
 		}
 		
 		/**

@@ -10,9 +10,11 @@ public class Main {
 		int id1 = l.addCD("George", "GCD", 1994, "section1");
 		int id2 = l.addCD("George", "GCD", 1994, "section1");
 		int id3 = l.addBook("George", "Gbook", 1994, "section1");
-		int id4 = l.addBook("George", "Gbodok", 1994, "section1");
+		int id4 = l.addBook("George", "Gbook", 1994, "section1");
 		int id5 = l.addMagazine("GMag", 1994, 12, "section1");
+		int id7 = l.addMagazine("GMag", 1994, 12, "section1");
 		int id6 = l.addBlueRay("GRay", 1994, "section1");
+		int id8 = l.addBlueRay("GRay", 1994, "section1");
 		
 		// Adding one of each type of client
 		l.addClient("George", "george@gib.com");
@@ -28,7 +30,6 @@ public class Main {
 		l.addVIPClient("VIPGeorge", "george@gibVIP.com");
 		l.addVIPClient("VIPGeorge", "george@gibVIP.com");
 
-		
 		
 		// Printing all contents of library
 		l.printAllPublications();
@@ -54,19 +55,19 @@ public class Main {
 		
 //		l.borrowBook(7, "George", "Gbook");
 		
-		System.out.println(l.returnItem(id3));
-		System.out.println(l.returnItem(id3));
-		System.out.println(l.returnItem(id3));
-		System.out.println(l.returnItem(id3));
-		l.borrowBook(7, "George", "Gbook");
-		System.out.println(l.returnItem(id3));
-		System.out.println(l.returnItem(id3));
-		System.out.println(l.returnItem(id3));
-		
-		
-		l.borrowBook(8, "George", "Gbook");
-		
-		System.out.println(l.returnItem(id3));
+//		System.out.println(l.returnItem(id3));
+//		System.out.println(l.returnItem(id3));
+//		System.out.println(l.returnItem(id3));
+//		System.out.println(l.returnItem(id3));
+//		l.borrowBook(7, "George", "Gbook");
+//		System.out.println(l.returnItem(id3));
+//		System.out.println(l.returnItem(id3));
+//		System.out.println(l.returnItem(id3));
+//		
+//		
+//		l.borrowBook(8, "George", "Gbook");
+//		
+//		System.out.println(l.returnItem(id3));
 		
 		l.addSection("section1");
 		l.addSection("section2");
