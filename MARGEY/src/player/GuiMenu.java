@@ -37,11 +37,11 @@ public class GuiMenu {
 
 		f = new JFrame("Menu - Audio Player");
 		
-		play = new JButton("Play", reScale("C:/Users/George/git/repository/MARGEY/src/player/play_0.05.jpg"));
-		pause = new JButton("Pause", reScale("C:/Users/George/git/repository/MARGEY/src/player/pause_0.05.jpg"));
-		stop = new JButton("Stop", reScale("C:/Users/George/git/repository/MARGEY/src/player/stop_0.05.jpg"));
-		fChoose = new JButton("Choose file", reScale("C:/Users/George/git/repository/MARGEY/src/player/new_file_0.05.jpg"));
-		quit = new JButton("Quit", reScale("C:/Users/George/git/repository/MARGEY/src/player/quit_0.05.jpg"));
+		play = new JButton("Play", reScale("play_0.05.jpg"));
+		pause = new JButton("Pause", reScale("pause_0.05.jpg"));
+		stop = new JButton("Stop", reScale("stop_0.05.jpg"));
+		fChoose = new JButton("Choose file", reScale("new_file_0.05.jpg"));
+		quit = new JButton("Quit", reScale("quit_0.05.jpg"));
 		reverse = new JButton("Play backwards");
 		forward = new JButton("Play forwards");
 		
