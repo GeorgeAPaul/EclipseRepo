@@ -297,47 +297,47 @@ public class TestMain {
 //		
 //		System.out.println(mg);
 	
-		Graph<String> g = new Graph<String>();
+//		Graph<String> g = new Graph<String>();
 		
-		g.addNode("Berlin");
-		g.addNode("London");
-		g.addNode("Brussels");
-		g.addNode("Budapest");
-		g.addNode("Rome");
-		g.addNode("Amsterdam");
-		g.addNode("Paris");
-		g.addNode("Prague");
-		g.addNode("Florence");
-		g.addNode("Edinburgh");
-		g.addNode("Dublin");
-		g.addNode("Moscow");
+//		g.addNode("Berlin");
+//		g.addNode("London");
+//		g.addNode("Brussels");
+//		g.addNode("Budapest");
+//		g.addNode("Rome");
+//		g.addNode("Amsterdam");
+//		g.addNode("Paris");
+//		g.addNode("Prague");
+//		g.addNode("Florence");
+//		g.addNode("Edinburgh");
+//		g.addNode("Dublin");
+//		g.addNode("Moscow");
 		
 		//System.out.println(g);
 		
-		g.addEdge("Brussels", "Florence", 2);
-		g.addEdge("Berlin", "Brussels", 2);
-		g.addEdge("Brussels", "London", 20);
-		g.addEdge("Prague", "Brussels", 1);
-		g.addEdge("Florence", "Edinburgh", 4);
-		g.addEdge("Edinburgh", "London", 1);
+//		g.addEdge("Brussels", "Florence", 2);
+//		g.addEdge("Berlin", "Brussels", 2);
+//		g.addEdge("Brussels", "London", 20);
+//		g.addEdge("Prague", "Brussels", 1);
+//		g.addEdge("Florence", "Edinburgh", 4);
+//		g.addEdge("Edinburgh", "London", 1);
 		
 		//g.addEdge("Brussels", "Amsterdam", 4);
 		
-		g.addEdge("Berlin", "Prague", 1);
-		g.addEdge("Amsterdam", "Florence", 1);
-		g.addEdge("Rome", "Moscow", 6);
-		g.addEdge("London", "Berlin", 6);
+//		g.addEdge("Berlin", "Prague", 1);
+//		g.addEdge("Amsterdam", "Florence", 1);
+//		g.addEdge("Rome", "Moscow", 6);
+//		g.addEdge("London", "Berlin", 6);
 		//System.out.println(g);
 //		
-		Vector<String> berlinLondon = g.findPath("Berlin", "London");
+//		Vector<String> berlinLondon = g.findPath("Berlin", "London");
 		
 		
 //		
-		for(int i = 0; i < berlinLondon.size(); i++) {
-			System.out.println(berlinLondon.get(i));
-		}
+//		for(int i = 0; i < berlinLondon.size(); i++) {
+//			System.out.println(berlinLondon.get(i));
+//		}
 //		
-		System.out.println(g.findShortestPath("Berlin", "London"));
+//		System.out.println(g.findShortestPath("Berlin", "London"));
 		
 //		Graph<String> lubos = new Graph<String>();
 //		
@@ -390,7 +390,163 @@ public class TestMain {
 //		System.out.println(a.hashCode());
 //		System.out.println(((Integer)a.hashCode()).hashCode());
 		
-
+//		Vector<Integer> v = new Vector<Integer>(1);
+//		v.addLast(4);
+//		v.addLast(5);
+//		v.addLast(1);
+//		v.addLast(3);
+//		v.addLast(11);
+//		v.addLast(25);
+//		v.addLast(2);
+//		v.addLast(30);
+//		v.addLast(13);
+//		
+//		System.out.println(v);
+//		v.oddFirst();
+//		System.out.println(v);
+		
+//		PriorityQueue<String,Integer> pq = new PriorityQueue<String,Integer>();
+//		
+//		pq.push("a", 1);
+//		pq.push("b", 2);
+//		pq.push("c", 3);
+//		pq.push("d", 4);
+//		
+//		System.out.println(pq.getAverage());
+//		
+//		System.out.println(pq.pop());
+//		System.out.println(pq.getAverage());
+		
+//		LinkedList<Integer> ll = new LinkedList<Integer>();
+//		
+//		ll.addLast(1);
+//		ll.addLast(2);
+//		ll.addLast(3);
+//		ll.addLast(4);
+//		ll.addLast(5);
+//		ll.addLast(6);
+//		ll.addLast(7);
+//		ll.addLast(8);
+//		ll.addLast(9);
+//		ll.addLast(10);
+//		ll.addLast(11);
+//		
+//		System.out.println(ll);
+//		
+//		//System.out.println(ll.addAfterEach(42,3));
+//		
+//		System.out.println(ll.extractOdds());
+//		
+//		System.out.println(ll);
+//		
+////		System.out.println(balanced("()()()()("));
+		
+//		Vector<String> s = new Vector<String>(10);
+//		
+//		s.addLast("A");
+//		s.addLast("A");
+//		s.addLast("C");
+//		
+//		permute(s);
+		
+//		System.out.println(palindrome("boob"));
+		
+		LinkedList<Integer> a = new LinkedList<Integer>();
+		a.addFirst(1);
+		a.addFirst(1);
+		a.addFirst(1);
+		a.addFirst(1);
+		a.addFirst(1);
+		a.addFirst(1);
+		a.addFirst(1);
+		
+		LinkedList<Integer> b = new LinkedList<Integer>();
+		b.addFirst(2);
+		b.addFirst(3);
+		b.addFirst(4);
+		b.addFirst(5);
+		b.addFirst(6);
+		b.addFirst(7);
+		b.addFirst(8);
+		
+		a.append(b);
+		
+		System.out.println(a);
+		
+		a.reverse();
+		System.out.println(a);
+	
+	}
+	
+	static boolean palindrome(String word) {
+		Stack<Character> s = new Stack<Character>();
+		Queue<Character> q = new Queue<Character>();
+		
+		for(int i = 0; i < word.length(); i++) {
+			s.push(word.charAt(i));
+			q.push(word.charAt(i));
+		}
+		
+		while(!s.isEmpty()) {
+			if(s.pop() != q.pop()) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	static int balanced(String code) {
+		
+		int i;
+		Stack<Character> test = new Stack<Character>();
+		
+		for(i = 0; i < code.length(); i ++) {
+			
+			if(code.charAt(i) == '(') {
+				test.push('(');
+			}
+			else if(code.charAt(i) == ')') {
+				if(test.pop() == null) {
+					return i;
+				}
+			}
+		}
+		if(test.top() != null) {
+			return i - 1;
+		}
+		else {
+			return -1;
+		}
+	}
+	
+	static void permute(Vector<String> objects) {
+		Stack<String> s = new Stack<String>();
+		Queue<String> q = new Queue<String>();
+		String tmp = "";
+		String st = "";
+		for(int i = 0; i < objects.size(); i++) {
+			s.push(objects.get(i));
+			st += objects.get(i);
+		}
+		System.out.println(st);
+		
+		
+		while(true) {
+			st = "";
+		for(int i = 0; i < objects.size(); i++) {
+			if(i == 0) {
+				tmp = s.pop();
+			}
+			else {
+				String s1 = s.pop();
+				q.push(s1);
+				st += s1;
+			}
+			q.push(tmp);
+		}
+		st += tmp;
+		System.out.println(st);
+		}
 	}
 }
 

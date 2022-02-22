@@ -176,6 +176,9 @@ public class Vector<E extends Comparable<E>>
 	 */
 	public E getLast()
 	{
+		if(size() == 0) {
+			return null;
+		}
 		return (E)data[size() - 1];
 	}
 
@@ -184,8 +187,11 @@ public class Vector<E extends Comparable<E>>
 	 */
 	public void removeLast()
 	{
-		data[count - 1] = null;
-		count--;
+		if(size() != 0) {
+			data[count - 1] = null;
+			count--;
+		}
+		
 	} 
 
 	/**
@@ -206,7 +212,7 @@ public class Vector<E extends Comparable<E>>
 	{
 		String s = "[";
 		for (int i = 0; i < size(); i ++) { // For loop to iterate over contents of Vector and add them to the String.
-			s += data[i].toString();
+			s += data[i].toString() + ",";
 		}
 		s += "]";
 		return s;
@@ -288,5 +294,24 @@ public class Vector<E extends Comparable<E>>
 			data2[i] = data[i];
 		}
 		data = data2; // Overwriting data with extended capacity array.
+	}
+	
+	public void oddFirst() {
+		Object[] tmp = new Object[size()];
+		int nextSlot = 0;
+		
+		for(int i = 0; i < size(); i++){
+			if((int)data[i] % 2 != 0) {
+				tmp[nextSlot] = data[i];
+				nextSlot++;
+			}
+		}
+		for(int i = 0; i < size(); i++){
+			if((int)data[i] % 2 == 0) {
+				tmp[nextSlot] = data[i];
+				nextSlot++;
+			}
+		}
+		data = tmp;
 	}
 }

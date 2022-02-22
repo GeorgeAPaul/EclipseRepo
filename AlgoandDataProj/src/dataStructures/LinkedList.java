@@ -188,6 +188,7 @@ public class LinkedList<E extends Comparable<E>> {
 	 */
 	public E getLast() {
 		ListElement<E> d = head;
+		
 		while (d.rest() != null) {
 			d = d.rest();
 		}
@@ -217,13 +218,18 @@ public class LinkedList<E extends Comparable<E>> {
 	 * @param o data to add to end of list
 	 */
 	public void addLast(E o) {
-		ListElement<E> d = head;
-		while (d.rest() != null) {
-			d = d.rest();
+		if(head == null) {
+			head = new ListElement<E>(o);
 		}
+		else {
+			ListElement<E> d = head;
+			while (d.rest() != null) {
+				d = d.rest();
+			}
 		
-		ListElement<E> l = new ListElement<E>(o);
-		d.setRest(l);
+			ListElement<E> l = new ListElement<E>(o);
+			d.setRest(l);
+		}
 		count++;
 	}
 	
@@ -314,16 +320,69 @@ public class LinkedList<E extends Comparable<E>> {
 	}
 	
 	public void append(LinkedList<E> list2) {
-		ListElement<E> d = list2.head;
-		
+		ListElement<E> d = head;
 		if(list2.isEmpty()) {
 			return;
 		}
 		
-		while(d != null) {
-			addLast(d.first());
+		while(d.rest() != null) {
 			d = d.rest();
 		}
+		d.setRest(list2.head);
+	}
+	
+	public int addAfterEach(E x, E y) {
+		ListElement<E> d = head;
+		int insertions = 0;
+		while(d != null) {
+			if(d.first().compareTo(y) == 0) {
+				ListElement<E> tmp = d.rest();
+				d.setRest(new ListElement<E>(x));
+				d.rest().setRest(tmp);
+				insertions++;
+			}
+			d = d.rest();
+		}
+		return insertions;
+	}
+	
+	public LinkedList<E> extractOdds() {
+		LinkedList<E> odds =  new LinkedList<E>();
+		ListElement<E> d = head;
+		
+		while(d.rest() != null) {
+			
+			if((int)d.rest().first() % 2 != 0) {
+				odds.addLast(d.rest().first());
+				d.setRest(d.rest().rest());
+			}
+			d = d.rest();
+			if(d == null) {
+				break;
+			}
+		}
+		return odds;
+	}
+	
+	public void reverse() {
+		head = reverseRec(head);
+	}
+	
+	private ListElement<E> reverseRec(ListElement<E> e) {
+		
+		if(e == null) {
+			return null;
+		}
+		if(e.rest() == null) {
+			return e;
+		}
+		
+		ListElement<E> newHead = reverseRec(e.rest());
+		
+		e.rest().setRest(e);
+		//e.setRest(null);
+		
+		return newHead;
 	}
 
 }

@@ -44,6 +44,10 @@ public class PriorityQueue<E, T extends Comparable<T>>
 			return element;
 		}
 		
+		public T getPriority() {
+			return priority;
+		}
+		
 		/**
 		 * Method to compare two priority pairs
 		 * @param o pair to compare to
@@ -60,11 +64,17 @@ public class PriorityQueue<E, T extends Comparable<T>>
 	 */
 	private LinkedList<PriorityPair<E,T>> data;
 	
+	private double averagePriority;
+	
+	private double sumPriority;
+	
 	/**
 	 * Constructor method
 	 */
 	public PriorityQueue(){
 		data = new LinkedList<PriorityPair<E,T>>();
+		averagePriority = 0;
+		sumPriority = 0;
 	}
 	
 	/**
@@ -77,6 +87,8 @@ public class PriorityQueue<E, T extends Comparable<T>>
 		// add this pair to the sorted linked list.
 		PriorityPair<E,T> pp = new PriorityPair<E,T>(o, priority);
 		data.addSorted(pp); //Add sorted by priority so that highest priority is popped first
+		sumPriority += (int)priority;
+		averagePriority = sumPriority / data.size();
 		
 	}
 	
@@ -86,7 +98,10 @@ public class PriorityQueue<E, T extends Comparable<T>>
 	 */
 	public E pop(){
 		E tmp = data.getFirst().getElement();
+		T tmpPriority = data.getFirst().getPriority();
+		sumPriority -= (int)tmpPriority;
 		data.removeFirst();
+		averagePriority = sumPriority / data.size();
 		return tmp;
 	}
 	
@@ -104,6 +119,13 @@ public class PriorityQueue<E, T extends Comparable<T>>
 	 */
 	public boolean isEmpty(){
 		return data.isEmpty();
+	}
+	
+	public double getAverage(){
+		
+		System.out.println(data.size());
+		System.out.println(sumPriority);
+		return averagePriority;
 	}
 	
 	
